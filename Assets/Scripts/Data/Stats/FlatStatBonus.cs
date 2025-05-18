@@ -1,6 +1,6 @@
 using System;
 
-namespace Data
+namespace Data.Stats
 {
     [Serializable]
     public class FlatStatBonus
@@ -14,6 +14,9 @@ namespace Data
             Value = value;
         }
 
-        public override string ToString() => $"+{Value} {Stat}";
+        public override string ToString()
+        {
+            return $"+{Value} {Stat}";
+        }
     }
 }

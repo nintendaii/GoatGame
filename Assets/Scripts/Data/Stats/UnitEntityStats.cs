@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace Data
+namespace Data.Stats
 {
     [Serializable]
     public class UnitEntityStats
@@ -11,7 +10,7 @@ namespace Data
         public UnitMainStats MainStats;
         public EquipmentSet Equipment;
 
-        public Dictionary<StatType, float>  GetAllStats()
+        public Dictionary<StatType, float> GetAllStats()
         {
             var dic = new Dictionary<StatType, float>();
             dic.Add(CoreStats.PhysicalDamage.Type, CoreStats.PhysicalDamage.Value);

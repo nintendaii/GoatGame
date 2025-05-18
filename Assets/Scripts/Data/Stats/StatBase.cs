@@ -1,6 +1,6 @@
 using System;
 
-namespace Data
+namespace Data.Stats
 {
     [Serializable]
     public class StatBase
@@ -14,6 +14,9 @@ namespace Data
             Value = value;
         }
 
-        public override string ToString() => $"{Type}: {Value}";
+        public override string ToString()
+        {
+            return $"{Type}: {Value}";
+        }
     }
 }

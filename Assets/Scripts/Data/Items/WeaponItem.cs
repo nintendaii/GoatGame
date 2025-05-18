@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data.Stats;
 
 namespace Data.Items
 {
     [Serializable]
-    public class WeaponItem: ItemBase
+    public class WeaponItem : ItemBase
     {
         public float BaseDamage;
         public ElementalDamage ElementalDamage = new();
@@ -13,14 +14,10 @@ namespace Data.Items
 
         public float GetTotalDamage(Dictionary<StatType, float> characterStats)
         {
-            float bonus = 0f;
+            var bonus = 0f;
             foreach (var modifier in ScalingModifiers)
-            {
                 if (characterStats.TryGetValue(modifier.Stat, out var statValue))
-                {
                     bonus += modifier.CalculateBonus(statValue);
-                }
-            }
             return BaseDamage + bonus;
         }
 
@@ -38,6 +35,5 @@ namespace Data.Items
 
             return $"{Name} Base Damage: {BaseDamage} Scaling: {scaling}{bonuses}";
         }
-
     }
 }

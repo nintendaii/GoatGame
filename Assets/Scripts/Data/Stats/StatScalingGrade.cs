@@ -1,4 +1,4 @@
-namespace Data
+namespace Data.Stats
 {
     public enum StatScalingGrade
     {

@@ -7,7 +7,7 @@ namespace Zenject
     [NoReflectionBaking]
     public class PrefabProvider : IPrefabProvider
     {
-        readonly UnityEngine.Object _prefab;
+        private readonly UnityEngine.Object _prefab;
 
         public PrefabProvider(UnityEngine.Object prefab)
         {
@@ -23,5 +23,3 @@ namespace Zenject
 }
 
 #endif
-
-

@@ -35,38 +35,45 @@ namespace Zenject
             return FromMethodBase<TConcrete>(method);
         }
 
-        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromMethodMultiple<TConcrete>(Func<InjectContext, IEnumerable<TConcrete>> method)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromMethodMultiple<TConcrete>(
+            Func<InjectContext, IEnumerable<TConcrete>> method)
         {
             BindingUtil.AssertIsDerivedFromTypes(typeof(TConcrete), AllParentTypes);
             return FromMethodMultipleBase<TConcrete>(method);
         }
 
-        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveGetter<TObj, TContract>(Func<TObj, TContract> method)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveGetter<TObj, TContract>(
+            Func<TObj, TContract> method)
         {
             return FromResolveGetter<TObj, TContract>(null, method);
         }
 
-        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveGetter<TObj, TContract>(object identifier, Func<TObj, TContract> method)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveGetter<TObj, TContract>(object identifier,
+            Func<TObj, TContract> method)
         {
             return FromResolveGetter<TObj, TContract>(identifier, method, InjectSources.Any);
         }
 
-        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveGetter<TObj, TContract>(object identifier, Func<TObj, TContract> method, InjectSources source)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveGetter<TObj, TContract>(object identifier,
+            Func<TObj, TContract> method, InjectSources source)
         {
             return FromResolveGetterBase<TObj, TContract>(identifier, method, source, false);
         }
 
-        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveAllGetter<TObj, TContract>(Func<TObj, TContract> method)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveAllGetter<TObj, TContract>(
+            Func<TObj, TContract> method)
         {
             return FromResolveAllGetter<TObj, TContract>(null, method);
         }
 
-        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveAllGetter<TObj, TContract>(object identifier, Func<TObj, TContract> method)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveAllGetter<TObj, TContract>(object identifier,
+            Func<TObj, TContract> method)
         {
             return FromResolveAllGetter<TObj, TContract>(identifier, method, InjectSources.Any);
         }
 
-        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveAllGetter<TObj, TContract>(object identifier, Func<TObj, TContract> method, InjectSources source)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveAllGetter<TObj, TContract>(object identifier,
+            Func<TObj, TContract> method, InjectSources source)
         {
             return FromResolveGetterBase<TObj, TContract>(identifier, method, source, true);
         }

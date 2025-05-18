@@ -6,18 +6,17 @@ namespace Zenject.Asteroids
 {
     public class TilingBackground : MonoBehaviour
     {
-        [SerializeField]
-        float _speed;
+        [SerializeField] private float _speed;
 
-        Vector2 _offset;
-        Renderer _renderer;
+        private Vector2 _offset;
+        private Renderer _renderer;
 
-        void Awake()
+        private void Awake()
         {
             _renderer = GetComponent<Renderer>();
         }
 
-        void Update()
+        private void Update()
         {
             _offset.y += _speed * Time.deltaTime;
             _renderer.material.mainTextureOffset = _offset;

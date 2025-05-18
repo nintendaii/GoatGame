@@ -8,8 +8,8 @@ namespace Zenject
     [NoReflectionBaking]
     public class BindStatement : IDisposable
     {
-        readonly List<IDisposable> _disposables;
-        IBindingFinalizer _bindingFinalizer;
+        private readonly List<IDisposable> _disposables;
+        private IBindingFinalizer _bindingFinalizer;
 
         public BindStatement()
         {
@@ -26,23 +26,18 @@ namespace Zenject
             }
         }
 
-        public bool HasFinalizer
-        {
-            get { return _bindingFinalizer != null; }
-        }
+        public bool HasFinalizer => _bindingFinalizer != null;
 
         public void SetFinalizer(IBindingFinalizer bindingFinalizer)
         {
             _bindingFinalizer = bindingFinalizer;
         }
 
-        void AssertHasFinalizer()
+        private void AssertHasFinalizer()
         {
             if (_bindingFinalizer == null)
-            {
                 throw Assert.CreateException(
                     "Unfinished binding!  Some required information was left unspecified.");
-            }
         }
 
         public void AddDisposable(IDisposable disposable)
@@ -67,10 +62,7 @@ namespace Zenject
         {
             _bindingFinalizer = null;
 
-            for (int i = 0; i < _disposables.Count; i++)
-            {
-                _disposables[i].Dispose();
-            }
+            for (var i = 0; i < _disposables.Count; i++) _disposables[i].Dispose();
 
             _disposables.Clear();
         }

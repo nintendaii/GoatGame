@@ -4,7 +4,7 @@ using System.Linq;
 namespace Data.Items
 {
     [Serializable]
-    public class EquipItem: ItemBase
+    public class EquipItem : ItemBase
     {
         public override string GetTooltip()
         {

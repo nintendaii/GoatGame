@@ -16,7 +16,7 @@ namespace Zenject
     [NoReflectionBaking]
     public class SceneDecoratorContextEditor : ContextEditor
     {
-        SerializedProperty _decoratedContractNameProperty;
+        private SerializedProperty _decoratedContractNameProperty;
 
         protected override string[] PropertyNames
         {

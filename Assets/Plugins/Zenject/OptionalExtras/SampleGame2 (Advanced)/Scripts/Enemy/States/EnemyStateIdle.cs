@@ -6,13 +6,13 @@ namespace Zenject.SpaceFighter
 {
     public class EnemyStateIdle : IEnemyState
     {
-        readonly EnemyRotationHandler _rotationHandler;
-        readonly Settings _settings;
-        readonly EnemyView _view;
+        private readonly EnemyRotationHandler _rotationHandler;
+        private readonly Settings _settings;
+        private readonly EnemyView _view;
 
-        Vector3 _startPos;
-        float _theta;
-        Vector3 _startLookDir;
+        private Vector3 _startPos;
+        private float _theta;
+        private Vector3 _startLookDir;
 
         public EnemyStateIdle(
             EnemyView view, Settings settings,

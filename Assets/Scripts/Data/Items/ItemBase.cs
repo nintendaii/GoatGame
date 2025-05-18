@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Data.Stats;
 
 namespace Data.Items
 {
@@ -13,7 +14,10 @@ namespace Data.Items
         public List<FlatStatBonus> FlatBonuses;
 
 
-        public virtual List<FlatStatBonus> GetStatBonuses() => FlatBonuses;
+        public virtual List<FlatStatBonus> GetStatBonuses()
+        {
+            return FlatBonuses;
+        }
 
         public abstract string GetTooltip();
     }

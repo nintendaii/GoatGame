@@ -8,31 +8,24 @@ namespace Zenject.Asteroids
 {
     public class GuiHandler : MonoBehaviour, IDisposable, IInitializable
     {
-        GameController _gameController;
+        private GameController _gameController;
 
-        [SerializeField]
-        GUIStyle _titleStyle;
+        [SerializeField] private GUIStyle _titleStyle;
 
-        [SerializeField]
-        GUIStyle _instructionsStyle;
+        [SerializeField] private GUIStyle _instructionsStyle;
 
-        [SerializeField]
-        GUIStyle _timeStyle;
+        [SerializeField] private GUIStyle _timeStyle;
 
-        [SerializeField]
-        float _gameOverFadeInTime;
+        [SerializeField] private float _gameOverFadeInTime;
 
-        [SerializeField]
-        float _gameOverStartFadeTime;
+        [SerializeField] private float _gameOverStartFadeTime;
 
-        [SerializeField]
-        float _restartTextStartFadeTime;
+        [SerializeField] private float _restartTextStartFadeTime;
 
-        [SerializeField]
-        float _restartTextFadeInTime;
+        [SerializeField] private float _restartTextFadeInTime;
 
-        float _gameOverElapsed;
-        SignalBus _signalBus;
+        private float _gameOverElapsed;
+        private SignalBus _signalBus;
 
         [Inject]
         public void Construct(
@@ -42,7 +35,7 @@ namespace Zenject.Asteroids
             _signalBus = signalBus;
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
             GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
             {
@@ -74,7 +67,7 @@ namespace Zenject.Asteroids
             GUILayout.EndArea();
         }
 
-        void GameOverGui()
+        private void GameOverGui()
         {
             _gameOverElapsed += Time.deltaTime;
 
@@ -139,7 +132,7 @@ namespace Zenject.Asteroids
             GUILayout.EndHorizontal();
         }
 
-        void PlayingGui()
+        private void PlayingGui()
         {
             GUILayout.BeginVertical();
             {
@@ -155,7 +148,7 @@ namespace Zenject.Asteroids
             GUILayout.EndVertical();
         }
 
-        void StartGui()
+        private void StartGui()
         {
             GUILayout.BeginHorizontal();
             {
@@ -209,10 +202,9 @@ namespace Zenject.Asteroids
             _signalBus.Unsubscribe<ShipCrashedSignal>(OnShipCrashed);
         }
 
-        void OnShipCrashed()
+        private void OnShipCrashed()
         {
             _gameOverElapsed = 0;
         }
     }
 }
-

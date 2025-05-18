@@ -6,16 +6,16 @@ namespace Zenject.SpaceFighter
 {
     public class EnemyStateFollow : IEnemyState
     {
-        readonly EnemyRotationHandler _rotationHandler;
-        readonly EnemyCommonSettings _commonSettings;
-        readonly Settings _settings;
-        readonly EnemyTunables _tunables;
-        readonly EnemyStateManager _stateManager;
-        readonly EnemyView _view;
-        readonly PlayerFacade _player;
+        private readonly EnemyRotationHandler _rotationHandler;
+        private readonly EnemyCommonSettings _commonSettings;
+        private readonly Settings _settings;
+        private readonly EnemyTunables _tunables;
+        private readonly EnemyStateManager _stateManager;
+        private readonly EnemyView _view;
+        private readonly PlayerFacade _player;
 
-        bool _strafeRight;
-        float _lastStrafeChangeTime;
+        private bool _strafeRight;
+        private float _lastStrafeChangeTime;
 
         public EnemyStateFollow(
             PlayerFacade player,
@@ -66,10 +66,7 @@ namespace Zenject.SpaceFighter
                 _strafeRight = !_strafeRight;
             }
 
-            if (distanceToPlayer < _commonSettings.AttackDistance)
-            {
-                _stateManager.ChangeState(EnemyStates.Attack);
-            }
+            if (distanceToPlayer < _commonSettings.AttackDistance) _stateManager.ChangeState(EnemyStates.Attack);
         }
 
         public void FixedUpdate()
@@ -78,20 +75,16 @@ namespace Zenject.SpaceFighter
             Strafe();
         }
 
-        void Strafe()
+        private void Strafe()
         {
             // Strafe to avoid getting hit too easily
             if (_strafeRight)
-            {
                 _view.AddForce(_view.RightDir * _settings.StrafeMultiplier * _tunables.Speed);
-            }
             else
-            {
                 _view.AddForce(-_view.RightDir * _settings.StrafeMultiplier * _tunables.Speed);
-            }
         }
 
-        void MoveTowardsPlayer()
+        private void MoveTowardsPlayer()
         {
             var playerDir = (_player.Position - _view.Position).normalized;
 
@@ -107,4 +100,3 @@ namespace Zenject.SpaceFighter
         }
     }
 }
-

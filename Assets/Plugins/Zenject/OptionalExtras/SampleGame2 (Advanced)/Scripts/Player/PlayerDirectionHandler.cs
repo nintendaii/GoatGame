@@ -4,8 +4,8 @@ namespace Zenject.SpaceFighter
 {
     public class PlayerDirectionHandler : ITickable
     {
-        readonly Player _player;
-        readonly Camera _mainCamera;
+        private readonly Player _player;
+        private readonly Camera _mainCamera;
 
         public PlayerDirectionHandler(
             Camera mainCamera,

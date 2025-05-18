@@ -12,11 +12,11 @@ namespace Zenject
     [NoReflectionBaking]
     public abstract class AddToGameObjectComponentProviderBase : IProvider
     {
-        readonly Type _componentType;
-        readonly DiContainer _container;
-        readonly List<TypeValuePair> _extraArguments;
-        readonly object _concreteIdentifier;
-        readonly Action<InjectContext, object> _instantiateCallback;
+        private readonly Type _componentType;
+        private readonly DiContainer _container;
+        private readonly List<TypeValuePair> _extraArguments;
+        private readonly object _concreteIdentifier;
+        private readonly Action<InjectContext, object> _instantiateCallback;
 
         public AddToGameObjectComponentProviderBase(
             DiContainer container, Type componentType,
@@ -32,30 +32,15 @@ namespace Zenject
             _instantiateCallback = instantiateCallback;
         }
 
-        public bool IsCached
-        {
-            get { return false; }
-        }
+        public bool IsCached => false;
 
-        public bool TypeVariesBasedOnMemberType
-        {
-            get { return false; }
-        }
+        public bool TypeVariesBasedOnMemberType => false;
 
-        protected DiContainer Container
-        {
-            get { return _container; }
-        }
+        protected DiContainer Container => _container;
 
-        protected Type ComponentType
-        {
-            get { return _componentType; }
-        }
+        protected Type ComponentType => _componentType;
 
-        protected abstract bool ShouldToggleActive
-        {
-            get;
-        }
+        protected abstract bool ShouldToggleActive { get; }
 
         public Type GetInstanceType(InjectContext context)
         {
@@ -75,11 +60,9 @@ namespace Zenject
             var wasActive = gameObj.activeSelf;
 
             if (wasActive && ShouldToggleActive)
-            {
                 // We need to do this in some cases to ensure that [Inject] always gets
                 // called before awake / start
                 gameObj.SetActive(false);
-            }
 
             if (!_container.IsValidating || TypeAnalyzer.ShouldAllowDuringValidation(_componentType))
             {
@@ -88,13 +71,9 @@ namespace Zenject
                     // Otherwise, calling AddComponent below will fail and return null
                     // This is nice to allow doing things like
                     //      Container.Bind<Transform>().FromNewComponentOnNewGameObject();
-                {
                     instance = gameObj.transform;
-                }
                 else
-                {
                     instance = gameObj.AddComponent(_componentType);
-                }
 
                 Assert.IsNotNull(instance);
             }
@@ -118,17 +97,11 @@ namespace Zenject
 
                     ZenPools.DespawnList(extraArgs);
 
-                    if (_instantiateCallback != null)
-                    {
-                        _instantiateCallback(context, instance);
-                    }
+                    if (_instantiateCallback != null) _instantiateCallback(context, instance);
                 }
                 finally
                 {
-                    if (wasActive && ShouldToggleActive)
-                    {
-                        gameObj.SetActive(true);
-                    }
+                    if (wasActive && ShouldToggleActive) gameObj.SetActive(true);
                 }
             };
 

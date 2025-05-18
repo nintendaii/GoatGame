@@ -1,8 +1,8 @@
 using Data;
-using Data.Items;
+using Data.Stats;
 using UnityEngine;
 
-namespace DefaultNamespace.Formulas
+namespace Formulas
 {
     public static class DamageCalculator
     {
@@ -19,7 +19,7 @@ namespace DefaultNamespace.Formulas
             var damageReduction = armor / (armor + K);
             return baseDamage * (1 - damageReduction);
         }
-        
+
         /// <summary>
         /// Calculate Final Damage when Armor is Negative (Damage Amplification)
         /// </summary>
@@ -31,7 +31,7 @@ namespace DefaultNamespace.Formulas
             var damageAmplification = Mathf.Abs(armor) / K;
             return baseDamage * (1 + damageAmplification);
         }
-        
+
         /// <summary>
         /// Calculate Final Damage based on armor stat
         /// </summary>
@@ -40,10 +40,12 @@ namespace DefaultNamespace.Formulas
         /// <returns></returns>
         public static float CalculatePhysicalDamage(float baseDamage, float armor)
         {
-            var value = armor >= 0 ? CalculateFinalDamageWithPositiveArmor(baseDamage, armor) : CalculateFinalDamageWithNegativeArmor(baseDamage, armor);
+            var value = armor >= 0
+                ? CalculateFinalDamageWithPositiveArmor(baseDamage, armor)
+                : CalculateFinalDamageWithNegativeArmor(baseDamage, armor);
             return value;
         }
-        
+
         /// <summary>
         /// Calculate Final Elemental Damage when Resistance is Positive
         /// </summary>
@@ -65,7 +67,7 @@ namespace DefaultNamespace.Formulas
         {
             return elementalDamage * (1 + Mathf.Abs(resistance) / 100f);
         }
-        
+
         /// <summary>
         /// Calculate Final Elemental Damage based on resistance stat
         /// </summary>
@@ -74,10 +76,12 @@ namespace DefaultNamespace.Formulas
         /// <returns></returns>
         public static float CalculateElementalDamage(float baseDamage, float resistance)
         {
-            var value = resistance >= 0 ? CalculateElementalDamageWithPositiveResistance(baseDamage, resistance) : CalculateElementalDamageWithNegativeResistance(baseDamage, resistance);
+            var value = resistance >= 0
+                ? CalculateElementalDamageWithPositiveResistance(baseDamage, resistance)
+                : CalculateElementalDamageWithNegativeResistance(baseDamage, resistance);
             return value;
         }
-        
+
         /// <summary>
         /// Calculate Final Damage based on UnitData of performer and victim
         /// </summary>
@@ -89,14 +93,18 @@ namespace DefaultNamespace.Formulas
             var weapon = unitPerformer.Equipment.Weapon;
             var weaponDamage = weapon.GetTotalDamage(unitPerformer.GetAllStats());
             var physicalDamage = CalculatePhysicalDamage(weaponDamage, unitVictim.CoreStats.Armor.Value);
-            var elementalFireDamage = CalculateElementalDamage(weapon.ElementalDamage.Fire.Value, unitVictim.CoreStats.Resistances.Fire.Value);
-            var elementalIceDamage = CalculateElementalDamage(weapon.ElementalDamage.Ice.Value, unitVictim.CoreStats.Resistances.Ice.Value);
-            var elementalDarkDamage = CalculateElementalDamage(weapon.ElementalDamage.Dark.Value, unitVictim.CoreStats.Resistances.Dark.Value);
-            var elementalLightningDamage = CalculateElementalDamage(weapon.ElementalDamage.Lightning.Value, unitVictim.CoreStats.Resistances.Lightning.Value);
+            var elementalFireDamage = CalculateElementalDamage(weapon.ElementalDamage.Fire.Value,
+                unitVictim.CoreStats.Resistances.Fire.Value);
+            var elementalIceDamage = CalculateElementalDamage(weapon.ElementalDamage.Ice.Value,
+                unitVictim.CoreStats.Resistances.Ice.Value);
+            var elementalDarkDamage = CalculateElementalDamage(weapon.ElementalDamage.Dark.Value,
+                unitVictim.CoreStats.Resistances.Dark.Value);
+            var elementalLightningDamage = CalculateElementalDamage(weapon.ElementalDamage.Lightning.Value,
+                unitVictim.CoreStats.Resistances.Lightning.Value);
             return physicalDamage + elementalFireDamage + elementalLightningDamage + elementalIceDamage +
                    elementalDarkDamage;
         }
-        
+
         /// <summary>
         /// Calculate Critical Strike Damage
         /// </summary>

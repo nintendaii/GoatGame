@@ -5,8 +5,8 @@ namespace Zenject
 {
     public class ZenjectStateMachineBehaviourAutoInjecter : MonoBehaviour
     {
-        DiContainer _container;
-        Animator _animator;
+        private DiContainer _container;
+        private Animator _animator;
 
         [Inject]
         public void Construct(DiContainer container)
@@ -28,12 +28,8 @@ namespace Zenject
                 var behaviours = _animator.GetBehaviours<StateMachineBehaviour>();
 
                 if (behaviours != null)
-                {
                     foreach (var behaviour in behaviours)
-                    {
                         _container.Inject(behaviour);
-                    }
-                }
             }
         }
     }

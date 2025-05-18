@@ -6,22 +6,17 @@ namespace Zenject.SpaceFighter
 {
     public class Explosion : MonoBehaviour, IPoolable<IMemoryPool>
     {
-        [SerializeField]
-        float _lifeTime;
+        [SerializeField] private float _lifeTime;
 
-        [SerializeField]
-        ParticleSystem _particleSystem;
+        [SerializeField] private ParticleSystem _particleSystem;
 
-        float _startTime;
+        private float _startTime;
 
-        IMemoryPool _pool;
+        private IMemoryPool _pool;
 
         public void Update()
         {
-            if (Time.realtimeSinceStartup - _startTime > _lifeTime)
-            {
-                _pool.Despawn(this);
-            }
+            if (Time.realtimeSinceStartup - _startTime > _lifeTime) _pool.Despawn(this);
         }
 
         public void OnDespawned()
@@ -42,4 +37,3 @@ namespace Zenject.SpaceFighter
         }
     }
 }
-

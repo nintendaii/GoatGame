@@ -18,38 +18,21 @@ namespace Zenject
             factoryBindInfo.ProviderFunc = null;
         }
 
-        protected DiContainer BindContainer
-        {
-            get; private set;
-        }
+        protected DiContainer BindContainer { get; private set; }
 
-        protected FactoryBindInfo FactoryBindInfo
-        {
-            get; private set;
-        }
+        protected FactoryBindInfo FactoryBindInfo { get; private set; }
 
         protected Func<DiContainer, IProvider> ProviderFunc
         {
-            get { return FactoryBindInfo.ProviderFunc; }
-            set { FactoryBindInfo.ProviderFunc = value; }
+            get => FactoryBindInfo.ProviderFunc;
+            set => FactoryBindInfo.ProviderFunc = value;
         }
 
-        protected BindInfo BindInfo
-        {
-            get;
-            private set;
-        }
+        protected BindInfo BindInfo { get; private set; }
 
-        protected object SubIdentifier
-        {
-            get;
-            private set;
-        }
+        protected object SubIdentifier { get; private set; }
 
-        protected Type ContractType
-        {
-            get { return typeof(TContract); }
-        }
+        protected Type ContractType => typeof(TContract);
 
         public ScopeConcreteIdArgConditionCopyNonLazyBinder ByInstaller<TInstaller>()
             where TInstaller : InstallerBase
@@ -60,7 +43,8 @@ namespace Zenject
         public ScopeConcreteIdArgConditionCopyNonLazyBinder ByInstaller(Type installerType)
         {
             Assert.That(installerType.DerivesFrom<InstallerBase>(),
-                "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'", installerType);
+                "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'",
+                installerType);
 
             var subcontainerBindInfo = new SubContainerCreatorBindInfo();
 
@@ -83,7 +67,8 @@ namespace Zenject
         public NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewGameObjectInstaller(Type installerType)
         {
             Assert.That(installerType.DerivesFrom<InstallerBase>(),
-                "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'", installerType);
+                "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'",
+                installerType);
 
             var gameObjectInfo = new GameObjectCreationParameters();
 
@@ -107,7 +92,8 @@ namespace Zenject
             Func<InjectContext, UnityEngine.Object> prefabGetter, Type installerType)
         {
             Assert.That(installerType.DerivesFrom<InstallerBase>(),
-                "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'", installerType);
+                "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'",
+                installerType);
 
             var gameObjectInfo = new GameObjectCreationParameters();
 
@@ -133,7 +119,8 @@ namespace Zenject
             UnityEngine.Object prefab, Type installerType)
         {
             Assert.That(installerType.DerivesFrom<InstallerBase>(),
-                "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'", installerType);
+                "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'",
+                installerType);
 
             var gameObjectInfo = new GameObjectCreationParameters();
 
@@ -160,7 +147,8 @@ namespace Zenject
         {
             BindingUtil.AssertIsValidResourcePath(resourcePath);
             Assert.That(installerType.DerivesFrom<InstallerBase>(),
-                "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'", installerType);
+                "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'",
+                installerType);
 
             var gameObjectInfo = new GameObjectCreationParameters();
 

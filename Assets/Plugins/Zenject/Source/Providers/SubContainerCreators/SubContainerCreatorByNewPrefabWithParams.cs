@@ -11,10 +11,10 @@ namespace Zenject
     [NoReflectionBaking]
     public class SubContainerCreatorByNewPrefabWithParams : ISubContainerCreator
     {
-        readonly DiContainer _container;
-        readonly IPrefabProvider _prefabProvider;
-        readonly Type _installerType;
-        readonly GameObjectCreationParameters _gameObjectBindInfo;
+        private readonly DiContainer _container;
+        private readonly IPrefabProvider _prefabProvider;
+        private readonly Type _installerType;
+        private readonly GameObjectCreationParameters _gameObjectBindInfo;
 
         public SubContainerCreatorByNewPrefabWithParams(
             Type installerType, DiContainer container, IPrefabProvider prefabProvider,
@@ -26,27 +26,21 @@ namespace Zenject
             _installerType = installerType;
         }
 
-        protected DiContainer Container
-        {
-            get { return _container; }
-        }
+        protected DiContainer Container => _container;
 
-        IEnumerable<InjectableInfo> GetAllInjectableIncludingBaseTypes() 
+        private IEnumerable<InjectableInfo> GetAllInjectableIncludingBaseTypes()
         {
             var info = TypeAnalyzer.GetInfo(_installerType);
 
-            while (info != null) 
+            while (info != null)
             {
-                foreach (var injectable in info.AllInjectables) 
-                {
-                    yield return injectable;
-                }
+                foreach (var injectable in info.AllInjectables) yield return injectable;
 
                 info = info.BaseTypeInfo;
             }
         }
 
-        DiContainer CreateTempContainer(List<TypeValuePair> args)
+        private DiContainer CreateTempContainer(List<TypeValuePair> args)
         {
             var tempSubContainer = Container.CreateSubContainer();
 
@@ -71,7 +65,8 @@ namespace Zenject
             return tempSubContainer;
         }
 
-        public DiContainer CreateSubContainer(List<TypeValuePair> args, InjectContext parentContext, out Action injectAction)
+        public DiContainer CreateSubContainer(List<TypeValuePair> args, InjectContext parentContext,
+            out Action injectAction)
         {
             Assert.That(!args.IsEmpty());
 
@@ -89,7 +84,7 @@ namespace Zenject
 
             context.Install(tempContainer);
 
-            injectAction = () => 
+            injectAction = () =>
             {
                 // Note: We don't need to call ResolveRoots here because GameObjectContext does this for us
                 tempContainer.Inject(context);
@@ -111,4 +106,3 @@ namespace Zenject
 }
 
 #endif
-

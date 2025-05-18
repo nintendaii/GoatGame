@@ -10,32 +10,22 @@ namespace Zenject
 {
     public abstract class MonoKernel : MonoBehaviour
     {
-        [InjectLocal]
-        TickableManager _tickableManager = null;
+        [InjectLocal] private TickableManager _tickableManager = null;
 
-        [InjectLocal]
-        InitializableManager _initializableManager = null;
+        [InjectLocal] private InitializableManager _initializableManager = null;
 
-        [InjectLocal]
-        DisposableManager _disposablesManager = null;
+        [InjectLocal] private DisposableManager _disposablesManager = null;
 
-        [InjectOptional] 
-        private IDecoratableMonoKernel decoratableMonoKernel;
+        [InjectOptional] private IDecoratableMonoKernel decoratableMonoKernel;
 
-        bool _hasInitialized;
-        bool _isDestroyed;
+        private bool _hasInitialized;
+        private bool _isDestroyed;
 
-        protected bool IsDestroyed
-        {
-            get { return _isDestroyed; }
-        }
+        protected bool IsDestroyed => _isDestroyed;
 
         public virtual void Start()
         {
-            if (decoratableMonoKernel?.ShouldInitializeOnStart()??true)
-            {
-                Initialize();
-            }
+            if (decoratableMonoKernel?.ShouldInitializeOnStart() ?? true) Initialize();
         }
 
         public void Initialize()
@@ -46,13 +36,9 @@ namespace Zenject
                 _hasInitialized = true;
 
                 if (decoratableMonoKernel != null)
-                {
                     decoratableMonoKernel.Initialize();
-                }
                 else
-                {
                     _initializableManager.Initialize();
-                }
             }
         }
 
@@ -62,13 +48,9 @@ namespace Zenject
             if (_tickableManager != null)
             {
                 if (decoratableMonoKernel != null)
-                {
                     decoratableMonoKernel.Update();
-                }
                 else
-                {
                     _tickableManager.Update();
-                }
             }
         }
 
@@ -78,13 +60,9 @@ namespace Zenject
             if (_tickableManager != null)
             {
                 if (decoratableMonoKernel != null)
-                {
                     decoratableMonoKernel.FixedUpdate();
-                }
                 else
-                {
                     _tickableManager.FixedUpdate();
-                }
             }
         }
 
@@ -94,13 +72,9 @@ namespace Zenject
             if (_tickableManager != null)
             {
                 if (decoratableMonoKernel != null)
-                {
                     decoratableMonoKernel.LateUpdate();
-                }
                 else
-                {
                     _tickableManager.LateUpdate();
-                }
             }
         }
 

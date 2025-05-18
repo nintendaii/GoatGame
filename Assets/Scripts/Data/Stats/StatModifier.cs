@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Data
+namespace Data.Stats
 {
     public class StatModifier
     {
@@ -28,6 +28,9 @@ namespace Data
             return characterStat * GradeMultipliers[ScalingGrade];
         }
 
-        public override string ToString() => $"{Stat} {ScalingGrade}";
+        public override string ToString()
+        {
+            return $"{Stat} {ScalingGrade}";
+        }
     }
 }

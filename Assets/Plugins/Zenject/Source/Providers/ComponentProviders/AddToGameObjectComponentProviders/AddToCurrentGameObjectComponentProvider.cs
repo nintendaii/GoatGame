@@ -12,11 +12,11 @@ namespace Zenject
     [NoReflectionBaking]
     public class AddToCurrentGameObjectComponentProvider : IProvider
     {
-        readonly Type _componentType;
-        readonly DiContainer _container;
-        readonly List<TypeValuePair> _extraArguments;
-        readonly object _concreteIdentifier;
-        readonly Action<InjectContext, object> _instantiateCallback;
+        private readonly Type _componentType;
+        private readonly DiContainer _container;
+        private readonly List<TypeValuePair> _extraArguments;
+        private readonly object _concreteIdentifier;
+        private readonly Action<InjectContext, object> _instantiateCallback;
 
         public AddToCurrentGameObjectComponentProvider(
             DiContainer container, Type componentType,
@@ -32,25 +32,13 @@ namespace Zenject
             _instantiateCallback = instantiateCallback;
         }
 
-        public bool IsCached
-        {
-            get { return false; }
-        }
+        public bool IsCached => false;
 
-        public bool TypeVariesBasedOnMemberType
-        {
-            get { return false; }
-        }
+        public bool TypeVariesBasedOnMemberType => false;
 
-        protected DiContainer Container
-        {
-            get { return _container; }
-        }
+        protected DiContainer Container => _container;
 
-        protected Type ComponentType
-        {
-            get { return _componentType; }
-        }
+        protected Type ComponentType => _componentType;
 
         public Type GetInstanceType(InjectContext context)
         {
@@ -107,10 +95,7 @@ namespace Zenject
                 Assert.That(extraArgs.IsEmpty());
                 ZenPools.DespawnList(extraArgs);
 
-                if (_instantiateCallback != null)
-                {
-                    _instantiateCallback(context, instance);
-                }
+                if (_instantiateCallback != null) _instantiateCallback(context, instance);
             };
 
             buffer.Add(instance);

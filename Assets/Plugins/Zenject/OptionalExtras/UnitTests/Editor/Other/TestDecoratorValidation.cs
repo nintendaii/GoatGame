@@ -21,7 +21,7 @@ namespace Zenject.Tests.Other
 
         public class SaveDecorator1 : ISaveHandler
         {
-            readonly ISaveHandler _handler;
+            private readonly ISaveHandler _handler;
 
             public SaveDecorator1(ISaveHandler handler)
             {
@@ -34,10 +34,7 @@ namespace Zenject.Tests.Other
             }
         }
 
-        DiContainer Container
-        {
-            get; set;
-        }
+        private DiContainer Container { get; set; }
 
         [SetUp]
         public void Setup()
@@ -84,4 +81,3 @@ namespace Zenject.Tests.Other
         }
     }
 }
-

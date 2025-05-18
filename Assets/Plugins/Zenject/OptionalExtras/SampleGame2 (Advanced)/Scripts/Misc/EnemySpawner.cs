@@ -7,14 +7,14 @@ namespace Zenject.SpaceFighter
 {
     public class EnemySpawner : ITickable, IInitializable
     {
-        readonly EnemyFacade.Factory _enemyFactory;
-        readonly SignalBus _signalBus;
-        readonly LevelBoundary _levelBoundary;
-        readonly Settings _settings;
+        private readonly EnemyFacade.Factory _enemyFactory;
+        private readonly SignalBus _signalBus;
+        private readonly LevelBoundary _levelBoundary;
+        private readonly Settings _settings;
 
-        float _desiredNumEnemies;
-        int _enemyCount;
-        float _lastSpawnTime;
+        private float _desiredNumEnemies;
+        private int _enemyCount;
+        private float _lastSpawnTime;
 
         public EnemySpawner(
             Settings settings,
@@ -35,7 +35,7 @@ namespace Zenject.SpaceFighter
             _signalBus.Subscribe<EnemyKilledSignal>(OnEnemyKilled);
         }
 
-        void OnEnemyKilled()
+        private void OnEnemyKilled()
         {
             _enemyCount--;
         }
@@ -52,10 +52,10 @@ namespace Zenject.SpaceFighter
             }
         }
 
-        void SpawnEnemy()
+        private void SpawnEnemy()
         {
-            float speed = Random.Range(_settings.SpeedMin, _settings.SpeedMax);
-            float accuracy = Random.Range(_settings.AccuracyMin, _settings.AccuracyMax);
+            var speed = Random.Range(_settings.SpeedMin, _settings.SpeedMax);
+            var accuracy = Random.Range(_settings.AccuracyMin, _settings.AccuracyMax);
 
             var enemyFacade = _enemyFactory.Create(accuracy, speed);
             enemyFacade.Position = ChooseRandomStartPosition();
@@ -63,38 +63,38 @@ namespace Zenject.SpaceFighter
             _lastSpawnTime = Time.realtimeSinceStartup;
         }
 
-        Vector3 ChooseRandomStartPosition()
+        private Vector3 ChooseRandomStartPosition()
         {
             var side = Random.Range(0, 3);
             var posOnSide = Random.Range(0, 1.0f);
 
-            float buffer = 2.0f;
+            var buffer = 2.0f;
 
             switch (side)
             {
                 case 0:
-                // top
+                    // top
                 {
                     return new Vector3(
                         _levelBoundary.Left + posOnSide * _levelBoundary.Width,
                         _levelBoundary.Top + buffer, 0);
                 }
                 case 1:
-                // right
+                    // right
                 {
                     return new Vector3(
                         _levelBoundary.Right + buffer,
                         _levelBoundary.Top - posOnSide * _levelBoundary.Height, 0);
                 }
                 case 2:
-                // bottom
+                    // bottom
                 {
                     return new Vector3(
                         _levelBoundary.Left + posOnSide * _levelBoundary.Width,
                         _levelBoundary.Bottom - buffer, 0);
                 }
                 case 3:
-                // left
+                    // left
                 {
                     return new Vector3(
                         _levelBoundary.Left - buffer,

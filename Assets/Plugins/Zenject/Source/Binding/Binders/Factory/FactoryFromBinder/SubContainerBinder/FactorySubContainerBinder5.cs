@@ -16,7 +16,7 @@ namespace Zenject
 #if !NET_4_6
             ModestTree.Util.
 #endif
-            Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod)
+                Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod)
         {
             var subcontainerBindInfo = new SubContainerCreatorBindInfo();
 
@@ -34,7 +34,7 @@ namespace Zenject
 #if !NET_4_6
             ModestTree.Util.
 #endif
-            Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod)
+                Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod)
         {
             var gameObjectInfo = new GameObjectCreationParameters();
 
@@ -52,7 +52,7 @@ namespace Zenject
 #if !NET_4_6
             ModestTree.Util.
 #endif
-            Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod)
+                Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod)
         {
             var gameObjectInfo = new GameObjectCreationParameters();
 
@@ -72,7 +72,7 @@ namespace Zenject
 #if !NET_4_6
             ModestTree.Util.
 #endif
-            Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod)
+                Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod)
         {
             BindingUtil.AssertIsValidPrefab(prefab);
 
@@ -94,7 +94,7 @@ namespace Zenject
 #if !NET_4_6
             ModestTree.Util.
 #endif
-            Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod)
+                Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod)
         {
             BindingUtil.AssertIsValidResourcePath(resourcePath);
 

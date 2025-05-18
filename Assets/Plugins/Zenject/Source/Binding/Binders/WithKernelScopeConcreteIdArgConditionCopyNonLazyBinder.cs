@@ -3,7 +3,7 @@ namespace Zenject
     [NoReflectionBaking]
     public class WithKernelScopeConcreteIdArgConditionCopyNonLazyBinder : ScopeConcreteIdArgConditionCopyNonLazyBinder
     {
-        SubContainerCreatorBindInfo _subContainerBindInfo;
+        private SubContainerCreatorBindInfo _subContainerBindInfo;
 
         public WithKernelScopeConcreteIdArgConditionCopyNonLazyBinder(
             SubContainerCreatorBindInfo subContainerBindInfo, BindInfo bindInfo)

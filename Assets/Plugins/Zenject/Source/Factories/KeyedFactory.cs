@@ -8,36 +8,21 @@ namespace Zenject
 {
     public abstract class KeyedFactoryBase<TBase, TKey> : IValidatable
     {
-        [Inject]
-        readonly DiContainer _container = null;
+        [Inject] private readonly DiContainer _container = null;
 
-        [InjectOptional]
-        readonly List<ValuePair<TKey, Type>> _typePairs = null;
+        [InjectOptional] private readonly List<ValuePair<TKey, Type>> _typePairs = null;
 
-        Dictionary<TKey, Type> _typeMap = null;
+        private Dictionary<TKey, Type> _typeMap = null;
 
-        [InjectOptional]
-        readonly Type _fallbackType = null;
+        [InjectOptional] private readonly Type _fallbackType = null;
 
-        protected DiContainer Container
-        {
-            get { return _container; }
-        }
+        protected DiContainer Container => _container;
 
-        protected abstract IEnumerable<Type> ProvidedTypes
-        {
-            get;
-        }
+        protected abstract IEnumerable<Type> ProvidedTypes { get; }
 
-        public ICollection<TKey> Keys
-        {
-            get { return _typeMap.Keys; }
-        }
+        public ICollection<TKey> Keys => _typeMap.Keys;
 
-        protected Dictionary<TKey, Type> TypeMap
-        {
-            get { return _typeMap; }
-        }
+        protected Dictionary<TKey, Type> TypeMap => _typeMap;
 
         [Inject]
         public void Initialize()
@@ -49,10 +34,8 @@ namespace Zenject
             var duplicates = _typePairs.Select(x => x.First).GetDuplicates();
 
             if (!duplicates.IsEmpty())
-            {
                 throw Assert.CreateException(
                     "Found duplicate values in KeyedFactory: {0}", duplicates.Select(x => x.ToString()).Join(", "));
-            }
 #endif
 
             _typeMap = _typePairs.ToDictionary(x => x.First, x => x.Second);
@@ -80,10 +63,8 @@ namespace Zenject
         public virtual void Validate()
         {
             foreach (var constructType in _typeMap.Values)
-            {
                 Container.InstantiateExplicit(
                     constructType, ValidationUtil.CreateDefaultArgs(ProvidedTypes.ToArray()));
-            }
         }
 
         protected static ConditionCopyNonLazyBinder AddBindingInternal<TDerived>(DiContainer container, TKey key)
@@ -97,10 +78,7 @@ namespace Zenject
     // Zero parameters
     public class KeyedFactory<TBase, TKey> : KeyedFactoryBase<TBase, TKey>
     {
-        protected override IEnumerable<Type> ProvidedTypes
-        {
-            get { return new Type[0]; }
-        }
+        protected override IEnumerable<Type> ProvidedTypes => new Type[0];
 
         public virtual TBase Create(TKey key)
         {

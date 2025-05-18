@@ -12,11 +12,11 @@ namespace Zenject
     // Placeholder factories can be used to choose a creation method in an installer, using FactoryBinder
     public abstract class PlaceholderFactoryBase<TValue> : IPlaceholderFactory
     {
-        IProvider _provider;
-        InjectContext _injectContext;
+        private IProvider _provider;
+        private InjectContext _injectContext;
 
         [Inject]
-        void Construct(IProvider provider, InjectContext injectContext)
+        private void Construct(IProvider provider, InjectContext injectContext)
         {
             Assert.IsNotNull(provider);
             Assert.IsNotNull(injectContext);
@@ -31,14 +31,11 @@ namespace Zenject
             {
                 var result = _provider.GetInstance(_injectContext, extraArgs);
 
-                if (_injectContext.Container.IsValidating && result is ValidationMarker)
-                {
-                    return default(TValue);
-                }
+                if (_injectContext.Container.IsValidating && result is ValidationMarker) return default;
 
                 Assert.That(result == null || result.GetType().DerivesFromOrEqual<TValue>());
 
-                return (TValue) result;
+                return (TValue)result;
             }
             catch (Exception e)
             {
@@ -53,9 +50,6 @@ namespace Zenject
                 _injectContext, ValidationUtil.CreateDefaultArgs(ParamTypes.ToArray()));
         }
 
-        protected abstract IEnumerable<Type> ParamTypes
-        {
-            get;
-        }
+        protected abstract IEnumerable<Type> ParamTypes { get; }
     }
 }

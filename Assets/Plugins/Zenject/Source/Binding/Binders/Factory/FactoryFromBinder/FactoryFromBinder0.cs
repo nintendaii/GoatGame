@@ -71,16 +71,17 @@ namespace Zenject
             BindingUtil.AssertIsInterfaceOrComponent(ContractType);
 
             return FromMethod(_ =>
-                {
-                    var res = BindContainer.Resolve<Context>().GetRootGameObjects()
-                        .Select(x => x.GetComponentInChildren<TContract>(includeInactive))
-                        .Where(x => x != null).FirstOrDefault();
+            {
+                var res = BindContainer.Resolve<Context>().GetRootGameObjects()
+                    .Select(x => x.GetComponentInChildren<TContract>(includeInactive))
+                    .Where(x => x != null).FirstOrDefault();
 
-                    Assert.IsNotNull(res,
-                        "Could not find component '{0}' through FromComponentInHierarchy factory binding", typeof(TContract));
+                Assert.IsNotNull(res,
+                    "Could not find component '{0}' through FromComponentInHierarchy factory binding",
+                    typeof(TContract));
 
-                    return res;
-                });
+                return res;
+            });
         }
 #endif
     }
@@ -90,8 +91,8 @@ namespace Zenject
     public static class FactoryFromBinder0Extensions
     {
         public static ArgConditionCopyNonLazyBinder FromPoolableMemoryPool<TContract, TMemoryPool>(
-            this FactoryFromBinder<TContract> fromBinder,
-            Action<MemoryPoolInitialSizeMaxSizeBinder<TContract>> poolBindGenerator)
+                this FactoryFromBinder<TContract> fromBinder,
+                Action<MemoryPoolInitialSizeMaxSizeBinder<TContract>> poolBindGenerator)
             // Unfortunately we have to pass the same contract in again to satisfy the generic
             // constraints below
             where TContract : IPoolable<IMemoryPool>
@@ -102,7 +103,8 @@ namespace Zenject
             var poolId = Guid.NewGuid();
 
             // Important to use NoFlush otherwise the binding will be finalized early
-            var binder = fromBinder.BindContainer.BindMemoryPoolCustomInterfaceNoFlush<TContract, TMemoryPool, TMemoryPool>().WithId(poolId);
+            var binder = fromBinder.BindContainer
+                .BindMemoryPoolCustomInterfaceNoFlush<TContract, TMemoryPool, TMemoryPool>().WithId(poolId);
 
             // Always make it non lazy by default in case the user sets an InitialSize
             binder.NonLazy();
@@ -116,53 +118,55 @@ namespace Zenject
         }
 
         public static ArgConditionCopyNonLazyBinder FromPoolableMemoryPool<TContract>(
-            this FactoryFromBinder<TContract> fromBinder)
+                this FactoryFromBinder<TContract> fromBinder)
             // Unfortunately we have to pass the same contract in again to satisfy the generic
             // constraints below
             where TContract : IPoolable<IMemoryPool>
         {
-            return fromBinder.FromPoolableMemoryPool<TContract>(x => {});
+            return fromBinder.FromPoolableMemoryPool<TContract>(x => { });
         }
 
         public static ArgConditionCopyNonLazyBinder FromPoolableMemoryPool<TContract>(
-            this FactoryFromBinder<TContract> fromBinder,
-            Action<MemoryPoolInitialSizeMaxSizeBinder<TContract>> poolBindGenerator)
+                this FactoryFromBinder<TContract> fromBinder,
+                Action<MemoryPoolInitialSizeMaxSizeBinder<TContract>> poolBindGenerator)
             // Unfortunately we have to pass the same contract in again to satisfy the generic
             // constraints below
             where TContract : IPoolable<IMemoryPool>
         {
-            return fromBinder.FromPoolableMemoryPool<TContract, PoolableMemoryPool<IMemoryPool, TContract>>(poolBindGenerator);
+            return fromBinder.FromPoolableMemoryPool<TContract, PoolableMemoryPool<IMemoryPool, TContract>>(
+                poolBindGenerator);
         }
 
 #if !NOT_UNITY3D
         public static ArgConditionCopyNonLazyBinder FromMonoPoolableMemoryPool<TContract>(
-            this FactoryFromBinder<TContract> fromBinder)
+                this FactoryFromBinder<TContract> fromBinder)
             // Unfortunately we have to pass the same contract in again to satisfy the generic
             // constraints below
             where TContract : Component, IPoolable<IMemoryPool>
         {
-            return fromBinder.FromMonoPoolableMemoryPool<TContract>(x => {});
+            return fromBinder.FromMonoPoolableMemoryPool<TContract>(x => { });
         }
 
         public static ArgConditionCopyNonLazyBinder FromMonoPoolableMemoryPool<TContract>(
-            this FactoryFromBinder<TContract> fromBinder,
-            Action<MemoryPoolInitialSizeMaxSizeBinder<TContract>> poolBindGenerator)
+                this FactoryFromBinder<TContract> fromBinder,
+                Action<MemoryPoolInitialSizeMaxSizeBinder<TContract>> poolBindGenerator)
             // Unfortunately we have to pass the same contract in again to satisfy the generic
             // constraints below
             where TContract : Component, IPoolable<IMemoryPool>
         {
-            return fromBinder.FromPoolableMemoryPool<TContract, MonoPoolableMemoryPool<IMemoryPool, TContract>>(poolBindGenerator);
+            return fromBinder.FromPoolableMemoryPool<TContract, MonoPoolableMemoryPool<IMemoryPool, TContract>>(
+                poolBindGenerator);
         }
 #endif
 
         public static ArgConditionCopyNonLazyBinder FromPoolableMemoryPool<TContract, TMemoryPool>(
-            this FactoryFromBinder<TContract> fromBinder)
+                this FactoryFromBinder<TContract> fromBinder)
             // Unfortunately we have to pass the same contract in again to satisfy the generic
             // constraints below
             where TContract : IPoolable<IMemoryPool>
             where TMemoryPool : MemoryPool<IMemoryPool, TContract>
         {
-            return fromBinder.FromPoolableMemoryPool<TContract, TMemoryPool>(x => {});
+            return fromBinder.FromPoolableMemoryPool<TContract, TMemoryPool>(x => { });
         }
 
         public static ArgConditionCopyNonLazyBinder FromIFactory<TContract>(

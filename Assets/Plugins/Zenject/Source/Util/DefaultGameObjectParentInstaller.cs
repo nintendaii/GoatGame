@@ -2,12 +2,13 @@
 
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Zenject
 {
     public class DefaultGameObjectParentInstaller : Installer<string, DefaultGameObjectParentInstaller>
     {
-        readonly string _name;
+        private readonly string _name;
 
         public DefaultGameObjectParentInstaller(string name)
         {
@@ -33,9 +34,9 @@ namespace Zenject
 #endif
         }
 
-        class DefaultParentObjectDestroyer : IDisposable
+        private class DefaultParentObjectDestroyer : IDisposable
         {
-            readonly GameObject _gameObject;
+            private readonly GameObject _gameObject;
 
             public DefaultParentObjectDestroyer(GameObject gameObject)
             {
@@ -44,7 +45,7 @@ namespace Zenject
 
             public void Dispose()
             {
-                GameObject.Destroy(_gameObject);
+                Object.Destroy(_gameObject);
             }
         }
     }

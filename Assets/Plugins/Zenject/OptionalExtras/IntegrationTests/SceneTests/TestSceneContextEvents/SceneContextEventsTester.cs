@@ -5,13 +5,12 @@ namespace Zenject.Tests
 {
     public class SceneContextEventsTester : MonoBehaviour
     {
-        [SerializeField]
-        SceneContext _sceneContext = null;
+        [SerializeField] private SceneContext _sceneContext = null;
 
-        bool _calledPreInstall;
-        bool _calledPostInstall;
-        bool _calledPreResolve;
-        bool _calledPostResolve;
+        private bool _calledPreInstall;
+        private bool _calledPostInstall;
+        private bool _calledPreResolve;
+        private bool _calledPostResolve;
 
         public void Awake()
         {
@@ -32,23 +31,23 @@ namespace Zenject.Tests
             Assert.That(_calledPostResolve);
         }
 
-        void OnPreInstall()
+        private void OnPreInstall()
         {
             _calledPreInstall = true;
             Assert.IsNotNull(_sceneContext.Container);
         }
 
-        void OnPostInstall()
+        private void OnPostInstall()
         {
             _calledPostInstall = true;
         }
 
-        void OnPreResolve()
+        private void OnPreResolve()
         {
             _calledPreResolve = true;
         }
 
-        void OnPostResolve()
+        private void OnPostResolve()
         {
             _calledPostResolve = true;
         }

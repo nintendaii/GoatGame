@@ -11,7 +11,7 @@ namespace Zenject.MemoryPoolMonitor
         [MenuItem("Window/Zenject Pool Monitor")]
         public static MpmWindow GetOrCreateWindow()
         {
-            var window = EditorWindow.GetWindow<MpmWindow>();
+            var window = GetWindow<MpmWindow>();
             window.titleContent = new GUIContent("Pool Monitor");
             return window;
         }

@@ -18,10 +18,7 @@ namespace ModestTree
         {
             Assert.IsNotNull(source);
 
-            if (source.Count() > 1)
-            {
-                return default(TSource);
-            }
+            if (source.Count() > 1) return default;
 
             return source.FirstOrDefault();
         }
@@ -34,12 +31,12 @@ namespace ModestTree
 
         public static bool HasMoreThan<T>(this IEnumerable<T> enumerable, int amount)
         {
-            return enumerable.HasAtLeast(amount+1);
+            return enumerable.HasAtLeast(amount + 1);
         }
 
         public static bool HasLessThan<T>(this IEnumerable<T> enumerable, int amount)
         {
-            return enumerable.HasAtMost(amount-1);
+            return enumerable.HasAtMost(amount - 1);
         }
 
         public static bool HasAtMost<T>(this IEnumerable<T> enumerable, int amount)
@@ -77,7 +74,7 @@ namespace ModestTree
         public static bool ContainsItem<T>(this IEnumerable<T> list, T value)
         {
             // Use object.Equals to support null values
-            return list.Where(x => object.Equals(x, value)).Any();
+            return list.Where(x => Equals(x, value)).Any();
         }
     }
 }

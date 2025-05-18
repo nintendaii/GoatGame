@@ -10,29 +10,21 @@ namespace Zenject
     [NoReflectionBaking]
     public class PrefabInstantiatorCached : IPrefabInstantiator
     {
-        readonly IPrefabInstantiator _subInstantiator;
+        private readonly IPrefabInstantiator _subInstantiator;
 
-        GameObject _gameObject;
+        private GameObject _gameObject;
 
         public PrefabInstantiatorCached(IPrefabInstantiator subInstantiator)
         {
             _subInstantiator = subInstantiator;
         }
 
-        public List<TypeValuePair> ExtraArguments
-        {
-            get { return _subInstantiator.ExtraArguments; }
-        }
+        public List<TypeValuePair> ExtraArguments => _subInstantiator.ExtraArguments;
 
-        public Type ArgumentTarget
-        {
-            get { return _subInstantiator.ArgumentTarget; }
-        }
+        public Type ArgumentTarget => _subInstantiator.ArgumentTarget;
 
-        public GameObjectCreationParameters GameObjectCreationParameters
-        {
-            get { return _subInstantiator.GameObjectCreationParameters; }
-        }
+        public GameObjectCreationParameters GameObjectCreationParameters =>
+            _subInstantiator.GameObjectCreationParameters;
 
         public UnityEngine.Object GetPrefab(InjectContext context)
         {

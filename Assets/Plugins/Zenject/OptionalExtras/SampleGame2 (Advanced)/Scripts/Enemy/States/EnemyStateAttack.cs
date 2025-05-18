@@ -6,19 +6,19 @@ namespace Zenject.SpaceFighter
 {
     public class EnemyStateAttack : IEnemyState
     {
-        readonly EnemyRotationHandler _rotationHandler;
-        readonly EnemyCommonSettings _commonSettings;
-        readonly AudioPlayer _audioPlayer;
-        readonly EnemyTunables _tunables;
-        readonly EnemyStateManager _stateManager;
-        readonly PlayerFacade _player;
-        readonly Settings _settings;
-        readonly EnemyView _view;
-        readonly Bullet.Factory _bulletFactory;
+        private readonly EnemyRotationHandler _rotationHandler;
+        private readonly EnemyCommonSettings _commonSettings;
+        private readonly AudioPlayer _audioPlayer;
+        private readonly EnemyTunables _tunables;
+        private readonly EnemyStateManager _stateManager;
+        private readonly PlayerFacade _player;
+        private readonly Settings _settings;
+        private readonly EnemyView _view;
+        private readonly Bullet.Factory _bulletFactory;
 
-        float _lastShootTime;
-        bool _strafeRight;
-        float _lastStrafeChangeTime;
+        private float _lastShootTime;
+        private bool _strafeRight;
+        private float _lastStrafeChangeTime;
 
         public EnemyStateAttack(
             Bullet.Factory bulletFactory,
@@ -76,26 +76,21 @@ namespace Zenject.SpaceFighter
             }
 
             // If the player runs away then chase them
-            if ((_player.Position - _view.Position).magnitude > _commonSettings.AttackDistance + _settings.AttackRangeBuffer)
-            {
+            if ((_player.Position - _view.Position).magnitude >
+                _commonSettings.AttackDistance + _settings.AttackRangeBuffer)
                 _stateManager.ChangeState(EnemyStates.Follow);
-            }
         }
 
         public void FixedUpdate()
         {
             // Strafe to avoid getting hit too easily
             if (_strafeRight)
-            {
                 _view.AddForce(_view.RightDir * _settings.StrafeMultiplier * _tunables.Speed);
-            }
             else
-            {
                 _view.AddForce(-_view.RightDir * _settings.StrafeMultiplier * _tunables.Speed);
-            }
         }
 
-        void Fire()
+        private void Fire()
         {
             var bullet = _bulletFactory.Create(
                 _settings.BulletSpeed, _settings.BulletLifetime, BulletTypes.FromEnemy);
@@ -105,10 +100,7 @@ namespace Zenject.SpaceFighter
             var maxError = 1.0f - accuracy;
             var error = Random.Range(0, maxError);
 
-            if (Random.Range(0.0f, 1.0f) < 0.5f)
-            {
-                error *= -1;
-            }
+            if (Random.Range(0.0f, 1.0f) < 0.5f) error *= -1;
 
             var thetaError = error * _settings.ErrorRangeTheta;
 

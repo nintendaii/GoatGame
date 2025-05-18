@@ -9,9 +9,9 @@ namespace Zenject.Tests.Bindings
     {
         public class Foo : IPoolable<string, IMemoryPool>, IDisposable
         {
-            IMemoryPool _pool;
-            string _data;
-            string _initialData;
+            private IMemoryPool _pool;
+            private string _data;
+            private string _initialData;
 
             public Foo(string initialData)
             {
@@ -19,22 +19,13 @@ namespace Zenject.Tests.Bindings
                 SetDefaults();
             }
 
-            public string InitialData
-            {
-                get { return _initialData; }
-            }
+            public string InitialData => _initialData;
 
-            public IMemoryPool Pool
-            {
-                get { return _pool; }
-            }
+            public IMemoryPool Pool => _pool;
 
-            public string Data
-            {
-                get { return _data; }
-            }
+            public string Data => _data;
 
-            void SetDefaults()
+            private void SetDefaults()
             {
                 _pool = null;
                 _data = null;
@@ -66,7 +57,8 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void Test1()
         {
-            Container.BindFactory<string, Foo, Foo.Factory>().FromPoolableMemoryPool(x => x.WithInitialSize(2).WithArguments("blurg"));
+            Container.BindFactory<string, Foo, Foo.Factory>()
+                .FromPoolableMemoryPool(x => x.WithInitialSize(2).WithArguments("blurg"));
 
             var factory = Container.Resolve<Foo.Factory>();
 

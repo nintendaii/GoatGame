@@ -5,11 +5,11 @@ namespace Zenject.SpaceFighter
 {
     public class PlayerHealthWatcher : ITickable
     {
-        readonly SignalBus _signalBus;
-        readonly AudioPlayer _audioPlayer;
-        readonly Settings _settings;
-        readonly Explosion.Factory _explosionFactory;
-        readonly Player _player;
+        private readonly SignalBus _signalBus;
+        private readonly AudioPlayer _audioPlayer;
+        private readonly Settings _settings;
+        private readonly Explosion.Factory _explosionFactory;
+        private readonly Player _player;
 
         public PlayerHealthWatcher(
             Player player,
@@ -27,13 +27,10 @@ namespace Zenject.SpaceFighter
 
         public void Tick()
         {
-            if (_player.Health <= 0 && !_player.IsDead)
-            {
-                Die();
-            }
+            if (_player.Health <= 0 && !_player.IsDead) Die();
         }
 
-        void Die()
+        private void Die()
         {
             _player.IsDead = true;
 

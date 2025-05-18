@@ -6,11 +6,11 @@ namespace Zenject.SpaceFighter
 {
     public class GameRestartHandler : IInitializable, IDisposable, ITickable
     {
-        readonly SignalBus _signalBus;
-        readonly Settings _settings;
+        private readonly SignalBus _signalBus;
+        private readonly Settings _settings;
 
-        bool _isDelaying;
-        float _delayStartTime;
+        private bool _isDelaying;
+        private float _delayStartTime;
 
         public GameRestartHandler(
             Settings settings,
@@ -33,15 +33,11 @@ namespace Zenject.SpaceFighter
         public void Tick()
         {
             if (_isDelaying)
-            {
                 if (Time.realtimeSinceStartup - _delayStartTime > _settings.RestartDelay)
-                {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                }
-            }
         }
 
-        void OnPlayerDied()
+        private void OnPlayerDied()
         {
             // Wait a bit before restarting the scene
             _delayStartTime = Time.realtimeSinceStartup;

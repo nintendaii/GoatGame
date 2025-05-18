@@ -30,7 +30,7 @@ namespace Zenject.Tests.Signals
 
             var signalBus = Container.Resolve<SignalBus>();
 
-            bool received = false;
+            var received = false;
 
             Action callback = () => received = true;
             signalBus.SubscribeId<FooSignal>(signalId, callback);
@@ -67,7 +67,7 @@ namespace Zenject.Tests.Signals
         [Test]
         public void TestBindWithoutDeclaration()
         {
-            Container.BindSignal<FooSignal>().WithId("asdf").ToMethod(() => {});
+            Container.BindSignal<FooSignal>().WithId("asdf").ToMethod(() => { });
 
             Assert.Throws(() => Container.ResolveRoots());
         }
@@ -77,7 +77,7 @@ namespace Zenject.Tests.Signals
         {
             Container.DeclareSignal<FooSignal>().WithId("asdf");
 
-            bool received = false;
+            var received = false;
 
             Container.BindSignal<FooSignal>().WithId("asdf").ToMethod(() => received = true);
             Container.ResolveRoots();
@@ -131,10 +131,7 @@ namespace Zenject.Tests.Signals
                 HasRecievedSignal = true;
             }
 
-            public bool HasRecievedSignal
-            {
-                get; private set;
-            }
+            public bool HasRecievedSignal { get; private set; }
         }
 
         public class FooSignal
@@ -146,4 +143,3 @@ namespace Zenject.Tests.Signals
         }
     }
 }
-

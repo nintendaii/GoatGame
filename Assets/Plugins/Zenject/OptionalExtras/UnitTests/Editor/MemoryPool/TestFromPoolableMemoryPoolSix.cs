@@ -9,25 +9,19 @@ namespace Zenject.Tests.Bindings
     {
         public class Foo : IPoolable<string, int, float, char, double, long, IMemoryPool>, IDisposable
         {
-            IMemoryPool _pool;
-            string _data;
+            private IMemoryPool _pool;
+            private string _data;
 
             public Foo()
             {
                 SetDefaults();
             }
 
-            public IMemoryPool Pool
-            {
-                get { return _pool; }
-            }
+            public IMemoryPool Pool => _pool;
 
-            public string Data
-            {
-                get { return _data; }
-            }
+            public string Data => _data;
 
-            void SetDefaults()
+            private void SetDefaults()
             {
                 _pool = null;
                 _data = null;
@@ -59,7 +53,8 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void Test1()
         {
-            Container.BindFactory<string, int, float, char, double, long, Foo, Foo.Factory>().FromPoolableMemoryPool(x => x.WithInitialSize(2));
+            Container.BindFactory<string, int, float, char, double, long, Foo, Foo.Factory>()
+                .FromPoolableMemoryPool(x => x.WithInitialSize(2));
 
             var factory = Container.Resolve<Foo.Factory>();
 
@@ -81,4 +76,3 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
-

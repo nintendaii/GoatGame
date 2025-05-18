@@ -4,7 +4,7 @@ namespace Zenject.SpaceFighter
 {
     public class PlayerInputHandler : ITickable
     {
-        readonly PlayerInputState _inputState;
+        private readonly PlayerInputState _inputState;
 
         public PlayerInputHandler(PlayerInputState inputState)
         {

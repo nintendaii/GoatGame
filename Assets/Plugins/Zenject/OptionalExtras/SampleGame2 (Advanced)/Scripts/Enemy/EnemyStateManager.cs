@@ -27,11 +27,11 @@ namespace Zenject.SpaceFighter
     // - Idle
     public class EnemyStateManager : ITickable, IFixedTickable, IInitializable
     {
-        IEnemyState _currentStateHandler;
-        EnemyStates _currentState = EnemyStates.None;
-        EnemyView _view;
+        private IEnemyState _currentStateHandler;
+        private EnemyStates _currentState = EnemyStates.None;
+        private EnemyView _view;
 
-        List<IEnemyState> _states;
+        private List<IEnemyState> _states;
 
         // We can't use a constructor due to a circular dependency issue
         [Inject]
@@ -47,10 +47,7 @@ namespace Zenject.SpaceFighter
             };
         }
 
-        public EnemyStates CurrentState
-        {
-            get { return _currentState; }
-        }
+        public EnemyStates CurrentState => _currentState;
 
         public void Initialize()
         {
@@ -63,10 +60,8 @@ namespace Zenject.SpaceFighter
         public void ChangeState(EnemyStates state)
         {
             if (_currentState == state)
-            {
                 // Already in state
                 return;
-            }
 
             //Log.Trace("View Changing state from {0} to {1}", _currentState, state);
 

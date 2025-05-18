@@ -1,7 +1,7 @@
 using System;
 using Data.Items;
 
-namespace Data
+namespace Data.Stats
 {
     [Serializable]
     public class EquipmentSet

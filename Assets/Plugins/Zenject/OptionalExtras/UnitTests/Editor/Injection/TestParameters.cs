@@ -6,7 +6,7 @@ namespace Zenject.Tests.Injection
     [TestFixture]
     public class TestParameters : ZenjectUnitTestFixture
     {
-        class Test1
+        private class Test1
         {
             public int f1;
             public int f2;
@@ -42,5 +42,3 @@ namespace Zenject.Tests.Injection
         }
     }
 }
-
-

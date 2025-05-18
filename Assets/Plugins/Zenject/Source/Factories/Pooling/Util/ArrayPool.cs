@@ -4,7 +4,7 @@ namespace Zenject
 {
     public class ArrayPool<T> : StaticMemoryPoolBaseBase<T[]>
     {
-        readonly int _length;
+        private readonly int _length;
 
         public ArrayPool(int length)
             : base(OnDespawned)
@@ -12,12 +12,9 @@ namespace Zenject
             _length = length;
         }
 
-        static void OnDespawned(T[] arr)
+        private static void OnDespawned(T[] arr)
         {
-            for (int i = 0; i < arr.Length; i++)
-            {
-                arr[i] = default(T);
-            }
+            for (var i = 0; i < arr.Length; i++) arr[i] = default;
         }
 
         public T[] Spawn()
@@ -35,8 +32,7 @@ namespace Zenject
             return new T[_length];
         }
 
-        static readonly Dictionary<int, ArrayPool<T>> _pools =
-            new Dictionary<int, ArrayPool<T>>();
+        private static readonly Dictionary<int, ArrayPool<T>> _pools = new();
 
         public static ArrayPool<T> GetPool(int length)
         {
