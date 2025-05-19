@@ -1,5 +1,8 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Turn;
+using UI;
 using Unit;
 using UnityEngine;
 using Zenject;
@@ -9,18 +12,37 @@ namespace Combat
     public class CombatManager: MonoBehaviour
     {
         [Inject] private readonly TurnManager _turnManager;
-        [Inject] private readonly UnitsContainer unitsContainer;
+        [Inject] private readonly UnitsContainer _unitsContainer;
+        [Inject] private readonly UnitsTurnOrderScreen _unitsTurnOrderScreen;
+        [Inject] private readonly UnitControlsScreen _unitControlsScreen;
+
+        private UnitEntityController currentTurnEntity;
+
         private void Start()
         {
-            var unitsOrder = _turnManager.GenerateTurnOrder(10);
-            var s = "";
-            for (var i = 0; i < unitsOrder.Count; i++)
-            {
-                var u = unitsOrder[i];
-                s += $"Turn {i + 1}: {unitsContainer.GetUnitById(u.Id).unitEntityData.Name}\n";
-            }
+            StartCoroutine(CallInTwoSeconds(2f));
+        }
 
-            Debug.Log(s);
+        private IEnumerator CallInTwoSeconds(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            StartBattle();
+        }
+
+        public void StartBattle()
+        {
+            Debug.Log("Battle started");
+            _unitsContainer.Init();
+            _turnManager.Init(_unitsContainer.UnitEntityContainer);
+            ExecuteTurn();
+        }
+
+        public void ExecuteTurn()
+        {
+            _unitsTurnOrderScreen.GenerateOrder();
+            var unit = _turnManager.GetNextUnit();
+            currentTurnEntity = unit.UnitEntityController;
+            _unitControlsScreen.SetUnitName(currentTurnEntity.unitEntityData.Name);
         }
     }
 }

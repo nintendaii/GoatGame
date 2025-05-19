@@ -20,14 +20,13 @@ namespace Unit
             return UnitEntityContainer.Find(x => x.unitEntityData.Id == id);
         }
 
-        private void Start()
+        public void Init()
         {
             var units = FindObjectsByType<UnitEntityController>(FindObjectsSortMode.None);
             foreach (var u in units)
             {
                 AddUnit(u);
             }
-            _turnManager.Init(UnitEntityContainer);
         }
     }
 }

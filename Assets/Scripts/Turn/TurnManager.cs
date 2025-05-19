@@ -26,8 +26,7 @@ namespace Turn
             {
                 var turnData = new TurnUnitData
                 {
-                    Id = u.unitEntityData.Id,
-                    Name = u.unitEntityData.Name,
+                    UnitEntityController = u,
                     ActionPoints = 0f,
                     Speed = (int)u.unitEntityData.CoreStats.Speed.Value
                 };
@@ -73,7 +72,7 @@ namespace Turn
             {
                 if (!u.IsAlive)
                 {
-                    var unitToRemove = unitsInGame.Find(x => x.Id == u.unitEntityData.Id);
+                    var unitToRemove = unitsInGame.Find(x => x.UnitEntityController.unitEntityData.Id == u.unitEntityData.Id);
                     unitsInGame.Remove(unitToRemove);
                 }
             }
@@ -83,7 +82,7 @@ namespace Turn
         {
             turnQueue.Clear();
             // Save initial action points
-            var originalAp = unitsInGame.ToDictionary(u => u.Id, u => u.ActionPoints);
+            var originalAp = unitsInGame.ToDictionary(u => u.UnitEntityController.unitEntityData.Id, u => u.ActionPoints);
             
             for (int i = 0; i < numTurns; i++)
             {
@@ -92,8 +91,7 @@ namespace Turn
                 // Add a copy to the turn queue to avoid reference issues
                 turnQueue.Add(new TurnUnitData
                 {
-                    Id = nextUnit.Id,
-                    Name = nextUnit.Name,
+                    UnitEntityController = nextUnit.UnitEntityController,
                     Speed = nextUnit.Speed,
                     ActionPoints = nextUnit.ActionPoints
                 });
@@ -103,7 +101,7 @@ namespace Turn
             // Restore original action points
             foreach (var unit in unitsInGame)
             {
-                unit.ActionPoints = originalAp[unit.Id];
+                unit.ActionPoints = originalAp[unit.UnitEntityController.unitEntityData.Id];
             }
 
             return turnQueue;

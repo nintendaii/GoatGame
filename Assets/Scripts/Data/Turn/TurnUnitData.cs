@@ -1,9 +1,10 @@
+using Unit;
+
 namespace Data.Turn
 {
     public class TurnUnitData
     {
-        public string Id;
-        public string Name;
+        public UnitEntityController UnitEntityController;
         public int Speed;
         public float ActionPoints;
     }

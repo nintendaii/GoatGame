@@ -1,5 +1,6 @@
 using Combat;
 using Turn;
+using UI;
 using Unit;
 using Zenject;
 
@@ -21,6 +22,8 @@ namespace Installers
             Container.Bind<TurnManager>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
             
             Container.Bind<CombatManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+            Container.Bind<UnitsTurnOrderScreen>().FromComponentInHierarchy().AsSingle().NonLazy();
+            Container.Bind<UnitControlsScreen>().FromComponentInHierarchy().AsSingle().NonLazy();
         }
 
         private void InstallFactories()
@@ -29,6 +32,7 @@ namespace Installers
 
         private void InstallSignals()
         {
+            SignalBusInstaller.Install(Container);
         }
     }
 }
