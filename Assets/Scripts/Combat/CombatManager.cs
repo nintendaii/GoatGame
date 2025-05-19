@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Formulas;
 using Turn;
 using UI;
 using Unit;
@@ -22,7 +23,7 @@ namespace Combat
 
         private void Start()
         {
-            StartCoroutine(CallInTwoSeconds(2f));
+            StartCoroutine(CallInTwoSeconds(.5f));
         }
 
         private IEnumerator CallInTwoSeconds(float seconds)
@@ -53,6 +54,32 @@ namespace Combat
         {
             _currentTargetEntity = _unitsContainer.GetUnitById(id);
             _unitControlsScreen.SetTargetUnitName(_currentTargetEntity.unitEntityData.Name);
+        }
+
+        public void DealDamage()
+        {
+            if (_currentTargetEntity.unitEntityData.Id==_currentTurnEntity.unitEntityData.Id)
+            {
+                Debug.LogWarning("Cant attack self");
+                return;
+            }
+
+            if (!_currentTargetEntity.IsAlive)
+            {
+                Debug.LogWarning($"{_currentTargetEntity.unitEntityData.Name} is dead");
+                return;
+            }
+
+            var damage = DamageCalculator.CalculateAttackFinalDamage(_currentTurnEntity.unitEntityData,
+                _currentTargetEntity.unitEntityData);
+            _currentTargetEntity.DealDamage(damage);
+            Debug.Log($"Dealt {damage} damage to {_currentTargetEntity.unitEntityData.Name}");
+            _unitItemsUIContainer.UpdateHealth(_currentTargetEntity.unitEntityData.CoreStats.Health.Value,_currentTargetEntity.unitEntityData.Id);
+            if (!_currentTargetEntity.IsAlive)
+            {
+                _turnManager.RemoveUnitFromQueue(_currentTargetEntity);
+            }
+            ExecuteTurn();
         }
     }
 }

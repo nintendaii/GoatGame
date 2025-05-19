@@ -20,7 +20,6 @@ namespace Data.Stats
             dic.Add(CoreStats.Armor.Type, CoreStats.Armor.Value);
             dic.Add(CoreStats.Evasion.Type, CoreStats.Evasion.Value);
             dic.Add(CoreStats.Speed.Type, CoreStats.Speed.Value);
-            dic.Add(CoreStats.Speed.Type, CoreStats.Speed.Value);
             dic.Add(CoreStats.Resistances.Dark.Type, CoreStats.Resistances.Dark.Value);
             dic.Add(CoreStats.Resistances.Lightning.Type, CoreStats.Resistances.Lightning.Value);
             dic.Add(CoreStats.Resistances.Fire.Type, CoreStats.Resistances.Fire.Value);

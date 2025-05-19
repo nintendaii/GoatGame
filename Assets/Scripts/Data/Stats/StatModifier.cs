@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace Data.Stats
 {
+    [Serializable]
     public class StatModifier
     {
         public StatType Stat { get; }

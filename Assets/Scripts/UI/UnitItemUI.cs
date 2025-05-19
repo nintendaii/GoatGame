@@ -17,8 +17,8 @@ namespace UI
         [SerializeField] private TMP_Text resistanceInfoText;
 
         public event Action<string> OnTargetSelected; 
+        public UnitEntityController unitEntityController;
         private float maxHealth;
-        private UnitEntityController _unitEntityController;
 
         private void OnEnable()
         {
@@ -32,14 +32,14 @@ namespace UI
 
         private void SetTarget()
         {
-            OnTargetSelected?.Invoke(_unitEntityController.unitEntityData.Id);
+            OnTargetSelected?.Invoke(unitEntityController.unitEntityData.Id);
         }
 
         public void Init(UnitEntityController unit)
         {
-            _unitEntityController = unit;
-            maxHealth = _unitEntityController.unitEntityData.CoreStats.Health.Value;
-            unitName.text = _unitEntityController.unitEntityData.Name;
+            unitEntityController = unit;
+            maxHealth = unitEntityController.unitEntityData.CoreStats.Health.Value;
+            unitName.text = unitEntityController.unitEntityData.Name;
             unitAvatarImage.sprite = unit.UnitAvatarSprite;
             SetHealth(unit.unitEntityData.CoreStats.Health.Value);
             SetDamageInfo();
@@ -49,23 +49,29 @@ namespace UI
         private void SetResistanceInfo()
         {
             var s = "";
-            s += $"ARM: {_unitEntityController.unitEntityData.CoreStats.Armor.Value}\n";
-            s += $"FIR: {_unitEntityController.unitEntityData.CoreStats.Resistances.Fire.Value}\n";
-            s += $"ICE: {_unitEntityController.unitEntityData.CoreStats.Resistances.Ice.Value}\n";
-            s += $"DAR: {_unitEntityController.unitEntityData.CoreStats.Resistances.Dark.Value}\n";
-            s += $"LIT: {_unitEntityController.unitEntityData.CoreStats.Resistances.Lightning.Value}\n";
+            s += $"ARM: {unitEntityController.unitEntityData.CoreStats.Armor.Value}\n";
+            s += $"FIR: {unitEntityController.unitEntityData.CoreStats.Resistances.Fire.Value}\n";
+            s += $"ICE: {unitEntityController.unitEntityData.CoreStats.Resistances.Ice.Value}\n";
+            s += $"DAR: {unitEntityController.unitEntityData.CoreStats.Resistances.Dark.Value}\n";
+            s += $"LIT: {unitEntityController.unitEntityData.CoreStats.Resistances.Lightning.Value}\n";
             resistanceInfoText.text = s;
         }
 
         private void SetDamageInfo()
         {
             var s = "";
-            s += $"PHY: {_unitEntityController.unitEntityData.CoreStats.PhysicalDamage.Value}";
+            s += $"PHY: {unitEntityController.unitEntityData.CoreStats.PhysicalDamage.Value}";
             damageInfoText.text = s;
         }
 
         public void SetHealth(float value)
         {
+            if (value<=0)
+            {
+                value = 0;
+                unitAvatarImage.color = Color.red;
+                targetButton.interactable = false;
+            }
             healthBarFillImage.fillAmount = Mathf.Clamp01(value / maxHealth);
             healthText.text = value.ToString();
         }

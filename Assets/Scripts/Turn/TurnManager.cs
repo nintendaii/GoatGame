@@ -117,5 +117,12 @@ namespace Turn
             _currentTurn = 0;
             turnQueue.Clear();
         }
+
+        public void RemoveUnitFromQueue(UnitEntityController currentTargetEntity)
+        {
+            var unitToRemove = unitsInGame.Find(x =>
+                x.UnitEntityController.unitEntityData.Id == currentTargetEntity.unitEntityData.Id);
+            unitsInGame.Remove(unitToRemove);
+        }
     }
 }

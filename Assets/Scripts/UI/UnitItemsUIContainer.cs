@@ -26,5 +26,16 @@ namespace UI
         {
             _combatManager.SetTarget(obj);
         }
+
+        public UnitItemUI GetItemById(string id)
+        {
+            return UnitItemUis.Find(x=>x.unitEntityController.unitEntityData.Id==id);
+        }
+
+        public void UpdateHealth(float health, string id)
+        {
+            var unitUi = GetItemById(id);
+            unitUi.SetHealth(health);
+        }
     }
 }

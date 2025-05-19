@@ -20,16 +20,23 @@ namespace UI
         private void OnEnable()
         {
             passButton.onClick.AddListener(PassTurn);
+            attackButton.onClick.AddListener(Attack);
         }
 
         private void OnDisable()
         {
             passButton.onClick.RemoveListener(PassTurn);
+            attackButton.onClick.RemoveListener(Attack);
         }
 
         private void PassTurn()
         {
             _combatManager.ExecuteTurn();
+        }
+        
+        private void Attack()
+        {
+            _combatManager.DealDamage();
         }
 
         public void SetUnitName(string unitNameText)
