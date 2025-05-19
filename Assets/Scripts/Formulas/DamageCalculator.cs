@@ -91,6 +91,12 @@ namespace Formulas
         public static float CalculateAttackFinalDamage(UnitEntityData unitPerformer, UnitEntityData unitVictim)
         {
             var basePhysicalDamage = CalculatePhysicalDamage(unitPerformer.CoreStats.PhysicalDamage.Value, unitVictim.CoreStats.Armor.Value);
+            var baseElementalFireDamage = CalculateElementalDamage(unitPerformer.CoreStats.ElementalDamage.Fire.Value, unitVictim.CoreStats.ElementalResistances.Fire.Value);
+            var baseElementalIceDamage = CalculateElementalDamage(unitPerformer.CoreStats.ElementalDamage.Ice.Value, unitVictim.CoreStats.ElementalResistances.Ice.Value);
+            var baseElementalDarkDamage = CalculateElementalDamage(unitPerformer.CoreStats.ElementalDamage.Dark.Value, unitVictim.CoreStats.ElementalResistances.Dark.Value);
+            var baseElementalLightningDamage = CalculateElementalDamage(unitPerformer.CoreStats.ElementalDamage.Lightning.Value, unitVictim.CoreStats.ElementalResistances.Lightning.Value);
+            var baseDamage = basePhysicalDamage + baseElementalFireDamage + baseElementalIceDamage +
+                             baseElementalLightningDamage + baseElementalDarkDamage;
             var weapon = unitPerformer.Equipment.Weapon;
             var weaponDamage = 0f;
             if (weapon!=null || string.IsNullOrEmpty(weapon.Name))
@@ -98,19 +104,22 @@ namespace Formulas
                 weaponDamage = weapon.GetTotalDamage(unitPerformer.GetAllStats());
                 var physicalDamage = CalculatePhysicalDamage(weaponDamage, unitVictim.CoreStats.Armor.Value);
                 var elementalFireDamage = CalculateElementalDamage(weapon.ElementalDamage.Fire.Value,
-                    unitVictim.CoreStats.Resistances.Fire.Value);
+                    unitVictim.CoreStats.ElementalResistances.Fire.Value);
                 var elementalIceDamage = CalculateElementalDamage(weapon.ElementalDamage.Ice.Value,
-                    unitVictim.CoreStats.Resistances.Ice.Value);
+                    unitVictim.CoreStats.ElementalResistances.Ice.Value);
                 var elementalDarkDamage = CalculateElementalDamage(weapon.ElementalDamage.Dark.Value,
-                    unitVictim.CoreStats.Resistances.Dark.Value);
+                    unitVictim.CoreStats.ElementalResistances.Dark.Value);
                 var elementalLightningDamage = CalculateElementalDamage(weapon.ElementalDamage.Lightning.Value,
-                    unitVictim.CoreStats.Resistances.Lightning.Value);
+                    unitVictim.CoreStats.ElementalResistances.Lightning.Value);
                 weaponDamage = physicalDamage + elementalFireDamage + elementalLightningDamage + elementalIceDamage +
                          elementalDarkDamage;
+                Debug.Log($"Dealing WEAPON: P: {physicalDamage}, F: {elementalFireDamage} I: {elementalIceDamage} D: {elementalDarkDamage} L :{elementalLightningDamage}");
 
             }
 
-            return basePhysicalDamage + weaponDamage;
+            Debug.Log($"Dealing BASE: P: {basePhysicalDamage}, F: {baseElementalFireDamage} I: {baseElementalIceDamage} D: {baseElementalDarkDamage} L :{baseElementalLightningDamage}");
+            Debug.Log($"Dealing TOTAL: {baseDamage+weaponDamage} to {unitVictim.Name}");
+            return baseDamage + weaponDamage;
         }
 
         /// <summary>

@@ -40,7 +40,7 @@ namespace UI
             unitEntityController = unit;
             maxHealth = unitEntityController.unitEntityData.CoreStats.Health.Value;
             unitName.text = unitEntityController.unitEntityData.Name;
-            unitAvatarImage.sprite = unit.UnitAvatarSprite;
+            unitAvatarImage.sprite = unit.unitAvatarSprite;
             SetHealth(unit.unitEntityData.CoreStats.Health.Value);
             SetDamageInfo();
             SetResistanceInfo();
@@ -50,17 +50,21 @@ namespace UI
         {
             var s = "";
             s += $"ARM: {unitEntityController.unitEntityData.CoreStats.Armor.Value}\n";
-            s += $"FIR: {unitEntityController.unitEntityData.CoreStats.Resistances.Fire.Value}\n";
-            s += $"ICE: {unitEntityController.unitEntityData.CoreStats.Resistances.Ice.Value}\n";
-            s += $"DAR: {unitEntityController.unitEntityData.CoreStats.Resistances.Dark.Value}\n";
-            s += $"LIT: {unitEntityController.unitEntityData.CoreStats.Resistances.Lightning.Value}\n";
+            s += $"FIR: {unitEntityController.unitEntityData.CoreStats.ElementalResistances.Fire.Value}\n";
+            s += $"ICE: {unitEntityController.unitEntityData.CoreStats.ElementalResistances.Ice.Value}\n";
+            s += $"DAR: {unitEntityController.unitEntityData.CoreStats.ElementalResistances.Dark.Value}\n";
+            s += $"LIT: {unitEntityController.unitEntityData.CoreStats.ElementalResistances.Lightning.Value}\n";
             resistanceInfoText.text = s;
         }
 
         private void SetDamageInfo()
         {
             var s = "";
-            s += $"PHY: {unitEntityController.unitEntityData.CoreStats.PhysicalDamage.Value}";
+            s += $"PHY: {unitEntityController.unitEntityData.CoreStats.PhysicalDamage.Value}\n";
+            s += $"FIR: {unitEntityController.unitEntityData.CoreStats.ElementalDamage.Fire.Value}\n";
+            s += $"ICE: {unitEntityController.unitEntityData.CoreStats.ElementalDamage.Ice.Value}\n";
+            s += $"DAR: {unitEntityController.unitEntityData.CoreStats.ElementalDamage.Dark.Value}\n";
+            s += $"LIT: {unitEntityController.unitEntityData.CoreStats.ElementalDamage.Lightning.Value}\n";
             damageInfoText.text = s;
         }
 

@@ -47,7 +47,7 @@ namespace Combat
             var unit = _turnManager.GetNextUnit();
             _currentTurnEntity = unit.UnitEntityController;
             _unitControlsScreen.SetUnitName(_currentTurnEntity.unitEntityData.Name);
-            _unitControlsScreen.SetAvatar(_currentTurnEntity.UnitAvatarSprite);
+            _unitControlsScreen.SetAvatar(_currentTurnEntity.unitAvatarSprite);
         }
 
         public void SetTarget(string id)
@@ -73,7 +73,6 @@ namespace Combat
             var damage = DamageCalculator.CalculateAttackFinalDamage(_currentTurnEntity.unitEntityData,
                 _currentTargetEntity.unitEntityData);
             _currentTargetEntity.DealDamage(damage);
-            Debug.Log($"Dealt {damage} damage to {_currentTargetEntity.unitEntityData.Name}");
             _unitItemsUIContainer.UpdateHealth(_currentTargetEntity.unitEntityData.CoreStats.Health.Value,_currentTargetEntity.unitEntityData.Id);
             if (!_currentTargetEntity.IsAlive)
             {

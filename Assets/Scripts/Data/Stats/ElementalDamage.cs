@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace Data.Stats
 {
@@ -10,10 +9,5 @@ namespace Data.Stats
         public StatBase Ice = new(StatType.IceDamage, 0);
         public StatBase Dark = new(StatType.DarkDamage, 0);
         public StatBase Lightning = new(StatType.LightningDamage, 0);
-
-        public IEnumerable<StatBase> GetAll()
-        {
-            return new[] { Fire, Ice, Dark, Lightning };
-        }
     }
 }

@@ -5,18 +5,18 @@ namespace Data.Stats
     [Serializable]
     public class FlatStatBonus
     {
-        public StatType Stat;
+        public StatType StatType;
         public float Value;
 
-        public FlatStatBonus(StatType stat, float value)
+        public FlatStatBonus(StatType statType, float value)
         {
-            Stat = stat;
+            StatType = statType;
             Value = value;
         }
 
         public override string ToString()
         {
-            return $"+{Value} {Stat}";
+            return $"+{Value} {StatType}";
         }
     }
 }
