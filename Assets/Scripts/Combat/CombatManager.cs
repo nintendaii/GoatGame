@@ -15,8 +15,10 @@ namespace Combat
         [Inject] private readonly UnitsContainer _unitsContainer;
         [Inject] private readonly UnitsTurnOrderScreen _unitsTurnOrderScreen;
         [Inject] private readonly UnitControlsScreen _unitControlsScreen;
+        [Inject] private readonly UnitItemsUIContainer _unitItemsUIContainer;
 
-        private UnitEntityController currentTurnEntity;
+        private UnitEntityController _currentTurnEntity;
+        private UnitEntityController _currentTargetEntity;
 
         private void Start()
         {
@@ -34,6 +36,7 @@ namespace Combat
             Debug.Log("Battle started");
             _unitsContainer.Init();
             _turnManager.Init(_unitsContainer.UnitEntityContainer);
+            _unitItemsUIContainer.Init(_unitsContainer.UnitEntityContainer);
             ExecuteTurn();
         }
 
@@ -41,8 +44,15 @@ namespace Combat
         {
             _unitsTurnOrderScreen.GenerateOrder();
             var unit = _turnManager.GetNextUnit();
-            currentTurnEntity = unit.UnitEntityController;
-            _unitControlsScreen.SetUnitName(currentTurnEntity.unitEntityData.Name);
+            _currentTurnEntity = unit.UnitEntityController;
+            _unitControlsScreen.SetUnitName(_currentTurnEntity.unitEntityData.Name);
+            _unitControlsScreen.SetAvatar(_currentTurnEntity.UnitAvatarSprite);
+        }
+
+        public void SetTarget(string id)
+        {
+            _currentTargetEntity = _unitsContainer.GetUnitById(id);
+            _unitControlsScreen.SetTargetUnitName(_currentTargetEntity.unitEntityData.Name);
         }
     }
 }

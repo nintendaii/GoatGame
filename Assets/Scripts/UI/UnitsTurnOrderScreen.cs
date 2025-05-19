@@ -17,6 +17,7 @@ namespace UI
             {
                 var u = UnitTurnItems[i];
                 u.SetName(unitTurns[i].UnitEntityController.unitEntityData.Name);
+                u.SetSprite(unitTurns[i].UnitEntityController.UnitAvatarSprite);
             }
         }
     }

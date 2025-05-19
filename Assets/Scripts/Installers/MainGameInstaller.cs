@@ -24,6 +24,7 @@ namespace Installers
             Container.Bind<CombatManager>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.Bind<UnitsTurnOrderScreen>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.Bind<UnitControlsScreen>().FromComponentInHierarchy().AsSingle().NonLazy();
+            Container.Bind<UnitItemsUIContainer>().FromComponentInHierarchy().AsSingle().NonLazy();
         }
 
         private void InstallFactories()

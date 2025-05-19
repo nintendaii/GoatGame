@@ -13,6 +13,7 @@ namespace UI
         [SerializeField] private TMP_Text targetName;
         [SerializeField] private Button attackButton;
         [SerializeField] private Button passButton;
+        [SerializeField] private Image avatarImage;
 
         [Inject] private readonly CombatManager _combatManager;
 
@@ -35,10 +36,14 @@ namespace UI
         {
             unitName.text = unitNameText;
         }
-
         public void SetTargetUnitName(string targetNameText)
         {
             targetName.text = $"Target: {targetNameText}";
+        }
+
+        public void SetAvatar(Sprite sprite)
+        {
+            avatarImage.sprite = sprite;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Unit
     public class UnitEntityController : MonoBehaviour
     {
         [SerializeField] public UnitEntityData unitEntityData;
+        public Sprite UnitAvatarSprite;
 
         public bool IsAlive => unitEntityData.CoreStats.Health.Value <= 0;
 
