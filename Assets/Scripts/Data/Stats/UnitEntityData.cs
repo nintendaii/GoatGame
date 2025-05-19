@@ -4,11 +4,14 @@ using System.Collections.Generic;
 namespace Data.Stats
 {
     [Serializable]
-    public class UnitEntityStats
+    public class UnitEntityData
     {
+        public string Id = Guid.NewGuid().ToString();
+        public string Name;
         public UnitCoreStats CoreStats;
         public UnitMainStats MainStats;
         public EquipmentSet Equipment;
+        public bool IsAlly;
 
         public Dictionary<StatType, float> GetAllStats()
         {
@@ -23,6 +26,11 @@ namespace Data.Stats
             dic.Add(CoreStats.Resistances.Fire.Type, CoreStats.Resistances.Fire.Value);
             dic.Add(CoreStats.Resistances.Ice.Type, CoreStats.Resistances.Ice.Value);
             dic.Add(CoreStats.CriticalStrikeChance.Type, CoreStats.CriticalStrikeChance.Value);
+            
+            dic.Add(MainStats.Intelligence.Type, MainStats.Intelligence.Value);
+            dic.Add(MainStats.Agility.Type, MainStats.Agility.Value);
+            dic.Add(MainStats.Strength.Type, MainStats.Strength.Value);
+            dic.Add(MainStats.Level.Type, MainStats.Level.Value);
             return dic;
         }
     }

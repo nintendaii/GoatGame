@@ -88,7 +88,7 @@ namespace Formulas
         /// <param name="unitPerformer"></param>
         /// <param name="unitVictim"></param>
         /// <returns></returns>
-        public static float CalculateAttackFinalDamage(UnitEntityStats unitPerformer, UnitEntityStats unitVictim)
+        public static float CalculateAttackFinalDamage(UnitEntityData unitPerformer, UnitEntityData unitVictim)
         {
             var weapon = unitPerformer.Equipment.Weapon;
             var weaponDamage = weapon.GetTotalDamage(unitPerformer.GetAllStats());

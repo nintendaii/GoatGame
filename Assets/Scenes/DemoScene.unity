@@ -119,6 +119,150 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &319811750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 319811752}
+  - component: {fileID: 319811751}
+  m_Layer: 0
+  m_Name: UnitWarrior
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &319811751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319811750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4cc7651324452a9a515cdf0246c39b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitEntityData:
+    Id: 1244412442
+    Name: Warrior
+    CoreStats:
+      Health:
+        Type: 3
+        Value: 100
+      Armor:
+        Type: 4
+        Value: 0
+      Resistances:
+        Fire:
+          Type: 7
+          Value: 0
+        Ice:
+          Type: 8
+          Value: 0
+        Dark:
+          Type: 9
+          Value: 0
+        Lightning:
+          Type: 10
+          Value: 0
+      Speed:
+        Type: 5
+        Value: 10
+      PhysicalDamage:
+        Type: 6
+        Value: 0
+      Evasion:
+        Type: 15
+        Value: 0
+      CriticalStrikeChance:
+        Type: 17
+        Value: 0
+    MainStats:
+      Strength:
+        Type: 0
+        Value: 0
+      Agility:
+        Type: 1
+        Value: 0
+      Intelligence:
+        Type: 2
+        Value: 0
+      Level:
+        Type: 16
+        Value: 0
+    Equipment:
+      Weapon:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+        BaseDamage: 0
+        ElementalDamage:
+          Fire:
+            Type: 11
+            Value: 0
+          Ice:
+            Type: 12
+            Value: 0
+          Dark:
+            Type: 13
+            Value: 0
+          Lightning:
+            Type: 14
+            Value: 0
+      Chestplate:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Helmet:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Gloves:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Boots:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Ring:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+    IsAlly: 1
+--- !u!4 &319811752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319811750}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,6 +400,150 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &343393555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 343393557}
+  - component: {fileID: 343393556}
+  m_Layer: 0
+  m_Name: UnitMage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &343393556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343393555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4cc7651324452a9a515cdf0246c39b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitEntityData:
+    Id: 1444
+    Name: Mage
+    CoreStats:
+      Health:
+        Type: 3
+        Value: 100
+      Armor:
+        Type: 4
+        Value: 0
+      Resistances:
+        Fire:
+          Type: 7
+          Value: 0
+        Ice:
+          Type: 8
+          Value: 0
+        Dark:
+          Type: 9
+          Value: 0
+        Lightning:
+          Type: 10
+          Value: 0
+      Speed:
+        Type: 5
+        Value: 8
+      PhysicalDamage:
+        Type: 6
+        Value: 0
+      Evasion:
+        Type: 15
+        Value: 0
+      CriticalStrikeChance:
+        Type: 17
+        Value: 0
+    MainStats:
+      Strength:
+        Type: 0
+        Value: 0
+      Agility:
+        Type: 1
+        Value: 0
+      Intelligence:
+        Type: 2
+        Value: 0
+      Level:
+        Type: 16
+        Value: 0
+    Equipment:
+      Weapon:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+        BaseDamage: 0
+        ElementalDamage:
+          Fire:
+            Type: 11
+            Value: 0
+          Ice:
+            Type: 12
+            Value: 0
+          Dark:
+            Type: 13
+            Value: 0
+          Lightning:
+            Type: 14
+            Value: 0
+      Chestplate:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Helmet:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Gloves:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Boots:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Ring:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+    IsAlly: 1
+--- !u!4 &343393557
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343393555}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,7 +714,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1724266495
+--- !u!1 &977458369
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -434,32 +722,78 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1724266497}
-  - component: {fileID: 1724266496}
+  - component: {fileID: 977458371}
+  - component: {fileID: 977458370}
   m_Layer: 0
-  m_Name: Unit
+  m_Name: CombatManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1724266496
+--- !u!114 &977458370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724266495}
+  m_GameObject: {fileID: 977458369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c91e1304a944dc1961a6fa20ecf4fd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &977458371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977458369}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1003405170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1003405172}
+  - component: {fileID: 1003405171}
+  m_Layer: 0
+  m_Name: UnitRogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1003405171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003405170}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f4cc7651324452a9a515cdf0246c39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitEntityStats:
+  unitEntityData:
+    Id: 24
+    Name: Rogue
     CoreStats:
       Health:
         Type: 3
-        Value: 0
+        Value: 100
       Armor:
         Type: 4
         Value: 0
@@ -476,27 +810,17 @@ MonoBehaviour:
         Lightning:
           Type: 10
           Value: 0
-      ElementalDamage:
-        Fire:
-          Type: 11
-          Value: 0
-        Ice:
-          Type: 12
-          Value: 0
-        Dark:
-          Type: 13
-          Value: 0
-        Lightning:
-          Type: 14
-          Value: 0
       Speed:
         Type: 5
-        Value: 0
+        Value: 12
       PhysicalDamage:
         Type: 6
         Value: 0
       Evasion:
         Type: 15
+        Value: 0
+      CriticalStrikeChance:
+        Type: 17
         Value: 0
     MainStats:
       Strength:
@@ -519,6 +843,19 @@ MonoBehaviour:
         ItemType: 0
         FlatBonuses: []
         BaseDamage: 0
+        ElementalDamage:
+          Fire:
+            Type: 11
+            Value: 0
+          Ice:
+            Type: 12
+            Value: 0
+          Dark:
+            Type: 13
+            Value: 0
+          Lightning:
+            Type: 14
+            Value: 0
       Chestplate:
         Name: 
         Description: 
@@ -549,6 +886,151 @@ MonoBehaviour:
         Rarity: 0
         ItemType: 0
         FlatBonuses: []
+    IsAlly: 1
+--- !u!4 &1003405172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003405170}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1724266495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1724266497}
+  - component: {fileID: 1724266496}
+  m_Layer: 0
+  m_Name: UnitArcher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1724266496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724266495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4cc7651324452a9a515cdf0246c39b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitEntityData:
+    Id: 12
+    Name: Archer
+    CoreStats:
+      Health:
+        Type: 3
+        Value: 100
+      Armor:
+        Type: 4
+        Value: 0
+      Resistances:
+        Fire:
+          Type: 7
+          Value: 0
+        Ice:
+          Type: 8
+          Value: 0
+        Dark:
+          Type: 9
+          Value: 0
+        Lightning:
+          Type: 10
+          Value: 0
+      Speed:
+        Type: 5
+        Value: 15
+      PhysicalDamage:
+        Type: 6
+        Value: 0
+      Evasion:
+        Type: 15
+        Value: 0
+      CriticalStrikeChance:
+        Type: 17
+        Value: 0
+    MainStats:
+      Strength:
+        Type: 0
+        Value: 0
+      Agility:
+        Type: 1
+        Value: 0
+      Intelligence:
+        Type: 2
+        Value: 0
+      Level:
+        Type: 16
+        Value: 0
+    Equipment:
+      Weapon:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+        BaseDamage: 0
+        ElementalDamage:
+          Fire:
+            Type: 11
+            Value: 0
+          Ice:
+            Type: 12
+            Value: 0
+          Dark:
+            Type: 13
+            Value: 0
+          Lightning:
+            Type: 14
+            Value: 0
+      Chestplate:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Helmet:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Gloves:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Boots:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Ring:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+    IsAlly: 0
 --- !u!4 &1724266497
 Transform:
   m_ObjectHideFlags: 0
@@ -556,6 +1038,83 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1724266495}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2113013409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2113013412}
+  - component: {fileID: 2113013411}
+  - component: {fileID: 2113013410}
+  m_Layer: 0
+  m_Name: SceneContext
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2113013410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113013409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aaf762f3a54a5883d45a6dbc4485a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2113013411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113013409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 2113013410}
+  _installerPrefabs: []
+  _autoRun: 1
+  OnPreInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPreResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  _parentNewObjectsUnderSceneContext: 0
+  _contractNames: []
+  _parentContractNames: []
+--- !u!4 &2113013412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113013409}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -572,3 +1131,8 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1724266497}
+  - {fileID: 1003405172}
+  - {fileID: 343393557}
+  - {fileID: 319811752}
+  - {fileID: 2113013412}
+  - {fileID: 977458371}
