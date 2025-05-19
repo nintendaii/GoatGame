@@ -7,16 +7,20 @@ namespace Data.Stats
     {
         public StatType StatType;
         public float Value;
-
-        public FlatStatBonus(StatType statType, float value)
-        {
-            StatType = statType;
-            Value = value;
-        }
+        
 
         public override string ToString()
         {
             return $"+{Value} {StatType}";
+        }
+
+        public FlatStatBonus Clone()
+        {
+            return new FlatStatBonus
+            {
+                StatType = StatType,
+                Value = Value
+            };
         }
     }
 }

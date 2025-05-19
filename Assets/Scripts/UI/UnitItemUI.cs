@@ -60,11 +60,11 @@ namespace UI
         private void SetDamageInfo()
         {
             var s = "";
-            s += $"PHY: {unitEntityController.unitEntityData.CoreStats.PhysicalDamage.Value}\n";
-            s += $"FIR: {unitEntityController.unitEntityData.CoreStats.ElementalDamage.Fire.Value}\n";
-            s += $"ICE: {unitEntityController.unitEntityData.CoreStats.ElementalDamage.Ice.Value}\n";
-            s += $"DAR: {unitEntityController.unitEntityData.CoreStats.ElementalDamage.Dark.Value}\n";
-            s += $"LIT: {unitEntityController.unitEntityData.CoreStats.ElementalDamage.Lightning.Value}\n";
+            s += $"PHY: {unitEntityController.unitEntityData.CoreStats.PhysicalDamage.Value + unitEntityController.unitEntityData.Equipment.Weapon.BaseDamage}\n";
+            s += $"FIR: {unitEntityController.unitEntityData.CoreStats.ElementalDamage.Fire.Value + unitEntityController.unitEntityData.Equipment.Weapon.ElementalDamage.Fire.Value}\n";
+            s += $"ICE: {unitEntityController.unitEntityData.CoreStats.ElementalDamage.Ice.Value + unitEntityController.unitEntityData.Equipment.Weapon.ElementalDamage.Ice.Value}\n";
+            s += $"DAR: {unitEntityController.unitEntityData.CoreStats.ElementalDamage.Dark.Value + unitEntityController.unitEntityData.Equipment.Weapon.ElementalDamage.Dark.Value}\n";
+            s += $"LIT: {unitEntityController.unitEntityData.CoreStats.ElementalDamage.Lightning.Value + unitEntityController.unitEntityData.Equipment.Weapon.ElementalDamage.Lightning.Value}\n";
             damageInfoText.text = s;
         }
 

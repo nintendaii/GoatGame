@@ -13,6 +13,23 @@ namespace Data.Stats
         public EquipmentSet Equipment;
         public bool IsAlly;
 
+        public UnitEntityData Clone()
+        {
+            return new UnitEntityData
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = Name,
+                IsAlly = IsAlly,
+                CoreStats = CoreStats.Clone(),
+                MainStats = MainStats.Clone(),
+                Equipment = Equipment.Clone()
+            };
+        }
+
+        public void ApplyEquipment(EquipmentSet equipmentSet)
+        {
+            Equipment = equipmentSet;
+        }
         public Dictionary<StatType, float> GetAllStats()
         {
             var dic = new Dictionary<StatType, float>();

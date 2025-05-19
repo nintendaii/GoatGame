@@ -12,5 +12,18 @@ namespace Data.Stats
         public EquipItem Gloves;
         public EquipItem Boots;
         public EquipItem Ring;
+
+        public EquipmentSet Clone()
+        {
+            return new EquipmentSet
+            {
+                Weapon = Weapon,
+                Chestplate = Chestplate,
+                Helmet = Helmet,
+                Gloves = Gloves,
+                Boots = Boots,
+                Ring = Ring
+            };
+        }
     }
 }

@@ -6,8 +6,8 @@ namespace Data.Stats
     [Serializable]
     public class StatModifier
     {
-        public StatType Stat { get; }
-        public StatScalingGrade ScalingGrade { get; }
+        public StatType Stat;
+        public StatScalingGrade ScalingGrade;
 
         private static readonly Dictionary<StatScalingGrade, float> GradeMultipliers = new()
         {
@@ -19,12 +19,6 @@ namespace Data.Stats
             { StatScalingGrade.S, 1.5f }
         };
 
-        public StatModifier(StatType stat, StatScalingGrade scalingGrade)
-        {
-            Stat = stat;
-            ScalingGrade = scalingGrade;
-        }
-
         public float CalculateBonus(float characterStat)
         {
             return characterStat * GradeMultipliers[ScalingGrade];
@@ -33,6 +27,15 @@ namespace Data.Stats
         public override string ToString()
         {
             return $"{Stat} {ScalingGrade}";
+        }
+
+        public StatModifier Clone()
+        {
+            return new StatModifier
+            {
+                Stat = Stat,
+                ScalingGrade = ScalingGrade
+            };
         }
     }
 }

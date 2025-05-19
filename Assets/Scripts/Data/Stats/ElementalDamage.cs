@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 
 namespace Data.Stats
 {
@@ -9,5 +10,16 @@ namespace Data.Stats
         public StatBase Ice = new(StatType.IceDamage, 0);
         public StatBase Dark = new(StatType.DarkDamage, 0);
         public StatBase Lightning = new(StatType.LightningDamage, 0);
+
+        public ElementalDamage Clone()
+        {
+            return new ElementalDamage
+            {
+                Fire = Fire.Clone(),
+                Ice = Ice.Clone(),
+                Dark = Dark.Clone(),
+                Lightning = Lightning.Clone()
+            };
+        }
     }
 }

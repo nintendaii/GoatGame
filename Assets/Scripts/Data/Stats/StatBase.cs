@@ -14,6 +14,11 @@ namespace Data.Stats
             Value = value;
         }
 
+        public StatBase Clone()
+        {
+            return new StatBase(Type, Value);
+        }
+
         public override string ToString()
         {
             return $"{Type}: {Value}";

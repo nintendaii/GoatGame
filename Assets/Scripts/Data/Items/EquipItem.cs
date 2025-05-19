@@ -14,5 +14,17 @@ namespace Data.Items
 
             return $"{Name} Scaling: {bonuses}";
         }
+
+        public EquipItem Clone()
+        {
+            return new EquipItem
+            {
+                Name = Name,
+                Description = Description,
+                Rarity = Rarity,
+                ItemType = ItemType,
+                FlatBonuses = FlatBonuses?.Select(b => b.Clone()).ToList(),
+            };
+        }
     }
 }

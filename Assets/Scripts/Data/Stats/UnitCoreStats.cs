@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 
 namespace Data.Stats
 {
@@ -13,5 +14,20 @@ namespace Data.Stats
         public StatBase PhysicalDamage = new(StatType.PhysicalDamage, 0);
         public StatBase Evasion = new(StatType.Evasion, 0);
         public StatBase CriticalStrikeChance = new(StatType.CriticalStrikeChance, 0);
+
+        public UnitCoreStats Clone()
+        {
+            return new UnitCoreStats
+            {
+                Health = Health.Clone(),
+                Armor = Armor.Clone(),
+                ElementalResistances = ElementalResistances.Clone(),
+                ElementalDamage = ElementalDamage.Clone(),
+                Speed = Speed.Clone(),
+                PhysicalDamage = PhysicalDamage.Clone(),
+                Evasion = Evasion.Clone(),
+                CriticalStrikeChance = CriticalStrikeChance.Clone()
+            };
+        }
     }
 }

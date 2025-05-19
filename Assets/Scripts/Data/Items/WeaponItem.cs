@@ -35,5 +35,20 @@ namespace Data.Items
 
             return $"{Name} Base Damage: {BaseDamage} Scaling: {scaling}{bonuses}";
         }
+
+        public WeaponItem Clone()
+        {
+            return new WeaponItem
+            {
+                Name = Name,
+                Description = Description,
+                Rarity = Rarity,
+                ItemType = ItemType,
+                BaseDamage = BaseDamage,
+                ElementalDamage = ElementalDamage.Clone(),
+                FlatBonuses = FlatBonuses?.Select(b => b.Clone()).ToList(),
+                ScalingModifiers = ScalingModifiers?.Select(m => m.Clone()).ToList()
+            };
+        }
     }
 }
