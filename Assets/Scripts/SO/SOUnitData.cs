@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Data.Stats;
 using UnityEngine;
 
@@ -8,7 +9,8 @@ namespace SO
     {
         public UnitEntityData unitEntityData;
         public Sprite unitAvatarSprite;
-        public SOWeaponData WeaponData;
+        public SOWeaponData weaponData;
+        public List<SOAbilityData> abilities;
 
         public UnitEntityData Clone()
         {
@@ -20,9 +22,9 @@ namespace SO
         
         private void ApplyEquipment()
         {
-            if (WeaponData!=null)
+            if (weaponData!=null)
             {
-                unitEntityData.Equipment.Weapon = WeaponData.WeaponItem.Clone();
+                unitEntityData.Equipment.Weapon = weaponData.WeaponItem.Clone();
             }
         }
         private void ApplyEquipmentStats(UnitEntityData data)

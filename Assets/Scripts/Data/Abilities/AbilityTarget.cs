@@ -4,6 +4,7 @@ namespace Data.Abilities
     {
         None,
         Self,
+        Unit,
         Allies,
         Enemies,
         Everyone,

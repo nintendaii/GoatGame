@@ -14,14 +14,14 @@ namespace Turn
         public List<TurnUnitData> unitsInGame = new();
         public List<TurnUnitData> turnQueue = new();
         [Inject] private readonly UnitsContainer _unitsContainer;
-        private int _currentTurn;
+        public int currentTurn;
         private float _actionThreshold;
 
 
         public void Init(List<UnitEntityController> units)
         {
             _actionThreshold = GlobalConstants.Balance.ACTION_THRESHOLD;
-            _currentTurn = 0;
+            currentTurn = 0;
             foreach (var u in units)
             {
                 var turnData = new TurnUnitData
@@ -53,10 +53,15 @@ namespace Turn
                         .First();
 
                     nextUnit.ActionPoints -= _actionThreshold;
-                    _currentTurn++;
+                    AdvanceTurn();
                     return nextUnit;
                 }
             }
+        }
+
+        private void AdvanceTurn()
+        {
+            currentTurn++;
         }
         
         public TurnUnitData GetNextUnit()
@@ -114,7 +119,7 @@ namespace Turn
             {
                 unit.ActionPoints = 0f;
             }
-            _currentTurn = 0;
+            currentTurn = 0;
             turnQueue.Clear();
         }
 

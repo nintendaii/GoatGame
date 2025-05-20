@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Abilities;
 using Formulas;
+using Signals;
 using SO;
 using Turn;
 using UI;
@@ -20,9 +21,10 @@ namespace Combat
         [Inject] private readonly UnitControlsScreen _unitControlsScreen;
         [Inject] private readonly UnitItemsUIContainer _unitItemsUIContainer;
         [Inject] private readonly AbilityProcessorSystem _abilityProcessorSystem;
+        [Inject] private readonly SignalBus _signalBus;
 
-        private UnitEntityController _currentTurnEntity;
-        private UnitEntityController _currentTargetEntity;
+        public UnitEntityController currentTargetEntity;
+        public UnitEntityController currentTurnEntity;
 
         private void Start()
         {
@@ -53,38 +55,40 @@ namespace Combat
         {
             _unitsTurnOrderScreen.GenerateOrder();
             var unit = _turnManager.GetNextUnit();
-            _currentTurnEntity = unit.UnitEntityController;
-            _unitControlsScreen.SetUnitName(_currentTurnEntity.unitEntityData.Name);
-            _unitControlsScreen.SetAvatar(_currentTurnEntity.unitAvatarSprite);
+            currentTurnEntity = unit.UnitEntityController;
+            _unitControlsScreen.SetUnitName(currentTurnEntity.unitEntityData.Name);
+            _unitControlsScreen.SetAvatar(currentTurnEntity.unitAvatarSprite);
+            _unitControlsScreen.SetAbilities(currentTurnEntity.AbilitiesRuntime);
+            _signalBus.Fire(new AdvanceNextTurnSignal());
         }
 
         public void SetTarget(string id)
         {
-            _currentTargetEntity = _unitsContainer.GetUnitById(id);
-            _unitControlsScreen.SetTargetUnitName(_currentTargetEntity.unitEntityData.Name);
+            currentTargetEntity = _unitsContainer.GetUnitById(id);
+            _unitControlsScreen.SetTargetUnitName(currentTargetEntity.unitEntityData.Name);
         }
 
         public void DealDamage()
         {
-            if (_currentTargetEntity.unitEntityData.Id==_currentTurnEntity.unitEntityData.Id)
+            if (currentTargetEntity.unitEntityData.Id==currentTurnEntity.unitEntityData.Id)
             {
                 Debug.LogWarning("Cant attack self");
                 return;
             }
 
-            if (!_currentTargetEntity.IsAlive)
+            if (!currentTargetEntity.IsAlive)
             {
-                Debug.LogWarning($"{_currentTargetEntity.unitEntityData.Name} is dead");
+                Debug.LogWarning($"{currentTargetEntity.unitEntityData.Name} is dead");
                 return;
             }
 
-            var damage = DamageCalculator.CalculateAttackFinalDamage(_currentTurnEntity.unitEntityData,
-                _currentTargetEntity.unitEntityData);
-            _currentTargetEntity.DealDamage(damage);
-            _unitItemsUIContainer.UpdateHealth(_currentTargetEntity.unitEntityData.CoreStats.Health.Value,_currentTargetEntity.unitEntityData.Id);
-            if (!_currentTargetEntity.IsAlive)
+            var damage = DamageCalculator.CalculateAttackFinalDamage(currentTurnEntity.unitEntityData,
+                currentTargetEntity.unitEntityData);
+            currentTargetEntity.DealDamage(damage);
+            _unitItemsUIContainer.UpdateHealth(currentTargetEntity.unitEntityData.CoreStats.Health.Value,currentTargetEntity.unitEntityData.Id);
+            if (!currentTargetEntity.IsAlive)
             {
-                _turnManager.RemoveUnitFromQueue(_currentTargetEntity);
+                _turnManager.RemoveUnitFromQueue(currentTargetEntity);
             }
             ExecuteTurn();
         }

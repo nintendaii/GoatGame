@@ -14,7 +14,13 @@ namespace Data.Abilities
         public float value;
         public DispelStatusEffectTarget dispelStatusEffectTarget;
         public DamageType damageType; //for damage effect
-        public ElementalDamage elementalDamage; //for damage effect
+        public ElementalDamage elementalDamage = new ElementalDamage
+        {
+            Fire = new StatBase(StatType.FireDamage,0),
+            Ice = new StatBase(StatType.IceDamage,0),
+            Dark = new StatBase(StatType.DarkDamage,0),
+            Lightning = new StatBase(StatType.LightningDamage,0),
+        }; //for damage effect
         public int duration; // only relevant for continuous effects
         public StatType statAffected; // relevant for buffs
         public List<SOUnitData> unitsSummon; //for summoning

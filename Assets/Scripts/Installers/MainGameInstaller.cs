@@ -1,5 +1,7 @@
 using Abilities;
 using Combat;
+using Commands;
+using Signals;
 using Turn;
 using UI;
 using Unit;
@@ -28,6 +30,8 @@ namespace Installers
             Container.Bind<UnitItemsUIContainer>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.Bind<UnitEntityController>().FromComponentInHierarchy().AsTransient(); // TEMPORARY FOR TESTING ONLY
             Container.Bind<AbilityProcessorSystem>().AsSingle();
+            Container.Bind<AbilityCooldownSystem>().AsSingle();
+            Container.Bind<StatusEffectSystem>().AsSingle().NonLazy();
         }
 
         private void InstallFactories()
@@ -37,6 +41,11 @@ namespace Installers
         private void InstallSignals()
         {
             SignalBusInstaller.Install(Container);
+            
+            Container.DeclareSignal<AdvanceNextTurnSignal>();
+            Container.BindSignal<AdvanceNextTurnSignal>().ToMethod<AdvanceNextTurnCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<UseAbilitySignal>();
+            Container.BindSignal<UseAbilitySignal>().ToMethod<UseAbilityCommand>(command => command.Execute).FromNew();
         }
     }
 }
