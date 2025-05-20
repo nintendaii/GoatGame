@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Abilities;
 using Formulas;
+using SO;
 using Turn;
 using UI;
 using Unit;
@@ -17,6 +19,7 @@ namespace Combat
         [Inject] private readonly UnitsTurnOrderScreen _unitsTurnOrderScreen;
         [Inject] private readonly UnitControlsScreen _unitControlsScreen;
         [Inject] private readonly UnitItemsUIContainer _unitItemsUIContainer;
+        [Inject] private readonly AbilityProcessorSystem _abilityProcessorSystem;
 
         private UnitEntityController _currentTurnEntity;
         private UnitEntityController _currentTargetEntity;
@@ -39,6 +42,11 @@ namespace Combat
             _turnManager.Init(_unitsContainer.UnitEntityContainer);
             _unitItemsUIContainer.Init(_unitsContainer.UnitEntityContainer);
             ExecuteTurn();
+        }
+
+        public void AddUnit(SOUnitData unitData)
+        {
+            //TODO handle this for summoning in runtime
         }
 
         public void ExecuteTurn()

@@ -1,3 +1,4 @@
+using Abilities;
 using Combat;
 using Turn;
 using UI;
@@ -25,6 +26,8 @@ namespace Installers
             Container.Bind<UnitsTurnOrderScreen>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.Bind<UnitControlsScreen>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.Bind<UnitItemsUIContainer>().FromComponentInHierarchy().AsSingle().NonLazy();
+            Container.Bind<UnitEntityController>().FromComponentInHierarchy().AsTransient(); // TEMPORARY FOR TESTING ONLY
+            Container.Bind<AbilityProcessorSystem>().AsSingle();
         }
 
         private void InstallFactories()

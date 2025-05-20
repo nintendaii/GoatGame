@@ -32,27 +32,27 @@ namespace Data.Stats
         }
         public Dictionary<StatType, float> GetAllStats()
         {
-            var dic = new Dictionary<StatType, float>();
-            dic.Add(CoreStats.PhysicalDamage.Type, CoreStats.PhysicalDamage.Value);
-            dic.Add(CoreStats.Armor.Type, CoreStats.Armor.Value);
-            dic.Add(CoreStats.Evasion.Type, CoreStats.Evasion.Value);
-            dic.Add(CoreStats.Speed.Type, CoreStats.Speed.Value);
-            dic.Add(CoreStats.ElementalResistances.Dark.Type, CoreStats.ElementalResistances.Dark.Value);
-            dic.Add(CoreStats.ElementalResistances.Lightning.Type, CoreStats.ElementalResistances.Lightning.Value);
-            dic.Add(CoreStats.ElementalResistances.Fire.Type, CoreStats.ElementalResistances.Fire.Value);
-            dic.Add(CoreStats.ElementalResistances.Ice.Type, CoreStats.ElementalResistances.Ice.Value);
+            var dic = new Dictionary<StatType, float>
+            {
+                { CoreStats.PhysicalDamage.Type, CoreStats.PhysicalDamage.Value },
+                { CoreStats.Armor.Type, CoreStats.Armor.Value },
+                { CoreStats.Evasion.Type, CoreStats.Evasion.Value },
+                { CoreStats.Speed.Type, CoreStats.Speed.Value },
+                { CoreStats.ElementalResistances.Dark.Type, CoreStats.ElementalResistances.Dark.Value },
+                { CoreStats.ElementalResistances.Lightning.Type, CoreStats.ElementalResistances.Lightning.Value },
+                { CoreStats.ElementalResistances.Fire.Type, CoreStats.ElementalResistances.Fire.Value },
+                { CoreStats.ElementalResistances.Ice.Type, CoreStats.ElementalResistances.Ice.Value },
+                { CoreStats.ElementalDamage.Ice.Type, CoreStats.ElementalDamage.Ice.Value },
+                { CoreStats.ElementalDamage.Fire.Type, CoreStats.ElementalDamage.Fire.Value },
+                { CoreStats.ElementalDamage.Dark.Type, CoreStats.ElementalDamage.Dark.Value },
+                { CoreStats.ElementalDamage.Lightning.Type, CoreStats.ElementalDamage.Lightning.Value },
+                { CoreStats.CriticalStrikeChance.Type, CoreStats.CriticalStrikeChance.Value },
+                { MainStats.Intelligence.Type, MainStats.Intelligence.Value },
+                { MainStats.Agility.Type, MainStats.Agility.Value },
+                { MainStats.Strength.Type, MainStats.Strength.Value },
+                { MainStats.Level.Type, MainStats.Level.Value }
+            };
 
-            dic.Add(CoreStats.ElementalDamage.Ice.Type, CoreStats.ElementalDamage.Ice.Value);
-            dic.Add(CoreStats.ElementalDamage.Fire.Type, CoreStats.ElementalDamage.Fire.Value);
-            dic.Add(CoreStats.ElementalDamage.Dark.Type, CoreStats.ElementalDamage.Dark.Value);
-            dic.Add(CoreStats.ElementalDamage.Lightning.Type, CoreStats.ElementalDamage.Lightning.Value);
-
-            dic.Add(CoreStats.CriticalStrikeChance.Type, CoreStats.CriticalStrikeChance.Value);
-
-            dic.Add(MainStats.Intelligence.Type, MainStats.Intelligence.Value);
-            dic.Add(MainStats.Agility.Type, MainStats.Agility.Value);
-            dic.Add(MainStats.Strength.Type, MainStats.Strength.Value);
-            dic.Add(MainStats.Level.Type, MainStats.Level.Value);
             return dic;
         }
 
