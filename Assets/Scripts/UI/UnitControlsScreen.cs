@@ -84,7 +84,7 @@ namespace UI
         
         private void OnAbilityExecuted(SOAbilityData obj)
         {
-            //TODO validate ability and then execute it
+            _combatManager.UseAbility(obj);
         }
     }
 }

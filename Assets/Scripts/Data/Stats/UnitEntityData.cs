@@ -11,7 +11,6 @@ namespace Data.Stats
         public UnitCoreStats CoreStats;
         public UnitMainStats MainStats;
         public EquipmentSet Equipment;
-        public bool IsAlly;
 
         public UnitEntityData Clone()
         {
@@ -19,7 +18,6 @@ namespace Data.Stats
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = Name,
-                IsAlly = IsAlly,
                 CoreStats = CoreStats.Clone(),
                 MainStats = MainStats.Clone(),
                 Equipment = Equipment.Clone()

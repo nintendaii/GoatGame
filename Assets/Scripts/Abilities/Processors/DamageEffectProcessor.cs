@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Data.Abilities;
 using Data.Dmage;
 using Formulas;
 using Unit;
+using Zenject;
 
 namespace Abilities.Processors
 {
     public class DamageEffectProcessor: IAbilityEffectProcessor
     {
+        [Inject] private readonly SignalBus _signalBus;
         public void Apply(UnitEntityController source, AbilityEffectData effectData, List<UnitEntityController> targets = null)
         {
             var value = effectData.value;

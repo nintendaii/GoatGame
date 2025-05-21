@@ -28,5 +28,33 @@ namespace Unit
                 AddUnit(u);
             }
         }
+
+        public List<UnitEntityController> GetAllyUnits()
+        {
+            var t = new List<UnitEntityController>();
+            foreach (var u in UnitEntityContainer)
+            {
+                if (u.IsAlly)
+                {
+                    t.Add(u);
+                }
+            }
+
+            return t;
+        }
+        
+        public List<UnitEntityController> GetEnemyUnits()
+        {
+            var t = new List<UnitEntityController>();
+            foreach (var u in UnitEntityContainer)
+            {
+                if (!u.IsAlly)
+                {
+                    t.Add(u);
+                }
+            }
+
+            return t;
+        }
     }
 }

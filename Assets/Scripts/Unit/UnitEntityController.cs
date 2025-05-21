@@ -13,12 +13,13 @@ namespace Unit
 {
     public class UnitEntityController : MonoBehaviour
     {
-        [NonSerialized] public UnitEntityData unitEntityData;
+        public UnitEntityData unitEntityData;
         [NonSerialized] public Sprite unitAvatarSprite;
         [Inject] private readonly StatusEffectSystem _statusEffectSystem;
         [Inject] private readonly SignalBus _signalBus;
         public SOUnitData UnitData;
         public List<AbilityRuntimeData> AbilitiesRuntime = new();
+        public bool IsAlly;
 
         public bool IsAlive => unitEntityData.CoreStats.Health.Value >= 0;
 
@@ -38,6 +39,7 @@ namespace Unit
 
         public void DealDamage(float damage)
         {
+            Debug.Log($"Dealed {damage}");
             unitEntityData.CoreStats.Health.Value -= damage;
         }
 

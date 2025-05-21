@@ -16,6 +16,7 @@ namespace Turn
         [Inject] private readonly UnitsContainer _unitsContainer;
         public int currentTurn;
         private float _actionThreshold;
+        private int _currentTick;
 
 
         public void Init(List<UnitEntityController> units)
@@ -53,7 +54,7 @@ namespace Turn
                         .First();
 
                     nextUnit.ActionPoints -= _actionThreshold;
-                    AdvanceTurn();
+                    _currentTick++;
                     return nextUnit;
                 }
             }
@@ -64,10 +65,11 @@ namespace Turn
             currentTurn++;
         }
         
-        public TurnUnitData GetNextUnit()
+        public TurnUnitData ExecuteTurn()
         {
             //REPLACE LATER
             //CheckAliveStatus();
+            AdvanceTurn();
             return SimulateUntilNextTurn();
         }
 
@@ -91,7 +93,7 @@ namespace Turn
             
             for (int i = 0; i < numTurns; i++)
             {
-                var nextUnit = GetNextUnit();
+                var nextUnit = SimulateUntilNextTurn();
     
                 // Add a copy to the turn queue to avoid reference issues
                 turnQueue.Add(new TurnUnitData

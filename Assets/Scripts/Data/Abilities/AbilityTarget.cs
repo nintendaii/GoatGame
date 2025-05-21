@@ -7,7 +7,8 @@ namespace Data.Abilities
         Unit,
         Allies,
         Enemies,
-        Everyone,
+        EveryoneInclusive,
+        EveryoneExclusive,
         Custom
     }
 }
