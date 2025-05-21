@@ -6,11 +6,11 @@ namespace Abilities.Processors
 {
     public class DeathEffectProcessor: IAbilityEffectProcessor
     {
-        public void Apply(UnitEntityController source, AbilityEffectData effectData, List<UnitEntityController> targets = null)
+        public void Apply(EffectProcessorData effectProcessorData, AbilityEffectData effectData)
         {
-            if (targets!=null)
+            if (effectProcessorData.Targets!=null)
             {
-                foreach (var t in targets)
+                foreach (var t in effectProcessorData.Targets)
                 {
                     t.Kill();
                 }

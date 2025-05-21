@@ -5,6 +5,7 @@ using Data.Dmage;
 using Formulas;
 using Signals;
 using Unit;
+using UnityEngine;
 using Zenject;
 
 namespace Abilities.Processors
@@ -12,23 +13,24 @@ namespace Abilities.Processors
     public class DamageEffectProcessor: IAbilityEffectProcessor
     {
         [Inject] private readonly SignalBus _signalBus;
-        public void Apply(UnitEntityController source, AbilityEffectData effectData, List<UnitEntityController> targets = null)
+        public void Apply(EffectProcessorData effectProcessorData, AbilityEffectData effectData)
         {
             var value = effectData.value;
-            var damage = float.MinValue;
-            if (targets!=null)
+            var dict = new Dictionary<UnitEntityController, float>();
+            if (effectProcessorData.Targets!=null)
             {
+                float damage;
                 switch (effectData.damageType)
                 {
                     case DamageType.Physical:
-                        foreach (var t in targets)
+                        foreach (var t in effectProcessorData.Targets)
                         {
                             damage = DamageCalculator.CalculatePhysicalDamage(value, t.unitEntityData.CoreStats.Armor.Value);
-                            t.DealDamage(damage);
+                            dict[t] = damage;
                         }
                         break;
                     case DamageType.Elemental:
-                        foreach (var t in targets)
+                        foreach (var t in effectProcessorData.Targets)
                         {
                             var fR = t.unitEntityData.CoreStats.ElementalResistances.Fire.Value;
                             var iR = t.unitEntityData.CoreStats.ElementalResistances.Ice.Value;
@@ -39,16 +41,21 @@ namespace Abilities.Processors
                             var dD = DamageCalculator.CalculateElementalDamage(effectData.elementalDamage.Dark.Value, dR);
                             var lD = DamageCalculator.CalculateElementalDamage(effectData.elementalDamage.Lightning.Value, lR);
                             damage = fD + iD + dD + lD;
+                            dict[t] = damage;
                         }
                         break;
                     case DamageType.Pure:
                         damage = value;
+                        foreach (var t in effectProcessorData.Targets)
+                        {
+                            dict[t] = damage;
+                        }
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
-            _signalBus.Fire(new DealEffectDamageUnitSignal(source, targets, damage));
+            _signalBus.Fire(new DealEffectDamageUnitSignal(effectProcessorData, dict));
         }
     }
 }

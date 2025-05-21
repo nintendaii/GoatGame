@@ -609,7 +609,6 @@ MonoBehaviour:
         Rarity: 0
         ItemType: 0
         FlatBonuses: []
-    IsAlly: 0
 --- !u!1 &117515208
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,7 +910,6 @@ MonoBehaviour:
         Rarity: 0
         ItemType: 0
         FlatBonuses: []
-    IsAlly: 0
 --- !u!1 &162045288
 GameObject:
   m_ObjectHideFlags: 0
@@ -1482,7 +1480,121 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4cc7651324452a9a515cdf0246c39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitEntityData:
+    Id: b5c7c5c8-4268-4d09-82a9-2ce82c1b17a5
+    Name: 
+    CoreStats:
+      Health:
+        Type: 3
+        Value: 0
+      Armor:
+        Type: 4
+        Value: 0
+      ElementalResistances:
+        Fire:
+          Type: 7
+          Value: 0
+        Ice:
+          Type: 8
+          Value: 0
+        Dark:
+          Type: 9
+          Value: 0
+        Lightning:
+          Type: 10
+          Value: 0
+      ElementalDamage:
+        Fire:
+          Type: 11
+          Value: 0
+        Ice:
+          Type: 12
+          Value: 0
+        Dark:
+          Type: 13
+          Value: 0
+        Lightning:
+          Type: 14
+          Value: 0
+      Speed:
+        Type: 5
+        Value: 0
+      PhysicalDamage:
+        Type: 6
+        Value: 0
+      Evasion:
+        Type: 15
+        Value: 0
+      CriticalStrikeChance:
+        Type: 17
+        Value: 0
+    MainStats:
+      Strength:
+        Type: 0
+        Value: 0
+      Agility:
+        Type: 1
+        Value: 0
+      Intelligence:
+        Type: 2
+        Value: 0
+      Level:
+        Type: 16
+        Value: 0
+    Equipment:
+      Weapon:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+        BaseDamage: 0
+        ElementalDamage:
+          Fire:
+            Type: 11
+            Value: 0
+          Ice:
+            Type: 12
+            Value: 0
+          Dark:
+            Type: 13
+            Value: 0
+          Lightning:
+            Type: 14
+            Value: 0
+        ScalingModifiers: []
+      Chestplate:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Helmet:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Gloves:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Boots:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Ring:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
   UnitData: {fileID: 11400000, guid: 288d0da98aa6a482aabccbf9dc4f56f8, type: 2}
+  IsAlly: 0
 --- !u!4 &319811752
 Transform:
   m_ObjectHideFlags: 0
@@ -1664,7 +1776,121 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4cc7651324452a9a515cdf0246c39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitEntityData:
+    Id: db4aaf32-508c-4fb5-b95d-4b1d8484e552
+    Name: 
+    CoreStats:
+      Health:
+        Type: 3
+        Value: 0
+      Armor:
+        Type: 4
+        Value: 0
+      ElementalResistances:
+        Fire:
+          Type: 7
+          Value: 0
+        Ice:
+          Type: 8
+          Value: 0
+        Dark:
+          Type: 9
+          Value: 0
+        Lightning:
+          Type: 10
+          Value: 0
+      ElementalDamage:
+        Fire:
+          Type: 11
+          Value: 0
+        Ice:
+          Type: 12
+          Value: 0
+        Dark:
+          Type: 13
+          Value: 0
+        Lightning:
+          Type: 14
+          Value: 0
+      Speed:
+        Type: 5
+        Value: 0
+      PhysicalDamage:
+        Type: 6
+        Value: 0
+      Evasion:
+        Type: 15
+        Value: 0
+      CriticalStrikeChance:
+        Type: 17
+        Value: 0
+    MainStats:
+      Strength:
+        Type: 0
+        Value: 0
+      Agility:
+        Type: 1
+        Value: 0
+      Intelligence:
+        Type: 2
+        Value: 0
+      Level:
+        Type: 16
+        Value: 0
+    Equipment:
+      Weapon:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+        BaseDamage: 0
+        ElementalDamage:
+          Fire:
+            Type: 11
+            Value: 0
+          Ice:
+            Type: 12
+            Value: 0
+          Dark:
+            Type: 13
+            Value: 0
+          Lightning:
+            Type: 14
+            Value: 0
+        ScalingModifiers: []
+      Chestplate:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Helmet:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Gloves:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Boots:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Ring:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
   UnitData: {fileID: 11400000, guid: aaa2e3c40f93f4d5b87c3e469e2f6b09, type: 2}
+  IsAlly: 0
 --- !u!4 &343393557
 Transform:
   m_ObjectHideFlags: 0
@@ -2365,7 +2591,6 @@ MonoBehaviour:
         Rarity: 0
         ItemType: 0
         FlatBonuses: []
-    IsAlly: 0
 --- !u!1 &572620703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2606,7 +2831,6 @@ MonoBehaviour:
         Rarity: 0
         ItemType: 0
         FlatBonuses: []
-    IsAlly: 0
 --- !u!1 &599542330
 GameObject:
   m_ObjectHideFlags: 0
@@ -3774,7 +3998,6 @@ MonoBehaviour:
         Rarity: 0
         ItemType: 0
         FlatBonuses: []
-    IsAlly: 0
 --- !u!1 &824524522
 GameObject:
   m_ObjectHideFlags: 0
@@ -4880,7 +5103,121 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4cc7651324452a9a515cdf0246c39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitEntityData:
+    Id: b5c2214a-ab6f-4636-a1e9-4f729e61eb51
+    Name: 
+    CoreStats:
+      Health:
+        Type: 3
+        Value: 0
+      Armor:
+        Type: 4
+        Value: 0
+      ElementalResistances:
+        Fire:
+          Type: 7
+          Value: 0
+        Ice:
+          Type: 8
+          Value: 0
+        Dark:
+          Type: 9
+          Value: 0
+        Lightning:
+          Type: 10
+          Value: 0
+      ElementalDamage:
+        Fire:
+          Type: 11
+          Value: 0
+        Ice:
+          Type: 12
+          Value: 0
+        Dark:
+          Type: 13
+          Value: 0
+        Lightning:
+          Type: 14
+          Value: 0
+      Speed:
+        Type: 5
+        Value: 0
+      PhysicalDamage:
+        Type: 6
+        Value: 0
+      Evasion:
+        Type: 15
+        Value: 0
+      CriticalStrikeChance:
+        Type: 17
+        Value: 0
+    MainStats:
+      Strength:
+        Type: 0
+        Value: 0
+      Agility:
+        Type: 1
+        Value: 0
+      Intelligence:
+        Type: 2
+        Value: 0
+      Level:
+        Type: 16
+        Value: 0
+    Equipment:
+      Weapon:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+        BaseDamage: 0
+        ElementalDamage:
+          Fire:
+            Type: 11
+            Value: 0
+          Ice:
+            Type: 12
+            Value: 0
+          Dark:
+            Type: 13
+            Value: 0
+          Lightning:
+            Type: 14
+            Value: 0
+        ScalingModifiers: []
+      Chestplate:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Helmet:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Gloves:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Boots:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Ring:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
   UnitData: {fileID: 11400000, guid: c630070e53fae4cada46200c4dccd8cc, type: 2}
+  IsAlly: 1
 --- !u!4 &1003405172
 Transform:
   m_ObjectHideFlags: 0
@@ -7876,7 +8213,121 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4cc7651324452a9a515cdf0246c39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitEntityData:
+    Id: 70c223b5-0b04-416f-b034-754846fbcd10
+    Name: 
+    CoreStats:
+      Health:
+        Type: 3
+        Value: 0
+      Armor:
+        Type: 4
+        Value: 0
+      ElementalResistances:
+        Fire:
+          Type: 7
+          Value: 0
+        Ice:
+          Type: 8
+          Value: 0
+        Dark:
+          Type: 9
+          Value: 0
+        Lightning:
+          Type: 10
+          Value: 0
+      ElementalDamage:
+        Fire:
+          Type: 11
+          Value: 0
+        Ice:
+          Type: 12
+          Value: 0
+        Dark:
+          Type: 13
+          Value: 0
+        Lightning:
+          Type: 14
+          Value: 0
+      Speed:
+        Type: 5
+        Value: 0
+      PhysicalDamage:
+        Type: 6
+        Value: 0
+      Evasion:
+        Type: 15
+        Value: 0
+      CriticalStrikeChance:
+        Type: 17
+        Value: 0
+    MainStats:
+      Strength:
+        Type: 0
+        Value: 0
+      Agility:
+        Type: 1
+        Value: 0
+      Intelligence:
+        Type: 2
+        Value: 0
+      Level:
+        Type: 16
+        Value: 0
+    Equipment:
+      Weapon:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+        BaseDamage: 0
+        ElementalDamage:
+          Fire:
+            Type: 11
+            Value: 0
+          Ice:
+            Type: 12
+            Value: 0
+          Dark:
+            Type: 13
+            Value: 0
+          Lightning:
+            Type: 14
+            Value: 0
+        ScalingModifiers: []
+      Chestplate:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Helmet:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Gloves:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Boots:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
+      Ring:
+        Name: 
+        Description: 
+        Rarity: 0
+        ItemType: 0
+        FlatBonuses: []
   UnitData: {fileID: 11400000, guid: 98063c2868762486d87d3ee43aa8a81b, type: 2}
+  IsAlly: 1
 --- !u!4 &1724266497
 Transform:
   m_ObjectHideFlags: 0

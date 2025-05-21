@@ -12,7 +12,6 @@ namespace Data.Abilities
         public AbilityEffectData delayedEffectType; //for delayed effect
         public EffectDuration effectDuration;
         public float value;
-        public DispelStatusEffectTarget dispelStatusEffectTarget;
         public DamageType damageType; //for damage effect
         public ElementalDamage elementalDamage = new ElementalDamage
         {
@@ -25,6 +24,7 @@ namespace Data.Abilities
         public StatType statAffected; // relevant for buffs
         public List<SOUnitData> unitsSummon; //for summoning
         public bool isDispelable;
+        public DispelStatusEffectTarget dispelStatusEffectTarget;
         public bool isPositive;
     }
 }

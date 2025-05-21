@@ -34,15 +34,22 @@ namespace Abilities
             };
         }
 
-        public void UseAbility(UnitEntityController source, SOAbilityData ability, List<UnitEntityController> targets)
+        public void UseAbility(EffectProcessorData effectProcessorData)
         {
-            foreach (var effect in ability.effects)
+            foreach (var effect in effectProcessorData.Ability.effects)
             {
                 if (processors.TryGetValue(effect.effectType, out var processor))
-                    processor.Apply(source, effect, targets);
+                    processor.Apply(effectProcessorData, effect);
                 else
                     Debug.LogWarning($"No processor for effect type {effect.effectType}");
             }
         }
+    }
+
+    public class EffectProcessorData
+    {
+        public UnitEntityController Source;
+        public SOAbilityData Ability;
+        public List<UnitEntityController> Targets;
     }
 }

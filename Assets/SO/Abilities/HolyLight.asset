@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 393bc06ffa794d23b4dbbbc703dd6ca9, type: 3}
-  m_Name: FireBall
+  m_Name: HolyLight
   m_EditorClassIdentifier: 
-  abilityName: Fire Ball
+  abilityName: Holy Light
   description: 
-  icon: {fileID: 21300000, guid: 21df9195ed43b004394e6d7913b03149, type: 3}
-  abilityType: 3
-  targetType: 2
-  cooldown: 10
+  icon: {fileID: 21300000, guid: feb8709f10385a94095b55fe8d0f625c, type: 3}
+  abilityType: 4
+  targetType: 3
+  cooldown: 5
   effects:
-  - effectType: 2
+  - effectType: 1
     effectDuration: 0
-    value: 0
-    damageType: 1
+    value: 20
+    damageType: 0
     elementalDamage:
       Fire:
-        Type: 11
-        Value: 30
+        Type: 0
+        Value: 0
       Ice:
         Type: 0
         Value: 0

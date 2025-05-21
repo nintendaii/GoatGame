@@ -1,19 +1,18 @@
 using System.Collections.Generic;
+using Abilities;
 using Unit;
 
 namespace Signals
 {
     public class DealEffectDamageUnitSignal: ISignal
     {
-        public UnitEntityController Source;
-        public List<UnitEntityController> Targets;
-        public float Value;
+        public EffectProcessorData EffectProcessorData;
+        public Dictionary<UnitEntityController, float> DamageDictionary;
 
-        public DealEffectDamageUnitSignal(UnitEntityController source, List<UnitEntityController> targets, float value)
+        public DealEffectDamageUnitSignal(EffectProcessorData effectProcessorData, Dictionary<UnitEntityController, float> damageDictionary)
         {
-            Source = source;
-            Targets = targets;
-            Value = value;
+            DamageDictionary = damageDictionary;
+            EffectProcessorData = effectProcessorData;
         }
     }
 }

@@ -7,11 +7,11 @@ namespace Abilities.Processors
 {
     public class DispelEffectProcessor: IAbilityEffectProcessor
     {
-        public void Apply(UnitEntityController source, AbilityEffectData effectData, List<UnitEntityController> targets = null)
+        public void Apply(EffectProcessorData effectProcessorData, AbilityEffectData effectData)
         {
-            if (targets!=null)
+            if (effectProcessorData.Targets!=null)
             {
-                foreach (var t in targets)
+                foreach (var t in effectProcessorData.Targets)
                 {
                     t.DispelStatusEffect(effectData.dispelStatusEffectTarget);
                 }

@@ -9,7 +9,7 @@ namespace Abilities.Processors
     public class SummoningEffectProcessor: IAbilityEffectProcessor
     {
         [Inject] private readonly CombatManager _combatManager;
-        public void Apply(UnitEntityController source, AbilityEffectData effectData, List<UnitEntityController> targets = null)
+        public void Apply(EffectProcessorData effectProcessorData, AbilityEffectData effectData)
         {
             if (effectData.unitsSummon!=null)
             {

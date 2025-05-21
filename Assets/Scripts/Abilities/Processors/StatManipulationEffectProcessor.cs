@@ -7,8 +7,9 @@ namespace Abilities.Processors
 {
     public class StatManipulationEffectProcessor: IAbilityEffectProcessor
     {
-        public void Apply(UnitEntityController source, AbilityEffectData effectData, List<UnitEntityController> targets = null)
+        public void Apply(EffectProcessorData effectProcessorData, AbilityEffectData effectData)
         {
+            var targets = effectProcessorData.Targets;
             if (targets!=null)
             {
                 switch (effectData.effectDuration)

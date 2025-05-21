@@ -12,7 +12,13 @@ namespace Commands
         public void Execute(ISignal signal)
         {
             var param = (UseAbilitySignal)signal;
-            _abilityProcessorSystem.UseAbility(param.AbilityOwnerData.UnitEntityController, param.AbilityOwnerData.AbilityData, param.UnitTargets);
+            var effectProcessorData = new EffectProcessorData
+            {
+                Ability = param.AbilityOwnerData.AbilityData,
+                Source = param.AbilityOwnerData.UnitEntityController,
+                Targets = param.UnitTargets
+            };
+            _abilityProcessorSystem.UseAbility(effectProcessorData);
             _abilityCooldownSystem.SendAbilityOnCooldown(param.AbilityOwnerData);
         }
     }

@@ -7,9 +7,9 @@ namespace Abilities.Processors
 {
     public class DelayedEffectEffectProcessor: IAbilityEffectProcessor
     {
-        public void Apply(UnitEntityController source, AbilityEffectData effectData, List<UnitEntityController> targets = null)
+        public void Apply(EffectProcessorData effectProcessorData, AbilityEffectData effectData)
         {
-            if (targets!=null)
+            if (effectProcessorData.Targets!=null)
             {
                 var effect = new StatusEffect
                 {
@@ -19,7 +19,7 @@ namespace Abilities.Processors
                     isPositive = effectData.isPositive,
                     duration = effectData.duration
                 };
-                foreach (var t in targets)
+                foreach (var t in effectProcessorData.Targets)
                 {
                     t.ApplyStatusEffect(effect);
                 }

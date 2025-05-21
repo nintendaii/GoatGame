@@ -50,6 +50,8 @@ namespace Installers
             Container.BindSignal<DealAttackDamageUnitSignal>().ToMethod<DealAttackDamageUnitCommand>(command => command.Execute).FromNew();
             Container.DeclareSignal<DealEffectDamageUnitSignal>();
             Container.BindSignal<DealEffectDamageUnitSignal>().ToMethod<DealEffectDamageUnitCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<HealEffectUnitSignal>();
+            Container.BindSignal<HealEffectUnitSignal>().ToMethod<HealEffectUnitCommand>(command => command.Execute).FromNew();
         }
     }
 }

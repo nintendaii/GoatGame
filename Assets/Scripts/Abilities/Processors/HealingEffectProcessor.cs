@@ -1,19 +1,18 @@
-using System.Collections.Generic;
 using Data.Abilities;
-using Unit;
+using Signals;
+using Zenject;
 
 namespace Abilities.Processors
 {
     public class HealingEffectProcessor: IAbilityEffectProcessor
     {
-        public void Apply(UnitEntityController source, AbilityEffectData effectData, List<UnitEntityController> targets = null)
+        [Inject] private readonly SignalBus _signalBus;
+         public void Apply(EffectProcessorData effectProcessorData, AbilityEffectData effectData)
         {
             var value = effectData.value;
+            var targets = effectProcessorData.Targets;
             if (targets != null)
-                foreach (var t in targets)
-                {
-                    t.Heal(value);
-                }
+                _signalBus.Fire(new HealEffectUnitSignal(effectProcessorData, value));
         }
     }
 }

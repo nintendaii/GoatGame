@@ -1,6 +1,4 @@
 using System.Linq;
-using Combat;
-using Formulas;
 using Signals;
 using Turn;
 using UI;
@@ -8,16 +6,15 @@ using Zenject;
 
 namespace Commands
 {
-    public class DealEffectDamageUnitCommand: ICommandWithParameters
+    public class HealEffectUnitCommand: ICommandWithParameters
     {
-        [Inject] private readonly CombatManager _combatManager;
+        [Inject] private readonly SignalBus _signalBus;
         [Inject] private readonly UnitItemsUIContainer _unitItemsUIContainer;
         [Inject] private readonly TurnManager _turnManager;
-        [Inject] private readonly SignalBus _signalBus;
+
         public void Execute(ISignal signal)
         {
-            var param = (DealEffectDamageUnitSignal)signal;
-            
+            var param = (HealEffectUnitSignal)signal;
             var filteredList = param.EffectProcessorData.Targets.Where(x => x.IsAlive).ToList();
             if (filteredList.Count==0)
             {
@@ -25,7 +22,8 @@ namespace Commands
             }
             foreach (var u in filteredList)
             {
-                u.DealDamage(param.DamageDictionary[u]);
+                
+                u.Heal(param.Value);
                 _unitItemsUIContainer.UpdateHealth(u.unitEntityData.CoreStats.Health.Value,u.unitEntityData.Id);
                 if (!u.IsAlive)
                 {

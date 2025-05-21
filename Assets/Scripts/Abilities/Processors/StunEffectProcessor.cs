@@ -6,8 +6,9 @@ namespace Abilities.Processors
 {
     public class StunEffectProcessor: IAbilityEffectProcessor
     {
-        public void Apply(UnitEntityController source, AbilityEffectData effectData, List<UnitEntityController> targets = null)
+        public void Apply(EffectProcessorData effectProcessorData, AbilityEffectData effectData)
         {
+            var targets = effectProcessorData.Targets;
             if (targets!=null)
             {
                 var stunEffect = new StatusEffect
