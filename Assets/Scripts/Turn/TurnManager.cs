@@ -89,6 +89,7 @@ namespace Turn
         {
             turnQueue.Clear();
             // Save initial action points
+            var originalTicks = _currentTick;
             var originalAp = unitsInGame.ToDictionary(u => u.UnitEntityController.unitEntityData.Id, u => u.ActionPoints);
             
             for (int i = 0; i < numTurns; i++)
@@ -110,6 +111,7 @@ namespace Turn
             {
                 unit.ActionPoints = originalAp[unit.UnitEntityController.unitEntityData.Id];
             }
+            _currentTick = originalTicks;
 
             return turnQueue;
         }
@@ -127,6 +129,7 @@ namespace Turn
 
         public void RemoveUnitFromQueue(UnitEntityController currentTargetEntity)
         {
+            //TODO move this to single call (e.g the unit will check if he is dead and send signal)
             var unitToRemove = unitsInGame.Find(x =>
                 x.UnitEntityController.unitEntityData.Id == currentTargetEntity.unitEntityData.Id);
             unitsInGame.Remove(unitToRemove);
