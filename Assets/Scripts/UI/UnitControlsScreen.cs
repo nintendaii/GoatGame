@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Combat;
 using Data.Abilities;
+using Signals;
 using SO;
 using TMPro;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace UI
         [SerializeField] private List<AbilityItemUI> _abilityItemUis;
 
         [Inject] private readonly CombatManager _combatManager;
+        [Inject] private readonly SignalBus _signalBus;
 
         private void OnEnable()
         {
@@ -43,7 +45,7 @@ namespace UI
 
         private void PassTurn()
         {
-            _combatManager.ExecuteTurn();
+            _signalBus.Fire(new AdvanceNextTurnSignal());
         }
         
         private void Attack()

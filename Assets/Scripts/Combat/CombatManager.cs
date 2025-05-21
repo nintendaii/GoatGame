@@ -46,23 +46,12 @@ namespace Combat
             _unitsContainer.Init();
             _turnManager.Init(_unitsContainer.UnitEntityContainer);
             _unitItemsUIContainer.Init(_unitsContainer.UnitEntityContainer);
-            ExecuteTurn();
+            _signalBus.Fire(new AdvanceNextTurnSignal());
         }
 
         public void AddUnit(SOUnitData unitData)
         {
             //TODO handle this for summoning in runtime
-        }
-
-        public void ExecuteTurn()
-        {
-            _unitsTurnOrderScreen.GenerateOrder();
-            var unit = _turnManager.ExecuteTurn();
-            currentTurnEntity = unit.UnitEntityController;
-            _unitControlsScreen.SetUnitName(currentTurnEntity.unitEntityData.Name);
-            _unitControlsScreen.SetAvatar(currentTurnEntity.unitAvatarSprite);
-            _unitControlsScreen.SetAbilities(currentTurnEntity.AbilitiesRuntime);
-            _signalBus.Fire(new AdvanceNextTurnSignal());
         }
 
         public void SetTarget(string id)
@@ -73,27 +62,7 @@ namespace Combat
 
         public void DealDamage()
         {
-            if (currentTargetEntity.unitEntityData.Id==currentTurnEntity.unitEntityData.Id)
-            {
-                Debug.LogWarning("Cant attack self");
-                return;
-            }
-
-            if (!currentTargetEntity.IsAlive)
-            {
-                Debug.LogWarning($"{currentTargetEntity.unitEntityData.Name} is dead");
-                return;
-            }
-
-            var damage = DamageCalculator.CalculateAttackFinalDamage(currentTurnEntity.unitEntityData,
-                currentTargetEntity.unitEntityData);
-            currentTargetEntity.DealDamage(damage);
-            _unitItemsUIContainer.UpdateHealth(currentTargetEntity.unitEntityData.CoreStats.Health.Value,currentTargetEntity.unitEntityData.Id);
-            if (!currentTargetEntity.IsAlive)
-            {
-                _turnManager.RemoveUnitFromQueue(currentTargetEntity);
-            }
-            ExecuteTurn();
+            _signalBus.Fire(new DealAttackDamageUnitSignal(currentTurnEntity, new List<UnitEntityController>{currentTargetEntity}));
         }
 
         private bool ValidateAbility(SOAbilityData soAbilityData)

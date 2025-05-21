@@ -46,6 +46,10 @@ namespace Installers
             Container.BindSignal<AdvanceNextTurnSignal>().ToMethod<AdvanceNextTurnCommand>(command => command.Execute).FromNew();
             Container.DeclareSignal<UseAbilitySignal>();
             Container.BindSignal<UseAbilitySignal>().ToMethod<UseAbilityCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<DealAttackDamageUnitSignal>();
+            Container.BindSignal<DealAttackDamageUnitSignal>().ToMethod<DealAttackDamageUnitCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<DealEffectDamageUnitSignal>();
+            Container.BindSignal<DealEffectDamageUnitSignal>().ToMethod<DealEffectDamageUnitCommand>(command => command.Execute).FromNew();
         }
     }
 }

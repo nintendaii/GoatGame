@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Data.Abilities;
 using Data.Dmage;
 using Formulas;
+using Signals;
 using Unit;
 using Zenject;
 
@@ -14,6 +15,7 @@ namespace Abilities.Processors
         public void Apply(UnitEntityController source, AbilityEffectData effectData, List<UnitEntityController> targets = null)
         {
             var value = effectData.value;
+            var damage = float.MinValue;
             if (targets!=null)
             {
                 switch (effectData.damageType)
@@ -21,7 +23,7 @@ namespace Abilities.Processors
                     case DamageType.Physical:
                         foreach (var t in targets)
                         {
-                            var damage = DamageCalculator.CalculatePhysicalDamage(value, t.unitEntityData.CoreStats.Armor.Value);
+                            damage = DamageCalculator.CalculatePhysicalDamage(value, t.unitEntityData.CoreStats.Armor.Value);
                             t.DealDamage(damage);
                         }
                         break;
@@ -36,20 +38,17 @@ namespace Abilities.Processors
                             var iD = DamageCalculator.CalculateElementalDamage(effectData.elementalDamage.Ice.Value, iR);
                             var dD = DamageCalculator.CalculateElementalDamage(effectData.elementalDamage.Dark.Value, dR);
                             var lD = DamageCalculator.CalculateElementalDamage(effectData.elementalDamage.Lightning.Value, lR);
-                            t.DealDamage(fD+iD+dD+lD);
+                            damage = fD + iD + dD + lD;
                         }
                         break;
                     case DamageType.Pure:
-                        foreach (var t in targets)
-                        {
-                            t.DealDamage(value);
-                        }
+                        damage = value;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
-            
+            _signalBus.Fire(new DealEffectDamageUnitSignal(source, targets, damage));
         }
     }
 }
