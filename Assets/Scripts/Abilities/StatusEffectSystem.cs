@@ -1,49 +1,58 @@
 using System;
 using System.Collections.Generic;
 using Data.Abilities;
+using Turn;
 using Unit;
+using Zenject;
 
 namespace Abilities
 {
     public class StatusEffectSystem
     {
-        private Dictionary<UnitEntityController, List<StatusEffect>> _statusEffectsContainer = new();
+        [Inject] private readonly TurnManager _turnManager;
+        private Dictionary<UnitEntityController, List<StatusEffectApplicationData>> _statusEffectsContainer = new();
 
         public void ApplyStatusEffect(UnitEntityController target, StatusEffect effect)
         {
-            _statusEffectsContainer[target].Add(effect);
+            var currentTurn = _turnManager.CurrentTurn;
+            _statusEffectsContainer[target].Add(new StatusEffectApplicationData{StatusEffectApplied = effect, ApplicationTurn = currentTurn});
+        }
+
+        public void CheckStatusEffects()
+        {
+            
         }
         
         public void DispelStatusEffect(UnitEntityController target, DispelStatusEffectTarget targetEffect)
         {
-            var sToRemove = new List<StatusEffect>();
+            var sToRemove = new List<StatusEffectApplicationData>();
             switch (targetEffect)
             {
                 //TODO Handle dispel logic
                 case DispelStatusEffectTarget.Positive:
-                    foreach (var e in _statusEffectsContainer[target])
+                    foreach (var applicationData in _statusEffectsContainer[target])
                     {
-                        if (e.isDispelable && e.isPositive)
+                        if (applicationData.StatusEffectApplied.isDispelable && applicationData.StatusEffectApplied.isPositive)
                         {
-                            sToRemove.Add(e);
+                            sToRemove.Add(applicationData);
                         }
                     }
                     break;
                 case DispelStatusEffectTarget.Negative:
-                    foreach (var e in _statusEffectsContainer[target])
+                    foreach (var applicationData in _statusEffectsContainer[target])
                     {
-                        if (e.isDispelable && !e.isPositive)
+                        if (applicationData.StatusEffectApplied.isDispelable && !applicationData.StatusEffectApplied.isPositive)
                         {
-                            sToRemove.Add(e);
+                            sToRemove.Add(applicationData);
                         }
                     }
                     break;
                 case DispelStatusEffectTarget.All:
-                    foreach (var e in _statusEffectsContainer[target])
+                    foreach (var applicationData in _statusEffectsContainer[target])
                     {
-                        if (e.isDispelable)
+                        if (applicationData.StatusEffectApplied.isDispelable)
                         {
-                            sToRemove.Add(e);
+                            sToRemove.Add(applicationData);
                         }
                     }
                     break;
@@ -52,5 +61,11 @@ namespace Abilities
             }
             _statusEffectsContainer[target].RemoveAll(effect => sToRemove.Contains(effect));
         }
+    }
+
+    public class StatusEffectApplicationData
+    {
+        public StatusEffect StatusEffectApplied;
+        public int ApplicationTurn;
     }
 }

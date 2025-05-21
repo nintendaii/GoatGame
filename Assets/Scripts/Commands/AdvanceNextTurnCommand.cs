@@ -23,7 +23,7 @@ namespace Commands
             _unitControlsScreen.SetUnitName(unit.UnitEntityController.unitEntityData.Name);
             _unitControlsScreen.SetAvatar(unit.UnitEntityController.unitAvatarSprite);
             _unitControlsScreen.SetAbilities(unit.UnitEntityController.AbilitiesRuntime);
-            _abilityCooldownSystem.CheckAbilitiesCooldown(_turnManager.currentTurn);
+            _abilityCooldownSystem.CheckAbilitiesCooldown(_turnManager.CurrentTurn);
         }
     }
 }

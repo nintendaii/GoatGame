@@ -14,8 +14,8 @@ namespace Abilities
 
         public void SendAbilityOnCooldown(AbilityOwnerData data)
         {
-            _abilitiesCooldownDict[data] = data.AbilityData.cooldown + _turnManager.currentTurn;
-            Debug.Log($"Sending {data.AbilityData.name} to {data.AbilityData.cooldown + _turnManager.currentTurn}");
+            _abilitiesCooldownDict[data] = data.AbilityData.cooldown + _turnManager.CurrentTurn;
+            Debug.Log($"Sending {data.AbilityData.name} to {data.AbilityData.cooldown + _turnManager.CurrentTurn}");
         }
 
         public void CheckAbilitiesCooldown(int turn)

@@ -52,7 +52,6 @@ namespace Unit
         {
             _statusEffectSystem.ApplyStatusEffect(this, statusEffect);
         }
-        
 
         public void DispelStatusEffect(DispelStatusEffectTarget target)
         {
