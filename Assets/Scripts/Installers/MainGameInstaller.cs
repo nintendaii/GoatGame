@@ -54,6 +54,8 @@ namespace Installers
             Container.BindSignal<HealEffectUnitSignal>().ToMethod<HealEffectUnitCommand>(command => command.Execute).FromNew();
             Container.DeclareSignal<DispelStatusEffectSignal>();
             Container.BindSignal<DispelStatusEffectSignal>().ToMethod<DispelStatusEffectCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<StunStatusEffectSignal>();
+            Container.BindSignal<StunStatusEffectSignal>().ToMethod<StunStatusEffectCommand>(command => command.Execute).FromNew();
         }
     }
 }

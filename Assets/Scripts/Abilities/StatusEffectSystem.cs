@@ -4,6 +4,7 @@ using Data.Abilities;
 using Data.Turn;
 using Turn;
 using Unit;
+using UnityEngine;
 using Zenject;
 
 namespace Abilities
@@ -16,20 +17,51 @@ namespace Abilities
         public void ApplyStatusEffect(UnitEntityController target, StatusEffect effect)
         {
             var currentTurn = _turnManager.CurrentTurn;
-            _statusEffectsContainer[target].Add(new StatusEffectApplicationData{StatusEffectApplied = effect, ApplicationTurn = currentTurn, StatusEffectIteration = 0});
+
+            if (!_statusEffectsContainer.ContainsKey(target))
+            {
+                _statusEffectsContainer[target] = new List<StatusEffectApplicationData>();
+            }
+
+            Debug.Log($"Adding {effect.effectType} effect for {target.name}");
+            _statusEffectsContainer[target].Add(new StatusEffectApplicationData
+            {
+                StatusEffectApplied = effect,
+                ApplicationTurn = currentTurn,
+                StatusEffectIteration = 0
+            });
+        }
+
+        private void IncrementStatusEffect(UnitEntityController unit)
+        {
+            if (_statusEffectsContainer.ContainsKey(unit)) 
+            {
+                foreach (var e in _statusEffectsContainer[unit])
+                {
+                    e.StatusEffectIteration++;
+                }
+            }
         }
 
         public bool ValidateStatusEffects(UnitEntityController unit)
         {
             //validate status effects
-            var statusEffects = _statusEffectsContainer[unit];
-            AdvanceStatusEffects();
-            
-            //validate current unit movement
             var isUnitAllowedToMove = true;
+            IncrementStatusEffect(unit);
+            Debug.Log("Bef"+_statusEffectsContainer.Count);
+            AdvanceStatusEffects();
+            Debug.Log("aft"+_statusEffectsContainer.Count);
+            if (!_statusEffectsContainer.ContainsKey(unit)) 
+            {
+                Debug.Log("LAMO HERE");
+                return true;
+            }
+            var statusEffects = _statusEffectsContainer[unit];
+
+            //validate current unit movement
             foreach (var s in statusEffects)
             {
-                if (s.StatusEffectApplied.effectType==AbilityEffect.Stun)
+                if (s.StatusEffectApplied.effectType == AbilityEffect.Stun)
                 {
                     isUnitAllowedToMove = false;
                 }
@@ -41,32 +73,52 @@ namespace Abilities
         private void AdvanceStatusEffects()
         {
             var currentTurn = _turnManager.CurrentTurn;
+            var unitsToClean = new List<UnitEntityController>();
+
             foreach (var kvp in _statusEffectsContainer)
             {
-                foreach (var s in kvp.Value)
+                var unit = kvp.Key;
+                var effects = kvp.Value;
+
+                var expiredEffects = new List<StatusEffectApplicationData>();
+
+                foreach (var s in effects)
                 {
+                    bool isExpired;
+
                     switch (s.StatusEffectApplied.iterationType)
                     {
                         case StatusEffectIterationType.EveryTurn:
-                            if (currentTurn-s.ApplicationTurn>=s.StatusEffectApplied.duration)
-                            {
-                                kvp.Key.RemoveStatusEffect(s.StatusEffectApplied);
-                            }
+                            isExpired = currentTurn - s.ApplicationTurn > s.StatusEffectApplied.duration;
                             break;
                         case StatusEffectIterationType.EverySelfTurn:
-                            s.StatusEffectIteration++;
-                            if (s.StatusEffectIteration>=s.StatusEffectApplied.duration)
-                            {
-                                kvp.Key.RemoveStatusEffect(s.StatusEffectApplied);
-                            }
+                            isExpired = s.StatusEffectIteration > s.StatusEffectApplied.duration;
                             break;
+
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
+
+                    if (isExpired)
+                    {
+                        unit.RemoveStatusEffect(s.StatusEffectApplied);
+                        Debug.Log($"{s.StatusEffectApplied.effectType} expried on {unit.name}");
+                        expiredEffects.Add(s);
+                    }
                 }
+
+                // Remove expired effects
+                effects.RemoveAll(e => expiredEffects.Contains(e));
+
+                // Mark unit for cleanup if no effects remain
+                if (effects.Count == 0) unitsToClean.Add(unit);
             }
+
+            // Cleanup empty units
+            foreach (var unit in unitsToClean) _statusEffectsContainer.Remove(unit);
         }
-        
+
+
         public void DispelStatusEffect(UnitEntityController target, DispelStatusEffectTarget targetEffect)
         {
             var sToRemove = new List<StatusEffectApplicationData>();
@@ -75,34 +127,25 @@ namespace Abilities
                 //TODO Handle dispel logic
                 case DispelStatusEffectTarget.Positive:
                     foreach (var applicationData in _statusEffectsContainer[target])
-                    {
-                        if (applicationData.StatusEffectApplied.isDispelable && applicationData.StatusEffectApplied.isPositive)
-                        {
+                        if (applicationData.StatusEffectApplied.isDispelable &&
+                            applicationData.StatusEffectApplied.isPositive)
                             sToRemove.Add(applicationData);
-                        }
-                    }
                     break;
                 case DispelStatusEffectTarget.Negative:
                     foreach (var applicationData in _statusEffectsContainer[target])
-                    {
-                        if (applicationData.StatusEffectApplied.isDispelable && !applicationData.StatusEffectApplied.isPositive)
-                        {
+                        if (applicationData.StatusEffectApplied.isDispelable &&
+                            !applicationData.StatusEffectApplied.isPositive)
                             sToRemove.Add(applicationData);
-                        }
-                    }
                     break;
                 case DispelStatusEffectTarget.All:
                     foreach (var applicationData in _statusEffectsContainer[target])
-                    {
                         if (applicationData.StatusEffectApplied.isDispelable)
-                        {
                             sToRemove.Add(applicationData);
-                        }
-                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(targetEffect), targetEffect, null);
             }
+
             _statusEffectsContainer[target].RemoveAll(effect => sToRemove.Contains(effect));
         }
     }

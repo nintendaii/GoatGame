@@ -3,12 +3,10 @@ using Data.Abilities;
 
 namespace Signals
 {
-    public class DispelStatusEffectSignal: EffectUnitSignalBase
+    public class DispelStatusEffectSignal: StatusEffectSignalBase
     {
-        public AbilityEffectData AbilityEffectData;
-        public DispelStatusEffectSignal(EffectProcessorData effectProcessorData, AbilityEffectData abilityEffectData) : base(effectProcessorData)
+        public DispelStatusEffectSignal(EffectProcessorData effectProcessorData, AbilityEffectData abilityEffectData) : base(effectProcessorData, abilityEffectData)
         {
-            AbilityEffectData = abilityEffectData;
         }
     }
 }
