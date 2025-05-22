@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Data.Dmage;
 using Data.Stats;
 using SO;
+using UnityEngine;
 
 namespace Data.Abilities
 {
@@ -9,9 +10,9 @@ namespace Data.Abilities
     public class AbilityEffectData
     {
         public AbilityEffect effectType;
-        public AbilityEffectData delayedEffectType; //for delayed effect
         public EffectDuration effectDuration;
         public float value;
+        [Header("Damage")]
         public DamageType damageType; //for damage effect
         public ElementalDamage elementalDamage = new ElementalDamage
         {
@@ -20,11 +21,17 @@ namespace Data.Abilities
             Dark = new StatBase(StatType.DarkDamage,0),
             Lightning = new StatBase(StatType.LightningDamage,0),
         }; //for damage effect
+        [Header("Buff/debuff")]
         public int duration; // only relevant for continuous effects
         public StatType statAffected; // relevant for buffs
+        [Header("Summoning")]
         public List<SOUnitData> unitsSummon; //for summoning
+        [Header("Status effect")]
         public bool isDispelable;
         public DispelStatusEffectTarget dispelStatusEffectTarget;
+        public StatusEffectIterationType IterationType;
         public bool isPositive;
+        [Header("Delayed effect")]
+        public AbilityEffectData delayedEffectType; //for delayed effect
     }
 }

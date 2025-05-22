@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 
   icon: {fileID: 21300000, guid: feb8709f10385a94095b55fe8d0f625c, type: 3}
   abilityType: 4
-  targetType: 3
+  targetType: 1
   cooldown: 5
   effects:
   - effectType: 1

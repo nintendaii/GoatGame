@@ -15,8 +15,8 @@ MonoBehaviour:
   abilityName: Fire Ball
   description: 
   icon: {fileID: 21300000, guid: 21df9195ed43b004394e6d7913b03149, type: 3}
-  abilityType: 3
-  targetType: 2
+  abilityType: 4
+  targetType: 5
   cooldown: 10
   effects:
   - effectType: 2

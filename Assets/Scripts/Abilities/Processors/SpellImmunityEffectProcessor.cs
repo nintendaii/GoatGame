@@ -16,7 +16,8 @@ namespace Abilities.Processors
                     effectType = AbilityEffect.SpellImmunity,
                     isDispelable = effectData.isDispelable,
                     isPositive = effectData.isPositive,
-                    duration = effectData.duration
+                    duration = effectData.duration,
+                    iterationType = effectData.IterationType
                 };
                 foreach (var t in targets)
                 {

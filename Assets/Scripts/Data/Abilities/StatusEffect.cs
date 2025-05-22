@@ -9,6 +9,7 @@ namespace Data.Abilities
         public int duration;
         public bool isDispelable;
         public bool isPositive;
+        public StatusEffectIterationType iterationType;
         public float value; //for stat buff/debuff
         public StatType statAffected; //for stat buff/debuff
     }

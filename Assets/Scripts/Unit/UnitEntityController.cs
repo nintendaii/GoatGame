@@ -21,6 +21,8 @@ namespace Unit
         public List<AbilityRuntimeData> AbilitiesRuntime = new();
         public bool IsAlly;
 
+        private List<StatusEffect> _appliedStatusEffects = new();
+
         public bool IsAlive => unitEntityData.CoreStats.Health.Value >= 0;
 
         private void Awake()
@@ -51,6 +53,13 @@ namespace Unit
         public void ApplyStatusEffect(StatusEffect statusEffect)
         {
             _statusEffectSystem.ApplyStatusEffect(this, statusEffect);
+            _appliedStatusEffects.Add(statusEffect);
+        }
+
+        public void RemoveStatusEffect(StatusEffect statusEffect)
+        {
+            //This is called at the beginning of turn on which effect stopped its iteration
+            _appliedStatusEffects.Remove(statusEffect);
         }
 
         public void DispelStatusEffect(DispelStatusEffectTarget target)

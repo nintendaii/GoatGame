@@ -15,7 +15,8 @@ namespace Abilities.Processors
                     effectType = AbilityEffect.Disarm,
                     isDispelable = effectData.isDispelable,
                     isPositive = effectData.isPositive,
-                    duration = effectData.duration
+                    duration = effectData.duration,
+                    iterationType = effectData.IterationType
                 };
                 foreach (var t in effectProcessorData.Targets)
                 {

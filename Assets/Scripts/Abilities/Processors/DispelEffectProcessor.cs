@@ -1,20 +1,17 @@
-using System;
-using System.Collections.Generic;
 using Data.Abilities;
-using Unit;
+using Signals;
+using Zenject;
 
 namespace Abilities.Processors
 {
     public class DispelEffectProcessor: IAbilityEffectProcessor
     {
+        [Inject] private readonly SignalBus _signalBus;
         public void Apply(EffectProcessorData effectProcessorData, AbilityEffectData effectData)
         {
             if (effectProcessorData.Targets!=null)
             {
-                foreach (var t in effectProcessorData.Targets)
-                {
-                    t.DispelStatusEffect(effectData.dispelStatusEffectTarget);
-                }
+                _signalBus.Fire(new DispelStatusEffectSignal(effectProcessorData, effectData));
             }
         }
     }

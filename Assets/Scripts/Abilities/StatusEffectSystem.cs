@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Data.Abilities;
+using Data.Turn;
 using Turn;
 using Unit;
 using Zenject;
@@ -15,12 +16,55 @@ namespace Abilities
         public void ApplyStatusEffect(UnitEntityController target, StatusEffect effect)
         {
             var currentTurn = _turnManager.CurrentTurn;
-            _statusEffectsContainer[target].Add(new StatusEffectApplicationData{StatusEffectApplied = effect, ApplicationTurn = currentTurn});
+            _statusEffectsContainer[target].Add(new StatusEffectApplicationData{StatusEffectApplied = effect, ApplicationTurn = currentTurn, StatusEffectIteration = 0});
         }
 
-        public void CheckStatusEffects()
+        public bool ValidateStatusEffects(UnitEntityController unit)
         {
+            //validate status effects
+            var statusEffects = _statusEffectsContainer[unit];
+            AdvanceStatusEffects();
             
+            //validate current unit movement
+            var isUnitAllowedToMove = true;
+            foreach (var s in statusEffects)
+            {
+                if (s.StatusEffectApplied.effectType==AbilityEffect.Stun)
+                {
+                    isUnitAllowedToMove = false;
+                }
+            }
+
+            return isUnitAllowedToMove;
+        }
+
+        private void AdvanceStatusEffects()
+        {
+            var currentTurn = _turnManager.CurrentTurn;
+            foreach (var kvp in _statusEffectsContainer)
+            {
+                foreach (var s in kvp.Value)
+                {
+                    switch (s.StatusEffectApplied.iterationType)
+                    {
+                        case StatusEffectIterationType.EveryTurn:
+                            if (currentTurn-s.ApplicationTurn>=s.StatusEffectApplied.duration)
+                            {
+                                kvp.Key.RemoveStatusEffect(s.StatusEffectApplied);
+                            }
+                            break;
+                        case StatusEffectIterationType.EverySelfTurn:
+                            s.StatusEffectIteration++;
+                            if (s.StatusEffectIteration>=s.StatusEffectApplied.duration)
+                            {
+                                kvp.Key.RemoveStatusEffect(s.StatusEffectApplied);
+                            }
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+            }
         }
         
         public void DispelStatusEffect(UnitEntityController target, DispelStatusEffectTarget targetEffect)
@@ -61,11 +105,5 @@ namespace Abilities
             }
             _statusEffectsContainer[target].RemoveAll(effect => sToRemove.Contains(effect));
         }
-    }
-
-    public class StatusEffectApplicationData
-    {
-        public StatusEffect StatusEffectApplied;
-        public int ApplicationTurn;
     }
 }

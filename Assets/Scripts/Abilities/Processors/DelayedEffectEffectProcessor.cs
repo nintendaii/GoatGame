@@ -17,7 +17,8 @@ namespace Abilities.Processors
                     delayedEffect = effectData.delayedEffectType,
                     isDispelable = effectData.isDispelable,
                     isPositive = effectData.isPositive,
-                    duration = effectData.duration
+                    duration = effectData.duration,
+                    iterationType = effectData.IterationType
                 };
                 foreach (var t in effectProcessorData.Targets)
                 {

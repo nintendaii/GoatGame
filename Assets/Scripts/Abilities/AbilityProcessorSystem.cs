@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Abilities.Processors;
 using Data.Abilities;
-using SO;
-using Unit;
 using UnityEngine;
 using Zenject;
 
@@ -44,12 +42,5 @@ namespace Abilities
                     Debug.LogWarning($"No processor for effect type {effect.effectType}");
             }
         }
-    }
-
-    public class EffectProcessorData
-    {
-        public UnitEntityController Source;
-        public SOAbilityData Ability;
-        public List<UnitEntityController> Targets;
     }
 }
