@@ -1,5 +1,7 @@
 using System.Linq;
+using Abilities;
 using Combat;
+using Data.Abilities;
 using Formulas;
 using Signals;
 using Turn;
@@ -14,6 +16,7 @@ namespace Commands
         [Inject] private readonly CombatManager _combatManager;
         [Inject] private readonly UnitItemsUIContainer _unitItemsUIContainer;
         [Inject] private readonly TurnManager _turnManager;
+        [Inject] private readonly StatusEffectSystem _statusEffectSystem;
         [Inject] private readonly SignalBus _signalBus;
 
         public void Execute(ISignal signal)
@@ -34,6 +37,13 @@ namespace Commands
             }
             foreach (var u in filteredList)
             {
+                var s = _statusEffectSystem.GetUnitStatusEffects(u);
+                if (s?.Find(x=>x.StatusEffectApplied.effectType==AbilityEffect.PhysicalDamageImmunity) != null)
+                {
+                    Debug.Log($"{u.name} has PhysicalDamageImmunity so cant attack");
+                    continue;
+                }
+
                 var damage = DamageCalculator.CalculateAttackFinalDamage(param.Source.unitEntityData,
                     u.unitEntityData);
                 u.DealDamage(damage);

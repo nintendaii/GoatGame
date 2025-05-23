@@ -1594,7 +1594,7 @@ MonoBehaviour:
         ItemType: 0
         FlatBonuses: []
   UnitData: {fileID: 11400000, guid: 288d0da98aa6a482aabccbf9dc4f56f8, type: 2}
-  IsAlly: 0
+  UnitTeam: 0
 --- !u!4 &319811752
 Transform:
   m_ObjectHideFlags: 0
@@ -1890,7 +1890,7 @@ MonoBehaviour:
         ItemType: 0
         FlatBonuses: []
   UnitData: {fileID: 11400000, guid: aaa2e3c40f93f4d5b87c3e469e2f6b09, type: 2}
-  IsAlly: 0
+  UnitTeam: 1
 --- !u!4 &343393557
 Transform:
   m_ObjectHideFlags: 0
@@ -5217,7 +5217,7 @@ MonoBehaviour:
         ItemType: 0
         FlatBonuses: []
   UnitData: {fileID: 11400000, guid: c630070e53fae4cada46200c4dccd8cc, type: 2}
-  IsAlly: 1
+  UnitTeam: 1
 --- !u!4 &1003405172
 Transform:
   m_ObjectHideFlags: 0
@@ -6322,7 +6322,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1252347837
@@ -8327,7 +8327,7 @@ MonoBehaviour:
         ItemType: 0
         FlatBonuses: []
   UnitData: {fileID: 11400000, guid: 98063c2868762486d87d3ee43aa8a81b, type: 2}
-  IsAlly: 1
+  UnitTeam: 0
 --- !u!4 &1724266497
 Transform:
   m_ObjectHideFlags: 0
@@ -10380,9 +10380,9 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1724266497}
+  - {fileID: 319811752}
   - {fileID: 1003405172}
   - {fileID: 343393557}
-  - {fileID: 319811752}
   - {fileID: 2113013412}
   - {fileID: 977458371}
   - {fileID: 947006660}

@@ -125,6 +125,7 @@ MonoBehaviour:
         Rarity: 0
         ItemType: 0
         FlatBonuses: []
-    IsAlly: 0
   unitAvatarSprite: {fileID: 21300000, guid: cb0a81cd2c084d44fb5e5a1a5008e106, type: 3}
-  WeaponData: {fileID: 0}
+  weaponData: {fileID: 0}
+  abilities:
+  - {fileID: 11400000, guid: e71d5ec7c56124bb7bd6e10f0540e3d9, type: 2}

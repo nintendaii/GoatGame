@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Data.General;
 using Turn;
 using UnityEngine;
 using Zenject;
@@ -29,12 +30,12 @@ namespace Unit
             }
         }
 
-        public List<UnitEntityController> GetAllyUnits()
+        public List<UnitEntityController> GetAllyUnits(UnitTeam unitTeam)
         {
             var t = new List<UnitEntityController>();
             foreach (var u in UnitEntityContainer)
             {
-                if (u.IsAlly)
+                if (u.UnitTeam==unitTeam)
                 {
                     t.Add(u);
                 }
@@ -43,12 +44,12 @@ namespace Unit
             return t;
         }
         
-        public List<UnitEntityController> GetEnemyUnits()
+        public List<UnitEntityController> GetEnemyUnits(UnitTeam unitTeam)
         {
             var t = new List<UnitEntityController>();
             foreach (var u in UnitEntityContainer)
             {
-                if (!u.IsAlly)
+                if (u.UnitTeam!=unitTeam)
                 {
                     t.Add(u);
                 }

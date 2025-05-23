@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Abilities;
 using Data.Abilities;
+using Data.General;
 using Data.Stats;
 using NUnit.Framework;
 using Signals;
@@ -19,7 +20,7 @@ namespace Unit
         [Inject] private readonly SignalBus _signalBus;
         public SOUnitData UnitData;
         public List<AbilityRuntimeData> AbilitiesRuntime = new();
-        public bool IsAlly;
+        public UnitTeam UnitTeam;
 
         private List<StatusEffect> _appliedStatusEffects = new();
 
@@ -41,6 +42,7 @@ namespace Unit
 
         public void DealDamage(float damage)
         {
+            
             Debug.Log($"Dealed {damage}");
             unitEntityData.CoreStats.Health.Value -= damage;
         }

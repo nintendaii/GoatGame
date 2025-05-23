@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Data.Abilities;
-using Data.Turn;
 using Turn;
 using Unit;
 using UnityEngine;
@@ -102,7 +101,7 @@ namespace Abilities
                     if (isExpired)
                     {
                         unit.RemoveStatusEffect(s.StatusEffectApplied);
-                        Debug.Log($"{s.StatusEffectApplied.effectType} expried on {unit.name}");
+                        Debug.Log($"{s.StatusEffectApplied.effectType} expired on {unit.name}");
                         expiredEffects.Add(s);
                     }
                 }
@@ -118,7 +117,11 @@ namespace Abilities
             foreach (var unit in unitsToClean) _statusEffectsContainer.Remove(unit);
         }
 
-
+        public List<StatusEffectApplicationData> GetUnitStatusEffects(UnitEntityController unitEntityController)
+        {
+            return _statusEffectsContainer.GetValueOrDefault(unitEntityController);
+        }
+        
         public void DispelStatusEffect(UnitEntityController target, DispelStatusEffectTarget targetEffect)
         {
             var sToRemove = new List<StatusEffectApplicationData>();

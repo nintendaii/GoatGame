@@ -56,6 +56,8 @@ namespace Installers
             Container.BindSignal<DispelStatusEffectSignal>().ToMethod<DispelStatusEffectCommand>(command => command.Execute).FromNew();
             Container.DeclareSignal<StunStatusEffectSignal>();
             Container.BindSignal<StunStatusEffectSignal>().ToMethod<StunStatusEffectCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<PhysicalDamageImmunityStatusEffectSignal>();
+            Container.BindSignal<PhysicalDamageImmunityStatusEffectSignal>().ToMethod<PhysicalDamageImmunityStatusEffectCommand>(command => command.Execute).FromNew();
         }
     }
 }

@@ -1,28 +1,18 @@
-using System.Collections.Generic;
 using Data.Abilities;
-using Unit;
+using Signals;
+using Zenject;
 
 namespace Abilities.Processors
 {
     public class PhysicalDamageImmunityEffectProcessor: IAbilityEffectProcessor
     {
+        [Inject] private readonly SignalBus _signalBus;
         public void Apply(EffectProcessorData effectProcessorData, AbilityEffectData effectData)
         {
             var targets = effectProcessorData.Targets;
             if (targets!=null)
             {
-                var stunEffect = new StatusEffect
-                {
-                    effectType = AbilityEffect.PhysicalDamageImmunity,
-                    isDispelable = effectData.isDispelable,
-                    isPositive = effectData.isPositive,
-                    duration = effectData.duration,
-                    iterationType = effectData.IterationType
-                };
-                foreach (var t in targets)
-                {
-                    t.ApplyStatusEffect(stunEffect);
-                }
+                _signalBus.Fire(new PhysicalDamageImmunityStatusEffectSignal(effectProcessorData, effectData));
             }
         }
     }

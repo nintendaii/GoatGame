@@ -118,6 +118,7 @@ namespace Combat
 
         private List<UnitEntityController> ValidateTargets(AbilityTarget target)
         {
+            var unitTeam = currentTurnEntity.UnitTeam;
             var t = new List<UnitEntityController>();
             switch (target)
             {
@@ -130,9 +131,9 @@ namespace Combat
                     t.Add(currentTargetEntity);
                     break;
                 case AbilityTarget.Allies:
-                    return _unitsContainer.GetAllyUnits();
+                    return _unitsContainer.GetAllyUnits(unitTeam);
                 case AbilityTarget.Enemies:
-                    return _unitsContainer.GetEnemyUnits();
+                    return _unitsContainer.GetEnemyUnits(unitTeam);
                 case AbilityTarget.EveryoneInclusive:
                     return _unitsContainer.UnitEntityContainer;
                 case AbilityTarget.EveryoneExclusive:
