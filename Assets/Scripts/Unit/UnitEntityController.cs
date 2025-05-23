@@ -64,11 +64,6 @@ namespace Unit
             _appliedStatusEffects.Remove(statusEffect);
         }
 
-        public void DispelStatusEffect(DispelStatusEffectTarget target)
-        {
-            _statusEffectSystem.DispelStatusEffect(this, target);
-        }
-
         public void ManipulateStat(StatType statType, float value)
         {
             unitEntityData.GetAllStats()[statType] += value;

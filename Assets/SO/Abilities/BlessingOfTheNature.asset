@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 393bc06ffa794d23b4dbbbc703dd6ca9, type: 3}
-  m_Name: HolyLight
+  m_Name: BlessingOfTheNature
   m_EditorClassIdentifier: 
-  abilityName: Heal
+  abilityName: Dispel
   description: 
-  icon: {fileID: 21300000, guid: feb8709f10385a94095b55fe8d0f625c, type: 3}
-  abilityType: 4
-  targetType: 1
-  cooldown: 5
+  icon: {fileID: 21300000, guid: c3aab7237df394c4890e647a4ae580ea, type: 3}
+  abilityType: 3
+  targetType: 0
+  cooldown: 6
   effects:
-  - effectType: 1
-    value: 20
+  - effectType: 3
+    value: 0
     damageType: 0
     elementalDamage:
       Fire:
@@ -40,6 +40,6 @@ MonoBehaviour:
     unitsSummon: []
     duration: 0
     isDispelable: 0
-    dispelStatusEffectTarget: 0
+    dispelStatusEffectTarget: 2
     IterationType: 0
     isPositive: 0

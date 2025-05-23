@@ -127,4 +127,5 @@ MonoBehaviour:
         FlatBonuses: []
   unitAvatarSprite: {fileID: 21300000, guid: 03fd619cbbb35434fb15a21342994f65, type: 3}
   weaponData: {fileID: 0}
-  abilities: []
+  abilities:
+  - {fileID: 11400000, guid: bd204b11b2f1a452883e852e8153ddd1, type: 2}

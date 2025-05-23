@@ -129,3 +129,4 @@ MonoBehaviour:
   weaponData: {fileID: 0}
   abilities:
   - {fileID: 11400000, guid: e71d5ec7c56124bb7bd6e10f0540e3d9, type: 2}
+  - {fileID: 11400000, guid: 1d5c4ce95aaf04ee4bcd5f5e61bf1d9d, type: 2}

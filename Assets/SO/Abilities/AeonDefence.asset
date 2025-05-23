@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 393bc06ffa794d23b4dbbbc703dd6ca9, type: 3}
-  m_Name: HolyLight
+  m_Name: AeonDefence
   m_EditorClassIdentifier: 
-  abilityName: Heal
+  abilityName: SpellImmunity
   description: 
-  icon: {fileID: 21300000, guid: feb8709f10385a94095b55fe8d0f625c, type: 3}
+  icon: {fileID: 21300000, guid: e691198d56e3a1848b5009e1ff94dbb5, type: 3}
   abilityType: 4
   targetType: 1
   cooldown: 5
   effects:
-  - effectType: 1
-    value: 20
+  - effectType: 6
+    value: 0
     damageType: 0
     elementalDamage:
       Fire:
@@ -38,8 +38,8 @@ MonoBehaviour:
     effectDuration: 0
     statAffected: 0
     unitsSummon: []
-    duration: 0
-    isDispelable: 0
+    duration: 5
+    isDispelable: 1
     dispelStatusEffectTarget: 0
     IterationType: 0
-    isPositive: 0
+    isPositive: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393bc06ffa794d23b4dbbbc703dd6ca9, type: 3}
   m_Name: DemolitionHamer
   m_EditorClassIdentifier: 
-  abilityName: Demolition Hammer
+  abilityName: Stun
   description: 
   icon: {fileID: 21300000, guid: aeb31def086466745b570d082197ee1f, type: 3}
   abilityType: 3
