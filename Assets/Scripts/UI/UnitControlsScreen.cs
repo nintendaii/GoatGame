@@ -86,7 +86,7 @@ namespace UI
         
         private void OnAbilityExecuted(SOAbilityData obj)
         {
-            _combatManager.UseAbility(obj);
+            _signalBus.Fire(new ProcessAbilitySignal(obj));
         }
     }
 }

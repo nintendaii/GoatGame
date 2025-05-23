@@ -44,8 +44,8 @@ namespace Installers
             
             Container.DeclareSignal<AdvanceNextTurnSignal>();
             Container.BindSignal<AdvanceNextTurnSignal>().ToMethod<AdvanceNextTurnCommand>(command => command.Execute).FromNew();
-            Container.DeclareSignal<UseAbilitySignal>();
-            Container.BindSignal<UseAbilitySignal>().ToMethod<UseAbilityCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<ProcessAbilitySignal>();
+            Container.BindSignal<ProcessAbilitySignal>().ToMethod<ProcessAbilityCommand>(command => command.Execute).FromNew();
             Container.DeclareSignal<DealAttackDamageUnitSignal>();
             Container.BindSignal<DealAttackDamageUnitSignal>().ToMethod<DealAttackDamageUnitCommand>(command => command.Execute).FromNew();
             Container.DeclareSignal<DealEffectDamageUnitSignal>();
@@ -58,6 +58,8 @@ namespace Installers
             Container.BindSignal<StunStatusEffectSignal>().ToMethod<StunStatusEffectCommand>(command => command.Execute).FromNew();
             Container.DeclareSignal<PhysicalDamageImmunityStatusEffectSignal>();
             Container.BindSignal<PhysicalDamageImmunityStatusEffectSignal>().ToMethod<PhysicalDamageImmunityStatusEffectCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<SpellImmunityStatusEffectSignal>();
+            Container.BindSignal<SpellImmunityStatusEffectSignal>().ToMethod<SpellImmunityStatusEffectCommand>(command => command.Execute).FromNew();
         }
     }
 }

@@ -4,6 +4,7 @@ using Formulas;
 using Signals;
 using Turn;
 using UI;
+using UnityEngine;
 using Zenject;
 
 namespace Commands
@@ -21,6 +22,7 @@ namespace Commands
             var filteredList = param.EffectProcessorData.Targets.Where(x => x.IsAlive).ToList();
             if (filteredList.Count==0)
             {
+                Debug.Log("0 on damage");
                 return;
             }
             foreach (var u in filteredList)

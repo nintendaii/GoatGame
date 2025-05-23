@@ -74,20 +74,6 @@ namespace Unit
             unitEntityData.GetAllStats()[statType] += value;
         }
 
-        public void UseAbility(SOAbilityData abilityData, List<UnitEntityController> targets)
-        {
-            var ab = AbilitiesRuntime.Find(x => x.AbilityData == abilityData);
-            if (ab!=null)
-            {
-                if (!ab.IsReady)
-                {
-                    Debug.Log($"Ability {abilityData.abilityName} is not ready");
-                    return;
-                }
-                _signalBus.Fire(new UseAbilitySignal(this, abilityData, targets));
-            }
-        }
-
         public void CooldownAbility(SOAbilityData abilityData)
         {
             var ab = AbilitiesRuntime.Find(x => x.AbilityData == abilityData);

@@ -1,5 +1,7 @@
 using Data.Abilities;
+using ModestTree;
 using Signals;
+using UnityEngine;
 
 namespace Commands
 {
@@ -17,8 +19,10 @@ namespace Commands
                 duration = effectData.duration,
                 iterationType = effectData.IterationType
             };
+            Debug.Log("In stunn");
             foreach (var t in param.EffectProcessorData.Targets)
             {
+                Debug.Log($"Applied to {t.name}");
                 t.ApplyStatusEffect(stunEffect);
             }
         }

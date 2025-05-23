@@ -47,12 +47,9 @@ namespace Abilities
             //validate status effects
             var isUnitAllowedToMove = true;
             IncrementStatusEffect(unit);
-            Debug.Log("Bef"+_statusEffectsContainer.Count);
             AdvanceStatusEffects();
-            Debug.Log("aft"+_statusEffectsContainer.Count);
             if (!_statusEffectsContainer.ContainsKey(unit)) 
             {
-                Debug.Log("LAMO HERE");
                 return true;
             }
             var statusEffects = _statusEffectsContainer[unit];
@@ -119,7 +116,7 @@ namespace Abilities
 
         public List<StatusEffectApplicationData> GetUnitStatusEffects(UnitEntityController unitEntityController)
         {
-            return _statusEffectsContainer.GetValueOrDefault(unitEntityController);
+            return unitEntityController==null ? null : _statusEffectsContainer.GetValueOrDefault(unitEntityController);
         }
         
         public void DispelStatusEffect(UnitEntityController target, DispelStatusEffectTarget targetEffect)

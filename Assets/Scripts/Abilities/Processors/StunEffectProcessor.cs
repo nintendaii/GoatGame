@@ -1,5 +1,6 @@
 using Data.Abilities;
 using Signals;
+using UnityEngine;
 using Zenject;
 
 namespace Abilities.Processors
@@ -13,6 +14,10 @@ namespace Abilities.Processors
             if (targets!=null)
             {
                 _signalBus.Fire(new StunStatusEffectSignal(effectProcessorData, effectData));
+            }
+            else
+            {
+                Debug.LogError("Targets are empty");
             }
         }
     }
