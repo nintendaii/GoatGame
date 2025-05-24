@@ -1,0 +1,36 @@
+using System.Linq;
+using Signals;
+using Turn;
+using UI;
+using Zenject;
+
+namespace Commands
+{
+    public class DeathEffectCommand: ICommandWithParameters
+    {
+        [Inject] private readonly SignalBus _signalBus;
+        [Inject] private readonly UnitItemsUIContainer _unitItemsUIContainer;
+        [Inject] private readonly TurnManager _turnManager;
+
+        public void Execute(ISignal signal)
+        {
+            var param = (DeathEffectSignal)signal;
+            var filteredList = param.EffectProcessorData.Targets.Where(x => x.IsAlive).ToList();
+            if (filteredList.Count==0)
+            {
+                return;
+            }
+            foreach (var u in filteredList)
+            {
+                u.Kill();
+                _unitItemsUIContainer.UpdateHealth(u.unitEntityData.CoreStats.Health.Value,u.unitEntityData.Id);
+                if (!u.IsAlive)
+                {
+                    _turnManager.RemoveUnitFromQueue(u);
+                }
+            }
+            
+            _signalBus.Fire(new AdvanceNextTurnSignal());
+        }
+    }
+}

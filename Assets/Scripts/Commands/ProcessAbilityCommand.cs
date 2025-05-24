@@ -62,7 +62,7 @@ namespace Commands
                     case AbilityType.Target:
                         if (ValidateSpellImmunity(currentTargetEntity))
                         {
-                            Debug.Log($"{currentTargetEntity.name} has spell immunity so cant use {soAbilityData.abilityName}");
+                            Debug.LogWarning($"{currentTargetEntity.name} has spell immunity so cant use {soAbilityData.abilityName}");
                             return;
                         }
 

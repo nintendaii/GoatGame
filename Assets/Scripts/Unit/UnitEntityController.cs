@@ -24,7 +24,7 @@ namespace Unit
 
         private List<StatusEffect> _appliedStatusEffects = new();
 
-        public bool IsAlive => unitEntityData.CoreStats.Health.Value >= 0;
+        public bool IsAlive => unitEntityData.CoreStats.Health.Value > 0;
 
         private void Awake()
         {
@@ -89,6 +89,7 @@ namespace Unit
         public void Kill()
         {
             //TODO implement this
+            unitEntityData.CoreStats.Health.Value = 0;
         }
     }
 }

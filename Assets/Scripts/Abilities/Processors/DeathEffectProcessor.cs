@@ -1,19 +1,20 @@
 using System.Collections.Generic;
+using Commands;
 using Data.Abilities;
+using Signals;
 using Unit;
+using Zenject;
 
 namespace Abilities.Processors
 {
     public class DeathEffectProcessor: IAbilityEffectProcessor
     {
+        [Inject] private readonly SignalBus _signalBus;
         public void Apply(EffectProcessorData effectProcessorData, AbilityEffectData effectData)
         {
             if (effectProcessorData.Targets!=null)
             {
-                foreach (var t in effectProcessorData.Targets)
-                {
-                    t.Kill();
-                }
+                _signalBus.Fire(new DeathEffectSignal(effectProcessorData));
             }
         }
     }
