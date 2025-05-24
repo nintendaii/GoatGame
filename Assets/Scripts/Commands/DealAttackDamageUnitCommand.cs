@@ -33,8 +33,16 @@ namespace Commands
 
             if (filteredList.Count==0)
             {
+                Debug.LogWarning("None of targets is alive in DealAttackDamageUnitSignal");
                 return;
             }
+
+            if (_statusEffectSystem.CheckIfUnitHasStatusEffect(param.Source, AbilityEffect.Disarm))
+            {
+                Debug.LogWarning($"{param.Source} cant attack due to Disarm");
+                return;
+            }
+            
             foreach (var u in filteredList)
             {
                 var s = _statusEffectSystem.GetUnitStatusEffects(u);

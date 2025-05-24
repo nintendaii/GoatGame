@@ -118,6 +118,18 @@ namespace Abilities
         {
             return unitEntityController==null ? null : _statusEffectsContainer.GetValueOrDefault(unitEntityController);
         }
+
+        public bool CheckIfUnitHasStatusEffect(UnitEntityController unitEntityController, AbilityEffect statusEffect)
+        {
+            var unit = GetUnitStatusEffects(unitEntityController);
+            if (unit==null || unit.Count==0)
+            {
+                return false;
+            }
+
+            var effect = unit.Find(x => x.StatusEffectApplied.effectType == statusEffect);
+            return effect != null;
+        }
         
         public void DispelStatusEffect(UnitEntityController target, DispelStatusEffectTarget targetEffect)
         {

@@ -60,6 +60,8 @@ namespace Installers
             Container.BindSignal<PhysicalDamageImmunityStatusEffectSignal>().ToMethod<PhysicalDamageImmunityStatusEffectCommand>(command => command.Execute).FromNew();
             Container.DeclareSignal<SpellImmunityStatusEffectSignal>();
             Container.BindSignal<SpellImmunityStatusEffectSignal>().ToMethod<SpellImmunityStatusEffectCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<DisarmStatusEffectSignal>();
+            Container.BindSignal<DisarmStatusEffectSignal>().ToMethod<DisarmStatusEffectCommand>(command => command.Execute).FromNew();
         }
     }
 }

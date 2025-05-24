@@ -1,15 +1,19 @@
+using Abilities;
 using Data.Abilities;
 using Signals;
+using Zenject;
 
 namespace Commands
 {
     public class PhysicalDamageImmunityStatusEffectCommand: ICommandWithParameters
     {
+        [Inject] private readonly StatusEffectSystem _statusEffectSystem;
+
         public void Execute(ISignal signal)
         {
             var param = (PhysicalDamageImmunityStatusEffectSignal)signal;
             var effectData = param.AbilityEffectData;
-            var pDIEffect = new StatusEffect
+            var pDiEffect = new StatusEffect
             {
                 effectType = AbilityEffect.PhysicalDamageImmunity,
                 isDispelable = effectData.isDispelable,
@@ -19,7 +23,7 @@ namespace Commands
             };
             foreach (var t in param.EffectProcessorData.Targets)
             {
-                t.ApplyStatusEffect(pDIEffect);
+                _statusEffectSystem.ApplyStatusEffect(t, pDiEffect);
             }
         }
     }

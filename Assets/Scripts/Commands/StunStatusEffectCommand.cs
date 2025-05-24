@@ -1,12 +1,16 @@
+using Abilities;
 using Data.Abilities;
 using ModestTree;
 using Signals;
 using UnityEngine;
+using Zenject;
 
 namespace Commands
 {
     public class StunStatusEffectCommand: ICommandWithParameters
     {
+        [Inject] private readonly StatusEffectSystem _statusEffectSystem;
+
         public void Execute(ISignal signal)
         {
             var param = (StunStatusEffectSignal)signal;
@@ -19,11 +23,9 @@ namespace Commands
                 duration = effectData.duration,
                 iterationType = effectData.IterationType
             };
-            Debug.Log("In stunn");
             foreach (var t in param.EffectProcessorData.Targets)
             {
-                Debug.Log($"Applied to {t.name}");
-                t.ApplyStatusEffect(stunEffect);
+                _statusEffectSystem.ApplyStatusEffect(t, stunEffect);
             }
         }
     }

@@ -5,16 +5,16 @@ using Zenject;
 
 namespace Commands
 {
-    public class SpellImmunityStatusEffectCommand: ICommandWithParameters
+    public class DisarmStatusEffectCommand: ICommandWithParameters
     {
         [Inject] private readonly StatusEffectSystem _statusEffectSystem;
-
+        
         public void Execute(ISignal signal)
         {
-            var param = (SpellImmunityStatusEffectSignal)signal;
+            var param = (DisarmStatusEffectSignal)signal;
             var statusEffect = new StatusEffect
             {
-                effectType = AbilityEffect.SpellImmunity,
+                effectType = AbilityEffect.Disarm,
                 isDispelable = param.AbilityEffectData.isDispelable,
                 isPositive = param.AbilityEffectData.isPositive,
                 duration = param.AbilityEffectData.duration,
