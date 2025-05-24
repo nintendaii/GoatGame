@@ -25,13 +25,7 @@ namespace Turn
             CurrentTurn = 0;
             foreach (var u in units)
             {
-                var turnData = new TurnUnitData
-                {
-                    UnitEntityController = u,
-                    ActionPoints = 0f,
-                    Speed = (int)u.unitEntityData.CoreStats.Speed.Value
-                };
-                unitsInGame.Add(turnData);
+                AddUnitToQueue(u);
             }
         }
         
@@ -67,22 +61,8 @@ namespace Turn
         
         public TurnUnitData ExecuteTurn()
         {
-            //REPLACE LATER
-            //CheckAliveStatus();
             AdvanceTurn();
             return SimulateUntilNextTurn();
-        }
-
-        private void CheckAliveStatus()
-        {
-            foreach (var u in _unitsContainer.UnitEntityContainer)
-            {
-                if (!u.IsAlive)
-                {
-                    var unitToRemove = unitsInGame.Find(x => x.UnitEntityController.unitEntityData.Id == u.unitEntityData.Id);
-                    unitsInGame.Remove(unitToRemove);
-                }
-            }
         }
 
         public List<TurnUnitData> GenerateTurnOrder(int numTurns)
@@ -105,7 +85,6 @@ namespace Turn
                 });
             }
 
-
             // Restore original action points
             foreach (var unit in unitsInGame)
             {
@@ -125,6 +104,18 @@ namespace Turn
             }
             CurrentTurn = 0;
             turnQueue.Clear();
+        }
+
+        public void AddUnitToQueue(UnitEntityController unitEntityController)
+        {
+            if (unitsInGame.Find(x => x.UnitEntityController == unitEntityController) != null) return;
+            var turnData = new TurnUnitData
+            {
+                UnitEntityController = unitEntityController,
+                ActionPoints = 0f,
+                Speed = (int)unitEntityController.unitEntityData.CoreStats.Speed.Value
+            };
+            unitsInGame.Add(turnData);
         }
 
         public void RemoveUnitFromQueue(UnitEntityController currentTargetEntity)

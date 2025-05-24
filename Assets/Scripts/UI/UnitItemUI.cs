@@ -74,7 +74,10 @@ namespace UI
             {
                 value = 0;
                 unitAvatarImage.color = Color.red;
-                targetButton.interactable = false;
+            }
+            else
+            {
+                unitAvatarImage.color = Color.white;
             }
             healthBarFillImage.fillAmount = Mathf.Clamp01(value / maxHealth);
             healthText.text = value.ToString();

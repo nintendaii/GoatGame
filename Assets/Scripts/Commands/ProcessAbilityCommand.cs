@@ -35,11 +35,7 @@ namespace Commands
             var param = (ProcessAbilitySignal)signal;
             currentTargetEntity = _combatManager.currentTargetEntity;
             currentTurnEntity = _combatManager.currentTurnEntity;
-            // if (!CheckAbilityReadiness(param.AbilityData)) //TODO maybe remove because of double cooldown check
-            // {
-            //     Debug.Log("Ability is not ready");
-            //     return;
-            // }
+            
             if (_statusEffectSystem.CheckIfUnitHasStatusEffect(currentTurnEntity, AbilityEffect.Silence))
             {
                 Debug.LogWarning($"{currentTurnEntity.name} cant use abilities due to Silence");
@@ -109,22 +105,6 @@ namespace Commands
             });
         }
 
-        // private bool CheckAbilityReadiness(SOAbilityData abilityData)
-        // {
-        //     var ab = currentTurnEntity.AbilitiesRuntime.Find(x => x.AbilityData == abilityData);
-        //     if (ab!=null)
-        //     {
-        //         if (!ab.IsReady)
-        //         {
-        //             Debug.Log($"Ability {abilityData.abilityName} is not ready");
-        //             return false;
-        //         }
-        //         return true;
-        //     }
-        //
-        //     return false;
-        // }
-        
         private bool ValidateAbilityCooldown(SOAbilityData soAbilityData)
         {
             if (_abilityCooldownSystem.CheckIfAbilityOnCooldown(new AbilityOwnerData{ UnitEntityController = currentTurnEntity, AbilityData = soAbilityData}))

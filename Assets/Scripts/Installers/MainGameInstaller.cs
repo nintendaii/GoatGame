@@ -66,6 +66,8 @@ namespace Installers
             Container.BindSignal<SilenceStatusEffectSignal>().ToMethod<SilenceStatusEffectCommand>(command => command.Execute).FromNew();
             Container.DeclareSignal<DeathEffectSignal>();
             Container.BindSignal<DeathEffectSignal>().ToMethod<DeathEffectCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<ResurrectionEffectSignal>();
+            Container.BindSignal<ResurrectionEffectSignal>().ToMethod<ResurrectionEffectCommand>(command => command.Execute).FromNew();
         }
     }
 }

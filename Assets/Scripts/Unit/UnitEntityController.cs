@@ -40,16 +40,20 @@ namespace Unit
             }
         }
 
-        public void DealDamage(float damage)
+        private void ManipulateHealth(float value)
         {
-            
-            Debug.Log($"Dealed {damage}");
-            unitEntityData.CoreStats.Health.Value -= damage;
+            Debug.Log(value < 0 ? $"Deal {value} damage" : $"Restored {value} health");
+            unitEntityData.CoreStats.Health.Value += value;
         }
 
         public void Heal(float value)
         {
-            unitEntityData.CoreStats.Health.Value += value;
+            ManipulateHealth(value);
+        }
+
+        public void DealDamage(float value)
+        {
+            ManipulateHealth(-value);
         }
 
         public void ApplyStatusEffect(StatusEffect statusEffect)
@@ -81,15 +85,14 @@ namespace Unit
             }
         }
 
-        public void Resurrect()
+        public void Resurrect(float value)
         {
-            //TODO implement this
+            Heal(value);
         }
 
         public void Kill()
         {
-            //TODO implement this
-            unitEntityData.CoreStats.Health.Value = 0;
+            DealDamage(unitEntityData.CoreStats.Health.Value);
         }
     }
 }
