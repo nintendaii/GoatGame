@@ -62,6 +62,8 @@ namespace Installers
             Container.BindSignal<SpellImmunityStatusEffectSignal>().ToMethod<SpellImmunityStatusEffectCommand>(command => command.Execute).FromNew();
             Container.DeclareSignal<DisarmStatusEffectSignal>();
             Container.BindSignal<DisarmStatusEffectSignal>().ToMethod<DisarmStatusEffectCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<SilenceStatusEffectSignal>();
+            Container.BindSignal<SilenceStatusEffectSignal>().ToMethod<SilenceStatusEffectCommand>(command => command.Execute).FromNew();
         }
     }
 }

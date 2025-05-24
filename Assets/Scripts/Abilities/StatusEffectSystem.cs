@@ -134,6 +134,11 @@ namespace Abilities
         public void DispelStatusEffect(UnitEntityController target, DispelStatusEffectTarget targetEffect)
         {
             var sToRemove = new List<StatusEffectApplicationData>();
+            if (!_statusEffectsContainer.ContainsKey(target))
+            {
+                Debug.Log($"{target.name} has no Status Effects");
+                return;
+            }
             switch (targetEffect)
             {
                 //TODO Handle dispel logic

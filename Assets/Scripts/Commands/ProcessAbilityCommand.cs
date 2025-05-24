@@ -40,6 +40,11 @@ namespace Commands
             //     Debug.Log("Ability is not ready");
             //     return;
             // }
+            if (_statusEffectSystem.CheckIfUnitHasStatusEffect(currentTurnEntity, AbilityEffect.Silence))
+            {
+                Debug.LogWarning($"{currentTurnEntity.name} cant use abilities due to Silence");
+                return;
+            }
             var soAbilityData = param.AbilityData;
             var targets = new List<UnitEntityController>();
             if (ValidateAbilityCooldown(soAbilityData))
