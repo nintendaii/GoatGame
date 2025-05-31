@@ -13,7 +13,7 @@ namespace Data.Abilities
         public float value;
         [Header("Damage")]
         public DamageType damageType; //for damage effect
-        public ElementalDamage elementalDamage = new ElementalDamage
+        public ElementalDamage elementalDamage = new()
         {
             Fire = new StatBase(StatType.FireDamage,0),
             Ice = new StatBase(StatType.IceDamage,0),
@@ -31,7 +31,35 @@ namespace Data.Abilities
         public DispelStatusEffectTarget dispelStatusEffectTarget;
         public StatusEffectIterationType IterationType;
         public bool isPositive;
-        [Header("Delayed effect")]
-        public AbilityEffectData delayedEffectType; //for delayed effect
+        [Header("Delayed effect")] 
+        public bool hasDelayedEffect; //for delayed effect
+        public AbilityEffect delayedEffectType;
+        
+        public AbilityEffectData Clone()
+        {
+            return new AbilityEffectData
+            {
+                effectType = this.effectType,
+                value = this.value,
+                damageType = this.damageType,
+                elementalDamage = new ElementalDamage
+                {
+                    Fire = this.elementalDamage.Fire.Clone(),
+                    Ice = this.elementalDamage.Ice.Clone(),
+                    Dark = this.elementalDamage.Dark.Clone(),
+                    Lightning = this.elementalDamage.Lightning.Clone()
+                },
+                effectDuration = this.effectDuration,
+                statAffected = this.statAffected,
+                unitsSummon = this.unitsSummon != null ? new List<SOUnitData>(this.unitsSummon) : null,
+                duration = this.duration,
+                isDispelable = this.isDispelable,
+                dispelStatusEffectTarget = this.dispelStatusEffectTarget,
+                IterationType = this.IterationType,
+                isPositive = this.isPositive,
+                hasDelayedEffect = this.hasDelayedEffect,
+                delayedEffectType = this.delayedEffectType
+            };
+        }
     }
 }

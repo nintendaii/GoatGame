@@ -9,5 +9,6 @@ namespace Abilities
         public int ApplicationTurn;
         public int StatusEffectIteration;
         public Action OnEffectExpired;
+        public Action OnEffectActivated;
     }
 }

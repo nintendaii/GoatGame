@@ -13,7 +13,7 @@ namespace Abilities
         [Inject] private readonly TurnManager _turnManager;
         public Dictionary<UnitEntityController, List<StatusEffectApplicationData>> _statusEffectsContainer = new();
 
-        public void ApplyStatusEffect(UnitEntityController target, StatusEffect effect, Action onEffectExpired = null)
+        public void ApplyStatusEffect(UnitEntityController target, StatusEffect effect, Action onEffectExpired = null, Action onEffectActivated = null)
         {
             var currentTurn = _turnManager.CurrentTurn;
 
@@ -28,7 +28,8 @@ namespace Abilities
                 StatusEffectApplied = effect,
                 ApplicationTurn = currentTurn,
                 StatusEffectIteration = 0,
-                OnEffectExpired = onEffectExpired
+                OnEffectExpired = onEffectExpired,
+                OnEffectActivated = onEffectActivated
             });
         }
 
@@ -69,6 +70,7 @@ namespace Abilities
 
         private void AdvanceStatusEffects()
         {
+            Action ac = default!;
             var currentTurn = _turnManager.CurrentTurn;
             var unitsToClean = new List<UnitEntityController>();
 
@@ -100,6 +102,7 @@ namespace Abilities
                     {
                         unit.RemoveStatusEffect(s.StatusEffectApplied);
                         s.OnEffectExpired?.Invoke();
+                        ac = s.OnEffectActivated;
                         Debug.Log($"{s.StatusEffectApplied.effectType} expired on {unit.name}");
                         expiredEffects.Add(s);
                     }
@@ -114,6 +117,7 @@ namespace Abilities
 
             // Cleanup empty units
             foreach (var unit in unitsToClean) _statusEffectsContainer.Remove(unit);
+            ac?.Invoke();
         }
 
         public List<StatusEffectApplicationData> GetUnitStatusEffects(UnitEntityController unitEntityController)

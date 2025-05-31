@@ -70,6 +70,8 @@ namespace Installers
             Container.BindSignal<ResurrectionEffectSignal>().ToMethod<ResurrectionEffectCommand>(command => command.Execute).FromNew();
             Container.DeclareSignal<StatManipulationStatusEffectSignal>();
             Container.BindSignal<StatManipulationStatusEffectSignal>().ToMethod<StatManipulationStatusEffectCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<DelayedEffectStatusEffectSignal>();
+            Container.BindSignal<DelayedEffectStatusEffectSignal>().ToMethod<DelayedEffectStatusEffectCommand>(command => command.Execute).FromNew();
         }
     }
 }

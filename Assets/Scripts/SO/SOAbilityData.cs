@@ -17,5 +17,25 @@ namespace SO
         
         [Header("Effects")]
         public List<AbilityEffectData> effects;
+        
+        public SOAbilityData Clone()
+        {
+            var copy = CreateInstance<SOAbilityData>();
+
+            copy.abilityName = this.abilityName;
+            copy.description = this.description;
+            copy.icon = this.icon;
+            copy.abilityType = this.abilityType;
+            copy.targetType = this.targetType;
+            copy.cooldown = this.cooldown;
+
+            copy.effects = new List<AbilityEffectData>();
+            foreach (var effect in this.effects)
+            {
+                copy.effects.Add(effect.Clone());
+            }
+
+            return copy;
+        }
     }
 }
