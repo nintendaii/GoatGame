@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 393bc06ffa794d23b4dbbbc703dd6ca9, type: 3}
-  m_Name: HolyLight
+  m_Name: BestialStrength
   m_EditorClassIdentifier: 
-  abilityName: Heal
+  abilityName: Buff
   description: 
-  icon: {fileID: 21300000, guid: feb8709f10385a94095b55fe8d0f625c, type: 3}
+  icon: {fileID: 21300000, guid: c46be55a65cb30e44b7c89e3c0d531da, type: 3}
   abilityType: 3
-  targetType: 1
+  targetType: 0
   cooldown: 5
   effects:
-  - effectType: 1
-    value: 20
+  - effectType: 0
+    value: 100
     damageType: 0
     elementalDamage:
       Fire:
@@ -36,9 +36,33 @@ MonoBehaviour:
         Type: 0
         Value: 0
     effectDuration: 0
-    statAffected: 0
+    statAffected: 4
     unitsSummon: []
-    duration: 0
+    duration: 9
+    isDispelable: 0
+    dispelStatusEffectTarget: 0
+    IterationType: 0
+    isPositive: 0
+  - effectType: 2
+    value: 30
+    damageType: 0
+    elementalDamage:
+      Fire:
+        Type: 0
+        Value: 0
+      Ice:
+        Type: 0
+        Value: 0
+      Dark:
+        Type: 0
+        Value: 0
+      Lightning:
+        Type: 0
+        Value: 0
+    effectDuration: 0
+    statAffected: 6
+    unitsSummon: []
+    duration: 9
     isDispelable: 0
     dispelStatusEffectTarget: 0
     IterationType: 0

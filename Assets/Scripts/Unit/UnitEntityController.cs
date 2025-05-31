@@ -18,7 +18,7 @@ namespace Unit
         [NonSerialized] public Sprite unitAvatarSprite;
         [Inject] private readonly StatusEffectSystem _statusEffectSystem;
         [Inject] private readonly SignalBus _signalBus;
-        public SOUnitData UnitData;
+        public SOUnitData UnitDataSO;
         public List<AbilityRuntimeData> AbilitiesRuntime = new();
         public UnitTeam UnitTeam;
 
@@ -28,9 +28,9 @@ namespace Unit
 
         private void Awake()
         {
-            unitEntityData = UnitData.Clone();
-            unitAvatarSprite = UnitData.unitAvatarSprite;
-            foreach (var a in UnitData.abilities)
+            unitEntityData = UnitDataSO.Clone();
+            unitAvatarSprite = UnitDataSO.unitAvatarSprite;
+            foreach (var a in UnitDataSO.abilities)
             {
                 AbilitiesRuntime.Add(new AbilityRuntimeData
                 {
@@ -70,7 +70,13 @@ namespace Unit
 
         public void ManipulateStat(StatType statType, float value)
         {
-            unitEntityData.GetAllStats()[statType] += value;
+            if (statType==StatType.Health && IsAlive && unitEntityData.CoreStats.Health.Value-value<=0)
+            {
+                unitEntityData.CoreStats.Health.Value = 1;
+                return;
+            }
+            //rework this
+            unitEntityData.GetAllStats()[statType].Value += value;
         }
 
         public void CooldownAbility(SOAbilityData abilityData)

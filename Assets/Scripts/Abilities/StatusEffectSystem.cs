@@ -11,9 +11,9 @@ namespace Abilities
     public class StatusEffectSystem
     {
         [Inject] private readonly TurnManager _turnManager;
-        private Dictionary<UnitEntityController, List<StatusEffectApplicationData>> _statusEffectsContainer = new();
+        public Dictionary<UnitEntityController, List<StatusEffectApplicationData>> _statusEffectsContainer = new();
 
-        public void ApplyStatusEffect(UnitEntityController target, StatusEffect effect)
+        public void ApplyStatusEffect(UnitEntityController target, StatusEffect effect, Action onEffectExpired = null)
         {
             var currentTurn = _turnManager.CurrentTurn;
 
@@ -27,7 +27,8 @@ namespace Abilities
             {
                 StatusEffectApplied = effect,
                 ApplicationTurn = currentTurn,
-                StatusEffectIteration = 0
+                StatusEffectIteration = 0,
+                OnEffectExpired = onEffectExpired
             });
         }
 
@@ -98,6 +99,7 @@ namespace Abilities
                     if (isExpired)
                     {
                         unit.RemoveStatusEffect(s.StatusEffectApplied);
+                        s.OnEffectExpired?.Invoke();
                         Debug.Log($"{s.StatusEffectApplied.effectType} expired on {unit.name}");
                         expiredEffects.Add(s);
                     }
@@ -163,6 +165,10 @@ namespace Abilities
                     throw new ArgumentOutOfRangeException(nameof(targetEffect), targetEffect, null);
             }
 
+            foreach (var s in sToRemove)
+            {
+                s.OnEffectExpired?.Invoke();
+            }
             _statusEffectsContainer[target].RemoveAll(effect => sToRemove.Contains(effect));
         }
     }

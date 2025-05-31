@@ -82,5 +82,12 @@ namespace UI
             healthBarFillImage.fillAmount = Mathf.Clamp01(value / maxHealth);
             healthText.text = value.ToString();
         }
+
+        public void UpdateData()
+        {
+            SetHealth(unitEntityController.unitEntityData.CoreStats.Health.Value);
+            SetDamageInfo();
+            SetResistanceInfo();
+        }
     }
 }

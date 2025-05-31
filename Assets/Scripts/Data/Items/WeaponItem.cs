@@ -12,12 +12,12 @@ namespace Data.Items
         public ElementalDamage ElementalDamage = new();
         public List<StatModifier> ScalingModifiers;
 
-        public float GetTotalDamage(Dictionary<StatType, float> characterStats)
+        public float GetTotalDamage(Dictionary<StatType, StatBase> characterStats)
         {
             var bonus = 0f;
             foreach (var modifier in ScalingModifiers)
                 if (characterStats.TryGetValue(modifier.Stat, out var statValue))
-                    bonus += modifier.CalculateBonus(statValue);
+                    bonus += modifier.CalculateBonus(statValue.Value);
             return BaseDamage + bonus;
         }
 

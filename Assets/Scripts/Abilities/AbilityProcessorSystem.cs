@@ -15,7 +15,6 @@ namespace Abilities
         {
             processors = new Dictionary<AbilityEffect, IAbilityEffectProcessor>
             {
-                //{ AbilityEffect.Damage, new DamageEffectProcessor() },
                 { AbilityEffect.Healing, container.Instantiate<HealingEffectProcessor>() },
                 { AbilityEffect.Damage, container.Instantiate<DamageEffectProcessor>() },
                 { AbilityEffect.Dispel, container.Instantiate<DispelEffectProcessor>() },

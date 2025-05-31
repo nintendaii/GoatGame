@@ -28,27 +28,27 @@ namespace Data.Stats
         {
             Equipment = equipmentSet;
         }
-        public Dictionary<StatType, float> GetAllStats()
+        public Dictionary<StatType, StatBase> GetAllStats()
         {
-            var dic = new Dictionary<StatType, float>
+            var dic = new Dictionary<StatType, StatBase>
             {
-                { CoreStats.PhysicalDamage.Type, CoreStats.PhysicalDamage.Value },
-                { CoreStats.Armor.Type, CoreStats.Armor.Value },
-                { CoreStats.Evasion.Type, CoreStats.Evasion.Value },
-                { CoreStats.Speed.Type, CoreStats.Speed.Value },
-                { CoreStats.ElementalResistances.Dark.Type, CoreStats.ElementalResistances.Dark.Value },
-                { CoreStats.ElementalResistances.Lightning.Type, CoreStats.ElementalResistances.Lightning.Value },
-                { CoreStats.ElementalResistances.Fire.Type, CoreStats.ElementalResistances.Fire.Value },
-                { CoreStats.ElementalResistances.Ice.Type, CoreStats.ElementalResistances.Ice.Value },
-                { CoreStats.ElementalDamage.Ice.Type, CoreStats.ElementalDamage.Ice.Value },
-                { CoreStats.ElementalDamage.Fire.Type, CoreStats.ElementalDamage.Fire.Value },
-                { CoreStats.ElementalDamage.Dark.Type, CoreStats.ElementalDamage.Dark.Value },
-                { CoreStats.ElementalDamage.Lightning.Type, CoreStats.ElementalDamage.Lightning.Value },
-                { CoreStats.CriticalStrikeChance.Type, CoreStats.CriticalStrikeChance.Value },
-                { MainStats.Intelligence.Type, MainStats.Intelligence.Value },
-                { MainStats.Agility.Type, MainStats.Agility.Value },
-                { MainStats.Strength.Type, MainStats.Strength.Value },
-                { MainStats.Level.Type, MainStats.Level.Value }
+                { CoreStats.PhysicalDamage.Type, CoreStats.PhysicalDamage },
+                { CoreStats.Armor.Type, CoreStats.Armor },
+                { CoreStats.Evasion.Type, CoreStats.Evasion },
+                { CoreStats.Speed.Type, CoreStats.Speed },
+                { CoreStats.ElementalResistances.Dark.Type, CoreStats.ElementalResistances.Dark },
+                { CoreStats.ElementalResistances.Lightning.Type, CoreStats.ElementalResistances.Lightning },
+                { CoreStats.ElementalResistances.Fire.Type, CoreStats.ElementalResistances.Fire },
+                { CoreStats.ElementalResistances.Ice.Type, CoreStats.ElementalResistances.Ice },
+                { CoreStats.ElementalDamage.Ice.Type, CoreStats.ElementalDamage.Ice },
+                { CoreStats.ElementalDamage.Fire.Type, CoreStats.ElementalDamage.Fire },
+                { CoreStats.ElementalDamage.Dark.Type, CoreStats.ElementalDamage.Dark },
+                { CoreStats.ElementalDamage.Lightning.Type, CoreStats.ElementalDamage.Lightning },
+                { CoreStats.CriticalStrikeChance.Type, CoreStats.CriticalStrikeChance },
+                { MainStats.Intelligence.Type, MainStats.Intelligence },
+                { MainStats.Agility.Type, MainStats.Agility },
+                { MainStats.Strength.Type, MainStats.Strength },
+                { MainStats.Level.Type, MainStats.Level }
             };
 
             return dic;

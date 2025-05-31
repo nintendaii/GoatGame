@@ -1,3 +1,4 @@
+using System;
 using Data.Abilities;
 
 namespace Abilities
@@ -7,5 +8,6 @@ namespace Abilities
         public StatusEffect StatusEffectApplied;
         public int ApplicationTurn;
         public int StatusEffectIteration;
+        public Action OnEffectExpired;
     }
 }

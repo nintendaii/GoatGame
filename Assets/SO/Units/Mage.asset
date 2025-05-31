@@ -75,26 +75,28 @@ MonoBehaviour:
         Value: 1
     Equipment:
       Weapon:
-        Name: 
+        Name: Sword of Wind
         Description: 
-        Rarity: 0
+        Rarity: 3
         ItemType: 0
         FlatBonuses: []
-        BaseDamage: 0
+        BaseDamage: 10
         ElementalDamage:
           Fire:
             Type: 11
             Value: 0
           Ice:
             Type: 12
-            Value: 0
+            Value: 20
           Dark:
             Type: 13
             Value: 0
           Lightning:
             Type: 14
-            Value: 0
-        ScalingModifiers: []
+            Value: 20
+        ScalingModifiers:
+        - Stat: 2
+          ScalingGrade: 5
       Chestplate:
         Name: 
         Description: 
@@ -125,8 +127,9 @@ MonoBehaviour:
         Rarity: 0
         ItemType: 0
         FlatBonuses: []
-    IsAlly: 0
   unitAvatarSprite: {fileID: 21300000, guid: 51eb2e6d1c37b8543bb93f50a995ff38, type: 3}
   weaponData: {fileID: 11400000, guid: 35e7d8c7a410b498481101c821102d7c, type: 2}
   abilities:
   - {fileID: 11400000, guid: 18d4d2b0898914144b96cb131dba8245, type: 2}
+  - {fileID: 11400000, guid: 6c1e282b7ed074e8aa1d1b253cf3a312, type: 2}
+  - {fileID: 11400000, guid: 301e226fbc7b64abfa277449bed39daa, type: 2}

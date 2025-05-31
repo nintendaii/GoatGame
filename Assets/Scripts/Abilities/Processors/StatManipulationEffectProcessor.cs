@@ -1,42 +1,18 @@
-using System;
-using System.Collections.Generic;
 using Data.Abilities;
-using Unit;
+using Signals;
+using Zenject;
 
 namespace Abilities.Processors
 {
     public class StatManipulationEffectProcessor: IAbilityEffectProcessor
     {
+        [Inject] private readonly SignalBus _signalBus;
         public void Apply(EffectProcessorData effectProcessorData, AbilityEffectData effectData)
         {
             var targets = effectProcessorData.Targets;
             if (targets!=null)
             {
-                switch (effectData.effectDuration)
-                {
-                    case EffectDuration.Instant:
-                        foreach (var t in targets)
-                        {
-                            t.ManipulateStat(effectData.statAffected, effectData.value);
-                        }
-                        break;
-                    case EffectDuration.Continuous:
-                        var effect = new StatusEffect
-                        {
-                            effectType = AbilityEffect.StatManipulation,
-                            isDispelable = effectData.isDispelable,
-                            isPositive = effectData.isPositive,
-                            duration = effectData.duration,
-                            iterationType = effectData.IterationType
-                        };
-                        foreach (var t in targets)
-                        {
-                            t.ApplyStatusEffect(effect);
-                        }
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                _signalBus.Fire(new StatManipulationStatusEffectSignal(effectProcessorData, effectData));
             }
         }
     }
