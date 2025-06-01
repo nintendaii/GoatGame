@@ -19,7 +19,7 @@ MonoBehaviour:
   targetType: 0
   cooldown: 5
   effects:
-  - effectType: 0
+  - effectType: 9
     value: 100
     damageType: 0
     elementalDamage:
@@ -37,13 +37,16 @@ MonoBehaviour:
         Value: 0
     effectDuration: 0
     statAffected: 4
+    isAlly: 0
     unitsSummon: []
     duration: 9
-    isDispelable: 0
+    isDispelable: 1
     dispelStatusEffectTarget: 0
     IterationType: 0
     isPositive: 0
-  - effectType: 2
+    hasDelayedEffect: 0
+    delayedEffectType: 0
+  - effectType: 9
     value: 30
     damageType: 0
     elementalDamage:
@@ -61,9 +64,12 @@ MonoBehaviour:
         Value: 0
     effectDuration: 0
     statAffected: 6
+    isAlly: 0
     unitsSummon: []
     duration: 9
-    isDispelable: 0
+    isDispelable: 1
     dispelStatusEffectTarget: 0
     IterationType: 0
     isPositive: 0
+    hasDelayedEffect: 0
+    delayedEffectType: 0

@@ -3,6 +3,7 @@ using Combat;
 using Signals;
 using Turn;
 using UI;
+using UnityEngine;
 using Zenject;
 
 namespace Commands
@@ -21,6 +22,7 @@ namespace Commands
         {
             _unitsTurnOrderScreen.GenerateOrder();
             var unit = _turnManager.ExecuteTurn();
+            Debug.Log($"Unit moves {unit.UnitEntityController.name}");
             _abilityCooldownSystem.CheckAbilitiesCooldown(_turnManager.CurrentTurn);
             _combatManager.currentTurnEntity = unit.UnitEntityController;
             var isUnitAllowToMove = _statusEffectSystem.ValidateStatusEffects(unit.UnitEntityController);

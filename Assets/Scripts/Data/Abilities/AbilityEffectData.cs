@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Data.Dmage;
 using Data.Stats;
 using SO;
+using Unit;
 using UnityEngine;
 
 namespace Data.Abilities
@@ -23,8 +24,9 @@ namespace Data.Abilities
         [Header("Buff/debuff")]
         public EffectDuration effectDuration;
         public StatType statAffected; // relevant for buffs
-        [Header("Summoning")]
-        public List<SOUnitData> unitsSummon; //for summoning
+        [Header("Summoning")] 
+        public bool isAlly;
+        public List<UnitEntityController> unitsSummon; //for summoning
         [Header("Status effect")]
         public int duration; // only relevant for continuous effects
         public bool isDispelable;
@@ -51,7 +53,8 @@ namespace Data.Abilities
                 },
                 effectDuration = this.effectDuration,
                 statAffected = this.statAffected,
-                unitsSummon = this.unitsSummon != null ? new List<SOUnitData>(this.unitsSummon) : null,
+                isAlly = this.isAlly,
+                unitsSummon = this.unitsSummon != null ? new List<UnitEntityController>(this.unitsSummon) : null,
                 duration = this.duration,
                 isDispelable = this.isDispelable,
                 dispelStatusEffectTarget = this.dispelStatusEffectTarget,

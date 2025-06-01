@@ -22,6 +22,13 @@ namespace UI
             }
         }
 
+        public void AddUnit(UnitEntityController unit, int index)
+        {
+            var unitItemUi = UnitItemUis[index];
+            unitItemUi.Init(unit);
+            unitItemUi.OnTargetSelected += OnTargetSelected;
+        }
+
         private void OnTargetSelected(string obj)
         {
             _combatManager.SetTarget(obj);

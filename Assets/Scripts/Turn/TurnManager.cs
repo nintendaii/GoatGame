@@ -47,7 +47,7 @@ namespace Turn
                         .ThenByDescending(u => u.Speed)
                         .First();
 
-                    nextUnit.ActionPoints -= _actionThreshold;
+                    nextUnit.ActionPoints -= _actionThreshold; //consider set to 0
                     _currentTick++;
                     return nextUnit;
                 }
@@ -105,6 +105,7 @@ namespace Turn
             CurrentTurn = 0;
             turnQueue.Clear();
         }
+        
 
         public void AddUnitToQueue(UnitEntityController unitEntityController)
         {
@@ -116,6 +117,7 @@ namespace Turn
                 Speed = (int)unitEntityController.unitEntityData.CoreStats.Speed.Value
             };
             unitsInGame.Add(turnData);
+            Debug.Log($"ADDED UNIT {unitEntityController.unitEntityData.CoreStats.Speed.Value}");
         }
 
         public void RemoveUnitFromQueue(UnitEntityController currentTargetEntity)

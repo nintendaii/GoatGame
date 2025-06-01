@@ -72,6 +72,8 @@ namespace Installers
             Container.BindSignal<StatManipulationStatusEffectSignal>().ToMethod<StatManipulationStatusEffectCommand>(command => command.Execute).FromNew();
             Container.DeclareSignal<DelayedEffectStatusEffectSignal>();
             Container.BindSignal<DelayedEffectStatusEffectSignal>().ToMethod<DelayedEffectStatusEffectCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<SummonUnitEffectSignal>();
+            Container.BindSignal<SummonUnitEffectSignal>().ToMethod<SummonUnitEffectCommand>(command => command.Execute).FromNew();
         }
     }
 }

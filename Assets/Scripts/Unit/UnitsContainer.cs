@@ -11,7 +11,9 @@ namespace Unit
     {
         public List<UnitEntityController> UnitEntityContainer = new();
         [Inject] private readonly TurnManager _turnManager;
-        public void AddUnit(UnitEntityController unit)
+        [Inject] private readonly DiContainer _diContainer;
+
+        private void AddUnit(UnitEntityController unit)
         {
             UnitEntityContainer.Add(unit);
         }
@@ -28,6 +30,14 @@ namespace Unit
             {
                 AddUnit(u);
             }
+        }
+
+        public UnitEntityController SpawnUnit(UnitEntityController unit)
+        {
+            var go = _diContainer.InstantiatePrefab(unit, transform);
+            var component = go.GetComponent<UnitEntityController>();
+            AddUnit(component);
+            return component;
         }
 
         public List<UnitEntityController> GetAllyUnits(UnitTeam unitTeam)

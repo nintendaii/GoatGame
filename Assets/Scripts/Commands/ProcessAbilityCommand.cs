@@ -66,7 +66,7 @@ namespace Commands
                         break;
                     case AbilityType.NoTarget:
                         var validatedTargets = ValidateTargets(param.AbilityData.targetType);
-                        if (validatedTargets.Count==0)
+                        if (validatedTargets.Count==0 && param.AbilityData.targetType!=AbilityTarget.None)
                         {
                             Debug.Log("ValidateTargets list is empty");
                             return;

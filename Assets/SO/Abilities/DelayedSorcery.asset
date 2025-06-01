@@ -12,10 +12,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393bc06ffa794d23b4dbbbc703dd6ca9, type: 3}
   m_Name: DelayedSorcery
   m_EditorClassIdentifier: 
-  abilityName: 
+  abilityName: Delayed
   description: 
   icon: {fileID: 21300000, guid: cdec13907ffc75749ab2ed436bec6b14, type: 3}
-  abilityType: 0
+  abilityType: 3
   targetType: 0
-  cooldown: 0
-  effects: []
+  cooldown: 7
+  effects:
+  - effectType: 12
+    value: 100
+    damageType: 0
+    elementalDamage:
+      Fire:
+        Type: 0
+        Value: 0
+      Ice:
+        Type: 0
+        Value: 0
+      Dark:
+        Type: 0
+        Value: 0
+      Lightning:
+        Type: 0
+        Value: 0
+    effectDuration: 0
+    statAffected: 0
+    isAlly: 0
+    unitsSummon: []
+    duration: 2
+    isDispelable: 1
+    dispelStatusEffectTarget: 0
+    IterationType: 0
+    isPositive: 0
+    hasDelayedEffect: 1
+    delayedEffectType: 11

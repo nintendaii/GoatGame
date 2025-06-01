@@ -1,47 +1,79 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
+--- !u!1 &4454651675900333888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8667917526310621786}
+  - component: {fileID: 7426246515078224178}
+  m_Layer: 0
+  m_Name: UnitWarrior
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8667917526310621786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4454651675900333888}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7426246515078224178
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4454651675900333888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28dca69621ef421abe0ed7ad96a67c8a, type: 3}
-  m_Name: Warrior
+  m_Script: {fileID: 11500000, guid: 7f4cc7651324452a9a515cdf0246c39b, type: 3}
+  m_Name: 
   m_EditorClassIdentifier: 
   unitEntityData:
-    Id: ac2068ab-c0d7-484b-990c-35ec32149b14
-    Name: Warrior
+    Id: b5c7c5c8-4268-4d09-82a9-2ce82c1b17a5
+    Name: 
     CoreStats:
       Health:
         Type: 3
-        Value: 210
+        Value: 0
       Armor:
         Type: 4
-        Value: 10
+        Value: 0
       ElementalResistances:
         Fire:
           Type: 7
-          Value: 20
+          Value: 0
         Ice:
           Type: 8
-          Value: 10
+          Value: 0
         Dark:
           Type: 9
-          Value: 30
+          Value: 0
         Lightning:
           Type: 10
-          Value: 10
+          Value: 0
       ElementalDamage:
         Fire:
           Type: 11
-          Value: 20
+          Value: 0
         Ice:
           Type: 12
-          Value: 20
+          Value: 0
         Dark:
           Type: 13
           Value: 0
@@ -50,10 +82,10 @@ MonoBehaviour:
           Value: 0
       Speed:
         Type: 5
-        Value: 10
+        Value: 0
       PhysicalDamage:
         Type: 6
-        Value: 40
+        Value: 0
       Evasion:
         Type: 15
         Value: 0
@@ -63,16 +95,16 @@ MonoBehaviour:
     MainStats:
       Strength:
         Type: 0
-        Value: 12
+        Value: 0
       Agility:
         Type: 1
-        Value: 6
+        Value: 0
       Intelligence:
         Type: 2
-        Value: 1
+        Value: 0
       Level:
         Type: 16
-        Value: 1
+        Value: 0
     Equipment:
       Weapon:
         Name: 
@@ -125,9 +157,5 @@ MonoBehaviour:
         Rarity: 0
         ItemType: 0
         FlatBonuses: []
-  unitAvatarSprite: {fileID: 21300000, guid: cb0a81cd2c084d44fb5e5a1a5008e106, type: 3}
-  weaponData: {fileID: 0}
-  abilities:
-  - {fileID: 11400000, guid: e71d5ec7c56124bb7bd6e10f0540e3d9, type: 2}
-  - {fileID: 11400000, guid: 1d5c4ce95aaf04ee4bcd5f5e61bf1d9d, type: 2}
-  - {fileID: 11400000, guid: 78246dca46b824152998a89c4686bbc9, type: 2}
+  UnitDataSO: {fileID: 11400000, guid: 288d0da98aa6a482aabccbf9dc4f56f8, type: 2}
+  UnitTeam: 0

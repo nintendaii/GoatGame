@@ -37,9 +37,12 @@ MonoBehaviour:
         Value: 0
     effectDuration: 0
     statAffected: 0
+    isAlly: 0
     unitsSummon: []
     duration: 0
     isDispelable: 0
     dispelStatusEffectTarget: 2
     IterationType: 0
     isPositive: 0
+    hasDelayedEffect: 0
+    delayedEffectType: 0
