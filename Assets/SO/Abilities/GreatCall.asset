@@ -37,8 +37,9 @@ MonoBehaviour:
         Value: 0
     effectDuration: 0
     statAffected: 0
-    isAlly: 0
-    unitsSummon: []
+    isAlly: 1
+    unitsSummon:
+    - {fileID: 7426246515078224178, guid: 4e4e1bb5c2346422d8aa3bc3a99cf949, type: 3}
     duration: 0
     isDispelable: 0
     dispelStatusEffectTarget: 0

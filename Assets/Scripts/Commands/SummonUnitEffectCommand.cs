@@ -32,7 +32,7 @@ namespace Commands
                 _unitItemsUIContainer.AddUnit(spawnedUnit,_unitsContainer.UnitEntityContainer.IndexOf(spawnedUnit));
             }
 
-            //_unitsTurnOrderScreen.GenerateOrder();
+            _unitsTurnOrderScreen.GenerateOrder();
         }
     }
 }

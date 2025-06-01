@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Data.Turn;
 using Turn;
 using UnityEngine;
 using Zenject;
@@ -8,6 +9,7 @@ namespace UI
     public class UnitsTurnOrderScreen : MonoBehaviour
     {
         public List<UnitTurnItem> UnitTurnItems;
+        public UnitTurnItem currentTurnItem;
         [Inject] private readonly TurnManager _turnManager;
 
         public void GenerateOrder()
@@ -19,6 +21,12 @@ namespace UI
                 u.SetName(unitTurns[i].UnitEntityController.unitEntityData.Name);
                 u.SetSprite(unitTurns[i].UnitEntityController.unitAvatarSprite);
             }
+        }
+
+        public void SetCurrentTurnItem(TurnUnitData unit)
+        {
+            currentTurnItem.SetName(unit.UnitEntityController.unitEntityData.Name);
+            currentTurnItem.SetSprite(unit.UnitEntityController.unitAvatarSprite);
         }
     }
 }

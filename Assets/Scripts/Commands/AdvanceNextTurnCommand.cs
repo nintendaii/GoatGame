@@ -20,9 +20,9 @@ namespace Commands
 
         public void Execute()
         {
-            _unitsTurnOrderScreen.GenerateOrder();
             var unit = _turnManager.ExecuteTurn();
-            Debug.Log($"Unit moves {unit.UnitEntityController.name}");
+            _unitsTurnOrderScreen.GenerateOrder();
+            _unitsTurnOrderScreen.SetCurrentTurnItem(unit);
             _abilityCooldownSystem.CheckAbilitiesCooldown(_turnManager.CurrentTurn);
             _combatManager.currentTurnEntity = unit.UnitEntityController;
             var isUnitAllowToMove = _statusEffectSystem.ValidateStatusEffects(unit.UnitEntityController);
