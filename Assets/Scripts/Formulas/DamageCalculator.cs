@@ -132,5 +132,25 @@ namespace Formulas
         {
             return baseDamage * criticalMultiplier;
         }
+        
+        /// <summary>
+        /// Calculate Evasion Chance
+        /// </summary>
+        /// <param name="evasionChance">Chance to evade (0-1)</param>
+        /// <returns>True if attack is evaded, false if hit</returns>
+        public static bool CalculateEvasionChance(float evasionChance)
+        {
+            return Random.value < evasionChance;
+        }
+        
+        /// <summary>
+        /// Calculate Crit Chance
+        /// </summary>
+        /// <param name="criticalStrike">Chance for a crit (0-1)</param>
+        /// <returns>True if crit, false not</returns>
+        public static bool CalculateCriticalStrikeChance(float criticalStrike)
+        {
+            return Random.value < criticalStrike;
+        }
     }
 }

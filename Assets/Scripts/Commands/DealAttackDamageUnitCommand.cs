@@ -3,6 +3,7 @@ using Abilities;
 using Combat;
 using Data.Abilities;
 using Formulas;
+using Global;
 using Signals;
 using Turn;
 using UI;
@@ -29,19 +30,21 @@ namespace Commands
                 return;
             }
 
+            if (_statusEffectSystem.CheckIfUnitHasStatusEffect(param.Source, AbilityEffect.Disarm))
+            {
+                Debug.LogWarning($"{param.Source} cant attack due to Disarm");
+                return;
+            }
             var filteredList = param.Targets.Where(x => x.IsAlive).ToList();
-
             if (filteredList.Count==0)
             {
                 Debug.LogWarning("None of targets is alive in DealAttackDamageUnitSignal");
                 return;
             }
 
-            if (_statusEffectSystem.CheckIfUnitHasStatusEffect(param.Source, AbilityEffect.Disarm))
-            {
-                Debug.LogWarning($"{param.Source} cant attack due to Disarm");
-                return;
-            }
+            var isCritical =
+                DamageCalculator.CalculateCriticalStrikeChance(param.Source.unitEntityData.CoreStats
+                    .CriticalStrikeChance.Value);
             
             foreach (var u in filteredList)
             {
@@ -52,8 +55,20 @@ namespace Commands
                     continue;
                 }
 
+                var isEvaded = DamageCalculator.CalculateEvasionChance(u.unitEntityData.CoreStats.Evasion.Value);
+                if (isEvaded)
+                {
+                    Debug.Log($"{u.unitEntityData.Name} evaded attack!");
+                    continue;
+                }
                 var damage = DamageCalculator.CalculateAttackFinalDamage(param.Source.unitEntityData,
                     u.unitEntityData);
+                if (isCritical)
+                {
+                    Debug.Log("CRITICAL HIT!");
+                    damage = DamageCalculator.CalculateCriticalStrikeDamage(damage, GlobalConstants.Combat.CRITICAL_HIT_MULTIPLIER);
+                }
+                
                 u.DealDamage(damage);
                 _unitItemsUIContainer.UpdateHealth(u.unitEntityData.CoreStats.Health.Value,u.unitEntityData.Id);
                 if (!u.IsAlive)

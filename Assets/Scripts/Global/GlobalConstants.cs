@@ -15,5 +15,10 @@ namespace Global
         {
             public static readonly float ACTION_THRESHOLD = 1f;
         }
+        
+        public static class Combat
+        {
+            public static readonly float CRITICAL_HIT_MULTIPLIER = 1.5f;
+        }
     }
 }
