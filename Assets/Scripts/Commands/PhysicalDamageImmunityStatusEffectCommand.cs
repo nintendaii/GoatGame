@@ -15,6 +15,7 @@ namespace Commands
             var effectData = param.AbilityEffectData;
             var pDiEffect = new StatusEffect
             {
+                originAbility = param.EffectProcessorData.Ability,
                 effectType = AbilityEffect.PhysicalDamageImmunity,
                 isDispelable = effectData.isDispelable,
                 isPositive = effectData.isPositive,

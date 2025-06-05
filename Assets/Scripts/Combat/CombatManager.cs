@@ -47,6 +47,10 @@ namespace Combat
             _unitsContainer.Init();
             _turnManager.Init(_unitsContainer.UnitEntityContainer);
             _unitItemsUIContainer.Init(_unitsContainer.UnitEntityContainer);
+            foreach (var u in _unitsContainer.UnitEntityContainer)
+            {
+                u.InitPassiveAbilities();
+            }
             _signalBus.Fire(new AdvanceNextTurnSignal());
         }
 

@@ -21,6 +21,7 @@ namespace Commands
             var effectData = param.AbilityEffectData;
             var effect = new StatusEffect
             {
+                originAbility = param.EffectProcessorData.Ability,
                 effectType = AbilityEffect.StatManipulation,
                 isDispelable = effectData.isDispelable,
                 isPermanent = effectData.isPermanent,

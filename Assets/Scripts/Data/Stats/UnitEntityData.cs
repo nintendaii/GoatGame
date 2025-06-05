@@ -33,6 +33,7 @@ namespace Data.Stats
             var dic = new Dictionary<StatType, StatBase>
             {
                 { CoreStats.PhysicalDamage.Type, CoreStats.PhysicalDamage },
+                { CoreStats.Health.Type, CoreStats.Health },
                 { CoreStats.Armor.Type, CoreStats.Armor },
                 { CoreStats.Evasion.Type, CoreStats.Evasion },
                 { CoreStats.Speed.Type, CoreStats.Speed },

@@ -19,6 +19,7 @@ namespace Commands
             var effectData = param.AbilityEffectData;
             var effect = new StatusEffect
             {
+                originAbility = param.EffectProcessorData.Ability,
                 effectType = AbilityEffect.DelayedEffect,
                 //delayedEffect = effectData.delayedEffectType,
                 isDispelable = effectData.isDispelable,

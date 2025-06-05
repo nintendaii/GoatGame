@@ -79,6 +79,8 @@ namespace UI
             {
                 unitAvatarImage.color = Color.white;
             }
+
+            maxHealth = unitEntityController.unitMaxCoreStats.Health.Value;
             healthBarFillImage.fillAmount = Mathf.Clamp01(value / maxHealth);
             healthText.text = value.ToString();
         }

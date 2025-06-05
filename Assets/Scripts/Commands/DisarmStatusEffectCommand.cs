@@ -14,6 +14,7 @@ namespace Commands
             var param = (DisarmStatusEffectSignal)signal;
             var statusEffect = new StatusEffect
             {
+                originAbility = param.EffectProcessorData.Ability,
                 effectType = AbilityEffect.Disarm,
                 isDispelable = param.AbilityEffectData.isDispelable,
                 isPermanent = param.AbilityEffectData.isPermanent,

@@ -1,9 +1,11 @@
 using Data.Stats;
+using SO;
 
 namespace Data.Abilities
 {
     public class StatusEffect
     {
+        public SOAbilityData originAbility;
         public AbilityEffect effectType;
         public AbilityEffectData delayedEffect; //for delayed effects
         public int duration;

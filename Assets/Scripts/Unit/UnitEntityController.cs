@@ -21,7 +21,7 @@ namespace Unit
         public SOUnitData UnitDataSO;
         public List<AbilityRuntimeData> AbilitiesRuntime = new();
         public UnitTeam UnitTeam;
-
+        public UnitCoreStats unitMaxCoreStats = new();
         private List<StatusEffect> _appliedStatusEffects = new();
 
         public bool IsAlive => unitEntityData.CoreStats.Health.Value > 0;
@@ -30,6 +30,7 @@ namespace Unit
         {
             unitEntityData = UnitDataSO.Clone();
             unitAvatarSprite = UnitDataSO.unitAvatarSprite;
+            unitMaxCoreStats = unitEntityData.CoreStats.Clone();
             foreach (var a in UnitDataSO.abilities)
             {
                 AbilitiesRuntime.Add(new AbilityRuntimeData
@@ -40,10 +41,47 @@ namespace Unit
             }
         }
 
+        public void InitPassiveAbilities()
+        {
+            foreach (var a in AbilitiesRuntime)
+            {
+                if (a.AbilityData.abilityType is AbilityType.Passive or AbilityType.Aura)
+                {
+                    _signalBus.Fire(new ProcessAbilitySignal(a.AbilityData, this));
+                }
+            }
+        }
+
+        private void DeactivatePassiveAbilities()
+        {
+            foreach (var a in AbilitiesRuntime)
+            {
+                if (a.AbilityData.abilityType is AbilityType.Passive or AbilityType.Aura)
+                {
+                    _signalBus.Fire(new DeactivatePassiveAbilitiesSignal(this, a.AbilityData));
+                }
+            }
+        }
+
         private void ManipulateHealth(float value)
         {
             Debug.Log(value < 0 ? $"Deal {value} damage" : $"Restored {value} health");
+            var sum = value + unitEntityData.CoreStats.Health.Value;
+            if (sum>unitMaxCoreStats.Health.Value)
+            {
+                unitMaxCoreStats.Health.Value = sum;
+            }
             unitEntityData.CoreStats.Health.Value += value;
+            if (unitEntityData.CoreStats.Health.Value<=0)
+            {
+                HandleDeath();
+            }
+        }
+
+        private void HandleDeath()
+        {
+            Debug.Log("Dead");
+            DeactivatePassiveAbilities();
         }
 
         public void Heal(float value)
@@ -70,9 +108,16 @@ namespace Unit
 
         public void ManipulateStat(StatType statType, float value)
         {
-            if (statType==StatType.Health && IsAlive && unitEntityData.CoreStats.Health.Value-value<=0)
+            if (statType==StatType.Health)
             {
-                unitEntityData.CoreStats.Health.Value = 1;
+                var sum = unitEntityData.CoreStats.Health.Value + value;
+                if (IsAlive && sum<=0)
+                {
+                    unitEntityData.CoreStats.Health.Value = 1;
+                    return;
+                }
+
+                ManipulateHealth(value);
                 return;
             }
             //rework this
@@ -93,6 +138,7 @@ namespace Unit
 
         public void Resurrect(float value)
         {
+            InitPassiveAbilities();
             Heal(value);
         }
 

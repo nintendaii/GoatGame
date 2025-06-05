@@ -17,6 +17,7 @@ namespace Commands
             var effectData = param.AbilityEffectData;
             var stunEffect = new StatusEffect
             {
+                originAbility = param.EffectProcessorData.Ability,
                 effectType = AbilityEffect.Stun,
                 isDispelable = effectData.isDispelable,
                 isPermanent = effectData.isPermanent,

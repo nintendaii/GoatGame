@@ -27,6 +27,9 @@ namespace Abilities
             {
                 if (kvp.Value <= turn)
                 {
+                    Debug.Log($"KVP {kvp.Key}");
+                    Debug.Log($"KVP {kvp.Key.UnitEntityController}");
+                    Debug.Log($"KVP {kvp.Key.AbilityData}");
                     kvp.Key.UnitEntityController.CooldownAbility(kvp.Key.AbilityData);
                     keysToRemove.Add(kvp.Key);
                     Debug.Log($"{kvp.Key.AbilityData.name} ready");

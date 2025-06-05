@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Data.Abilities;
+using SO;
 using Turn;
 using Unit;
 using UnityEngine;
@@ -12,25 +13,47 @@ namespace Abilities
     {
         [Inject] private readonly TurnManager _turnManager;
         public Dictionary<UnitEntityController, List<StatusEffectApplicationData>> _statusEffectsContainer = new();
+        public Dictionary<UnitEntityController, List<StatusEffectApplicationData>> _passiveStatusEffectsContainer = new();
 
         public void ApplyStatusEffect(UnitEntityController target, StatusEffect effect, Action onEffectExpired = null, Action onEffectActivated = null)
         {
             var currentTurn = _turnManager.CurrentTurn;
-
-            if (!_statusEffectsContainer.ContainsKey(target))
+            if (effect.originAbility.abilityType is AbilityType.Passive or AbilityType.Aura)
             {
-                _statusEffectsContainer[target] = new List<StatusEffectApplicationData>();
+                if (!_passiveStatusEffectsContainer.ContainsKey(target))
+                {
+                    _passiveStatusEffectsContainer[target] = new List<StatusEffectApplicationData>();
+                }
+                
+                Debug.Log($"Adding passive {effect.effectType} effect for {target.name}");
+                _passiveStatusEffectsContainer[target].Add(new StatusEffectApplicationData
+                {
+                    OriginAbility = effect.originAbility,
+                    StatusEffectApplied = effect,
+                    ApplicationTurn = currentTurn,
+                    StatusEffectIteration = 0,
+                    OnEffectExpired = onEffectExpired,
+                    OnEffectActivated = onEffectActivated
+                });
+            }
+            else
+            {
+                if (!_statusEffectsContainer.ContainsKey(target))
+                {
+                    _statusEffectsContainer[target] = new List<StatusEffectApplicationData>();
+                }
+                Debug.Log($"Adding {effect.effectType} effect for {target.name}");
+                _statusEffectsContainer[target].Add(new StatusEffectApplicationData
+                {
+                    StatusEffectApplied = effect,
+                    ApplicationTurn = currentTurn,
+                    StatusEffectIteration = 0,
+                    OnEffectExpired = onEffectExpired,
+                    OnEffectActivated = onEffectActivated
+                });
             }
 
-            Debug.Log($"Adding {effect.effectType} effect for {target.name}");
-            _statusEffectsContainer[target].Add(new StatusEffectApplicationData
-            {
-                StatusEffectApplied = effect,
-                ApplicationTurn = currentTurn,
-                StatusEffectIteration = 0,
-                OnEffectExpired = onEffectExpired,
-                OnEffectActivated = onEffectActivated
-            });
+            
         }
 
         private void IncrementStatusEffect(UnitEntityController unit)
@@ -139,6 +162,27 @@ namespace Abilities
 
             var effect = unit.Find(x => x.StatusEffectApplied.effectType == statusEffect);
             return effect != null;
+        }
+
+        public void RemoveAbilityPassiveEffects(SOAbilityData abilityData)
+        {
+            foreach (var kvp in _passiveStatusEffectsContainer)
+            {
+                var sToRemove = new List<StatusEffectApplicationData>();
+                foreach (var effect in kvp.Value)
+                {
+                    if (effect.OriginAbility==abilityData)
+                    {
+                        sToRemove.Add(effect);
+                    }
+                }
+                foreach (var s in sToRemove)
+                {
+                    s.OnEffectExpired?.Invoke();
+                }
+                _passiveStatusEffectsContainer[kvp.Key].RemoveAll(effect => sToRemove.Contains(effect));
+            }
+            
         }
         
         public void DispelStatusEffect(UnitEntityController target, DispelStatusEffectTarget targetEffect)

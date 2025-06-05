@@ -50,10 +50,7 @@ namespace Commands
                     case AbilityType.None:
                         break;
                     case AbilityType.Passive:
-                        Debug.Log("ability is passive");
-                        break;
-                    case AbilityType.Aura:
-                        Debug.Log("ability is aura");
+                        targets.Add(param.Source);
                         break;
                     case AbilityType.Target:
                         if (ValidateSpellImmunity(currentTargetEntity))
@@ -64,8 +61,23 @@ namespace Commands
 
                         targets.Add(currentTargetEntity);
                         break;
+                    case AbilityType.Aura:
+                        var validatedTargetAura = ValidateTargets(param.AbilityData.targetType, param.Source);
+                        if (validatedTargetAura.Count==0 && param.AbilityData.targetType!=AbilityTarget.None)
+                        {
+                            Debug.Log("ValidateTargets list is empty");
+                            return;
+                        }
+                        foreach (var t in validatedTargetAura)
+                        {
+                            if (!ValidateSpellImmunity(t))
+                            {
+                                targets.Add(t);
+                            }
+                        }
+                        break;
                     case AbilityType.NoTarget:
-                        var validatedTargets = ValidateTargets(param.AbilityData.targetType);
+                        var validatedTargets = ValidateTargets(param.AbilityData.targetType, currentTurnEntity);
                         if (validatedTargets.Count==0 && param.AbilityData.targetType!=AbilityTarget.None)
                         {
                             Debug.Log("ValidateTargets list is empty");
@@ -95,9 +107,12 @@ namespace Commands
                 Source = currentTurnEntity,
                 Targets = targets
             };
-            Debug.Log($"Befor process {targets.Count}");
             _abilityProcessorSystem.UseAbility(effectProcessorData);
             //Might need to replace later since _abilityProcessorSystem.UseAbility can fail
+            if (soAbilityData.abilityType is AbilityType.Passive or AbilityType.Aura)
+            {
+                return;
+            }
             _abilityCooldownSystem.SendAbilityOnCooldown(new AbilityOwnerData
             {
                 AbilityData = param.AbilityData,
@@ -131,9 +146,9 @@ namespace Commands
             return s?.Find(x=>x.StatusEffectApplied.effectType==AbilityEffect.SpellImmunity) != null;
         }
 
-        private List<UnitEntityController> ValidateTargets(AbilityTarget target)
+        private List<UnitEntityController> ValidateTargets(AbilityTarget target, UnitEntityController source)
         {
-            var unitTeam = currentTurnEntity.UnitTeam;
+            var unitTeam = source.UnitTeam;
             var t = new List<UnitEntityController>();
             switch (target)
             {

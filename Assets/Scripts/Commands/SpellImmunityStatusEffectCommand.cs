@@ -14,6 +14,7 @@ namespace Commands
             var param = (SpellImmunityStatusEffectSignal)signal;
             var statusEffect = new StatusEffect
             {
+                originAbility = param.EffectProcessorData.Ability,
                 effectType = AbilityEffect.SpellImmunity,
                 isDispelable = param.AbilityEffectData.isDispelable,
                 isPositive = param.AbilityEffectData.isPositive,

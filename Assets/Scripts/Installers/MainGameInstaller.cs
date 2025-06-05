@@ -74,6 +74,8 @@ namespace Installers
             Container.BindSignal<DelayedEffectStatusEffectSignal>().ToMethod<DelayedEffectStatusEffectCommand>(command => command.Execute).FromNew();
             Container.DeclareSignal<SummonUnitEffectSignal>();
             Container.BindSignal<SummonUnitEffectSignal>().ToMethod<SummonUnitEffectCommand>(command => command.Execute).FromNew();
+            Container.DeclareSignal<DeactivatePassiveAbilitiesSignal>();
+            Container.BindSignal<DeactivatePassiveAbilitiesSignal>().ToMethod<DeactivatePassiveAbilitiesCommand>(command => command.Execute).FromNew();
         }
     }
 }
