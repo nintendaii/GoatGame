@@ -18,6 +18,7 @@ namespace Commands
                 effectType = AbilityEffect.PhysicalDamageImmunity,
                 isDispelable = effectData.isDispelable,
                 isPositive = effectData.isPositive,
+                isPermanent = effectData.isPermanent,
                 duration = effectData.duration,
                 iterationType = effectData.IterationType
             };

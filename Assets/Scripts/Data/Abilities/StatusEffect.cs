@@ -7,6 +7,7 @@ namespace Data.Abilities
         public AbilityEffect effectType;
         public AbilityEffectData delayedEffect; //for delayed effects
         public int duration;
+        public bool isPermanent;
         public bool isDispelable;
         public bool isPositive;
         public StatusEffectIterationType iterationType;

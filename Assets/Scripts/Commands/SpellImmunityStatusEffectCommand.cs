@@ -17,6 +17,7 @@ namespace Commands
                 effectType = AbilityEffect.SpellImmunity,
                 isDispelable = param.AbilityEffectData.isDispelable,
                 isPositive = param.AbilityEffectData.isPositive,
+                isPermanent = param.AbilityEffectData.isPermanent,
                 duration = param.AbilityEffectData.duration,
                 iterationType = param.AbilityEffectData.IterationType
             };

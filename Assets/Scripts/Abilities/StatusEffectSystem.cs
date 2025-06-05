@@ -83,6 +83,10 @@ namespace Abilities
 
                 foreach (var s in effects)
                 {
+                    if (s.StatusEffectApplied.isPermanent)
+                    {
+                        continue;
+                    }
                     bool isExpired;
 
                     switch (s.StatusEffectApplied.iterationType)

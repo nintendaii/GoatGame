@@ -29,6 +29,7 @@ namespace Data.Abilities
         public List<UnitEntityController> unitsSummon; //for summoning
         [Header("Status effect")]
         public int duration; // only relevant for continuous effects
+        public bool isPermanent; // only relevant for continuous effects
         public bool isDispelable;
         public DispelStatusEffectTarget dispelStatusEffectTarget;
         public StatusEffectIterationType IterationType;
@@ -61,7 +62,8 @@ namespace Data.Abilities
                 IterationType = this.IterationType,
                 isPositive = this.isPositive,
                 hasDelayedEffect = this.hasDelayedEffect,
-                delayedEffectType = this.delayedEffectType
+                delayedEffectType = this.delayedEffectType,
+                isPermanent = this.isPermanent
             };
         }
     }

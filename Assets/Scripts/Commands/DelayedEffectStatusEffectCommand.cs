@@ -22,6 +22,7 @@ namespace Commands
                 effectType = AbilityEffect.DelayedEffect,
                 //delayedEffect = effectData.delayedEffectType,
                 isDispelable = effectData.isDispelable,
+                isPermanent = effectData.isPermanent,
                 isPositive = effectData.isPositive,
                 duration = effectData.duration,
                 iterationType = effectData.IterationType

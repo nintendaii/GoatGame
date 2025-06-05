@@ -23,6 +23,7 @@ namespace Commands
             {
                 effectType = AbilityEffect.StatManipulation,
                 isDispelable = effectData.isDispelable,
+                isPermanent = effectData.isPermanent,
                 isPositive = effectData.isPositive,
                 duration = effectData.duration,
                 iterationType = effectData.IterationType
