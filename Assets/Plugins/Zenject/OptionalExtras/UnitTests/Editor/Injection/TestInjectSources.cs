@@ -6,22 +6,23 @@ namespace Zenject.Tests.Injection
     [TestFixture]
     public class TestInjectSources
     {
-        private class Test0
+        class Test0
         {
         }
 
-        private class Test1
+        class Test1
         {
             public Test0 val;
 
             public Test1(
-                [InjectLocal] Test0 val)
+                [InjectLocal]
+                Test0 val)
             {
                 this.val = val;
             }
         }
 
-        private class Test2
+        class Test2
         {
             public Test0 val;
 
@@ -33,7 +34,7 @@ namespace Zenject.Tests.Injection
             }
         }
 
-        private class Test3
+        class Test3
         {
             public Test0 val;
 
@@ -45,12 +46,13 @@ namespace Zenject.Tests.Injection
             }
         }
 
-        private class Test4
+        class Test4
         {
             public Test0 val;
 
             public Test4(
-                [Inject(Source = InjectSources.Any)] Test0 val)
+                [Inject(Source = InjectSources.Any)]
+                Test0 val)
             {
                 this.val = val;
             }
@@ -142,3 +144,6 @@ namespace Zenject.Tests.Injection
         }
     }
 }
+
+
+

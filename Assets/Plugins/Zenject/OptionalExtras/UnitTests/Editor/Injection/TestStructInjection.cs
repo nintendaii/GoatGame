@@ -6,11 +6,11 @@ namespace Zenject.Tests.Injection
     [TestFixture]
     public class TestStructInjection : ZenjectUnitTestFixture
     {
-        private struct Test1
+        struct Test1
         {
         }
 
-        private class Test2
+        class Test2
         {
             public Test2(Test1 t1)
             {
@@ -30,16 +30,23 @@ namespace Zenject.Tests.Injection
             Assert.That(t2 != null);
         }
 
-        private struct Test3
+        struct Test3
         {
             [Inject]
 #pragma warning disable 649
             public int ValueField;
 #pragma warning restore 649
 
-            [Inject] public string ValueProperty { get; private set; }
+            [Inject]
+            public string ValueProperty
+            {
+                get; private set;
+            }
 
-            public float ValueConstructor { get; private set; }
+            public float ValueConstructor
+            {
+                get; private set;
+            }
         }
 
         [Test]
@@ -55,14 +62,17 @@ namespace Zenject.Tests.Injection
             Assert.IsEqual(test3.ValueField, 5);
         }
 
-        private struct Test4
+        struct Test4
         {
             public Test4(string value)
             {
                 Value = value;
             }
 
-            public string Value { get; private set; }
+            public string Value
+            {
+                get; private set;
+            }
         }
 
         [Test]

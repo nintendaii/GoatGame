@@ -3,9 +3,9 @@ namespace Zenject
     [NoReflectionBaking]
     public class DecoratorToChoiceFromBinder<TContract>
     {
-        private DiContainer _bindContainer;
-        private BindInfo _bindInfo;
-        private FactoryBindInfo _factoryBindInfo;
+        DiContainer _bindContainer;
+        BindInfo _bindInfo;
+        FactoryBindInfo _factoryBindInfo;
 
         public DecoratorToChoiceFromBinder(
             DiContainer bindContainer, BindInfo bindInfo, FactoryBindInfo factoryBindInfo)

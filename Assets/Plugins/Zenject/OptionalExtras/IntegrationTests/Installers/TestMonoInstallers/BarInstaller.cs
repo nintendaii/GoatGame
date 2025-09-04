@@ -2,7 +2,7 @@ namespace Zenject.Tests.Installers.MonoInstallers
 {
     public class BarInstaller : MonoInstaller<string, BarInstaller>
     {
-        private string _value;
+        string _value;
 
         [Inject]
         public void Construct(string value)

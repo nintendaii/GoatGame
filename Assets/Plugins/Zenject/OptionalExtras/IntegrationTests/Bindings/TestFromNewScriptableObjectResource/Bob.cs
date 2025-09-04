@@ -5,7 +5,11 @@ namespace Zenject.Tests.Bindings.FromNewScriptableObjectResource
     //[CreateAssetMenu(fileName = "Bob", menuName = "Test/Bob")]
     public class Bob : ScriptableObject
     {
-        public string Arg { get; private set; }
+        public string Arg
+        {
+            get;
+            private set;
+        }
 
         [Inject]
         public void Construct(string arg)
@@ -14,3 +18,4 @@ namespace Zenject.Tests.Bindings.FromNewScriptableObjectResource
         }
     }
 }
+

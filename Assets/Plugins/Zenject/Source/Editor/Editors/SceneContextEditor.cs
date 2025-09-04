@@ -9,9 +9,9 @@ namespace Zenject
     [NoReflectionBaking]
     public class SceneContextEditor : RunnableContextEditor
     {
-        private SerializedProperty _contractNameProperty;
-        private SerializedProperty _parentNamesProperty;
-        private SerializedProperty _parentNewObjectsUnderSceneContextProperty;
+        SerializedProperty _contractNameProperty;
+        SerializedProperty _parentNamesProperty;
+        SerializedProperty _parentNewObjectsUnderSceneContextProperty;
 
         public override void OnEnable()
         {
@@ -19,8 +19,7 @@ namespace Zenject
 
             _contractNameProperty = serializedObject.FindProperty("_contractNames");
             _parentNamesProperty = serializedObject.FindProperty("_parentContractNames");
-            _parentNewObjectsUnderSceneContextProperty =
-                serializedObject.FindProperty("_parentNewObjectsUnderSceneContext");
+            _parentNewObjectsUnderSceneContextProperty = serializedObject.FindProperty("_parentNewObjectsUnderSceneContext");
         }
 
         protected override void OnGui()

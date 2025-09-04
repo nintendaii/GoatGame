@@ -25,4 +25,5 @@ namespace Zenject.SpaceFighter
             Container.BindSignal<EnemyKilledSignal>().ToMethod(() => Debug.Log("Fired EnemyKilledSignal"));
         }
     }
+
 }

@@ -7,7 +7,7 @@ namespace Zenject.Tests.Other
     [TestFixture]
     public class TestSubContainers4 : ZenjectUnitTestFixture
     {
-        private readonly Dictionary<object, DiContainer> _subContainers = new();
+        readonly Dictionary<object, DiContainer> _subContainers = new Dictionary<object, DiContainer>();
 
         [Test]
         public void RunTest()
@@ -26,7 +26,7 @@ namespace Zenject.Tests.Other
             Assert.IsNotEqual(view2, view1);
         }
 
-        private void SetupContainer()
+        void SetupContainer()
         {
             Container.Bind<RotorController>().FromMethod(SubContainerResolve<RotorController>).AsTransient()
                 .WhenInjectedInto<RotorView>();
@@ -37,7 +37,7 @@ namespace Zenject.Tests.Other
             Container.Bind<RotorView>().AsTransient();
         }
 
-        private T SubContainerResolve<T>(InjectContext context)
+        T SubContainerResolve<T>(InjectContext context)
         {
             Assert.IsNotNull(context.ObjectInstance);
             DiContainer subContainer;
@@ -53,7 +53,7 @@ namespace Zenject.Tests.Other
             return (T)subContainer.Resolve(context);
         }
 
-        private void InstallViewBindings(DiContainer subContainer)
+        void InstallViewBindings(DiContainer subContainer)
         {
             subContainer.Bind<RotorController>().AsSingle();
             subContainer.Bind<RotorModel>().AsSingle();
@@ -61,14 +61,17 @@ namespace Zenject.Tests.Other
 
         public class RotorController
         {
-            [Inject] public RotorModel Model;
+            [Inject]
+            public RotorModel Model;
         }
 
         public class RotorView
         {
-            [Inject] public RotorController Controller;
+            [Inject]
+            public RotorController Controller;
 
-            [Inject] public RotorModel Model;
+            [Inject]
+            public RotorModel Model;
         }
 
         public class RotorModel
@@ -76,3 +79,4 @@ namespace Zenject.Tests.Other
         }
     }
 }
+

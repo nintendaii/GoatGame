@@ -10,16 +10,16 @@ namespace Zenject
     [NoReflectionBaking]
     public class InjectContext : IDisposable
     {
-        private BindingId _bindingId;
-        private Type _objectType;
-        private InjectContext _parentContext;
-        private object _objectInstance;
-        private string _memberName;
-        private bool _optional;
-        private InjectSources _sourceType;
-        private object _fallBackValue;
-        private object _concreteIdentifier;
-        private DiContainer _container;
+        BindingId _bindingId;
+        Type _objectType;
+        InjectContext _parentContext;
+        object _objectInstance;
+        string _memberName;
+        bool _optional;
+        InjectSources _sourceType;
+        object _fallBackValue;
+        object _concreteIdentifier;
+        DiContainer _container;
 
         public InjectContext()
         {
@@ -65,14 +65,17 @@ namespace Zenject
             _bindingId.Identifier = null;
         }
 
-        public BindingId BindingId => _bindingId;
+        public BindingId BindingId
+        {
+            get { return _bindingId; }
+        }
 
         // The type of the object which is having its members injected
         // NOTE: This is null for root calls to Resolve<> or Instantiate<>
         public Type ObjectType
         {
-            get => _objectType;
-            set => _objectType = value;
+            get { return _objectType; }
+            set { _objectType = value; }
         }
 
         // Parent context that triggered the creation of ObjectType
@@ -81,16 +84,16 @@ namespace Zenject
         // since the ObjectType could be a derived type from ParentContext.MemberType
         public InjectContext ParentContext
         {
-            get => _parentContext;
-            set => _parentContext = value;
+            get { return _parentContext; }
+            set { _parentContext = value; }
         }
 
         // The instance which is having its members injected
         // Note that this is null when injecting into the constructor
         public object ObjectInstance
         {
-            get => _objectInstance;
-            set => _objectInstance = value;
+            get { return _objectInstance; }
+            set { _objectInstance = value; }
         }
 
         // Identifier - most of the time this is null
@@ -102,68 +105,74 @@ namespace Zenject
         //          public Foo([Inject(Id = "foo") Foo foo)
         public object Identifier
         {
-            get => _bindingId.Identifier;
-            set => _bindingId.Identifier = value;
+            get { return _bindingId.Identifier; }
+            set { _bindingId.Identifier = value; }
         }
 
         // The constructor parameter name, or field name, or property name
         public string MemberName
         {
-            get => _memberName;
-            set => _memberName = value;
+            get { return _memberName; }
+            set { _memberName = value; }
         }
 
         // The type of the constructor parameter, field or property
         public Type MemberType
         {
-            get => _bindingId.Type;
-            set => _bindingId.Type = value;
+            get { return _bindingId.Type; }
+            set { _bindingId.Type = value; }
         }
 
         // When optional, null is a valid value to be returned
         public bool Optional
         {
-            get => _optional;
-            set => _optional = value;
+            get { return _optional; }
+            set { _optional = value; }
         }
 
         // When set to true, this will only look up dependencies in the local container and will not
         // search in parent containers
         public InjectSources SourceType
         {
-            get => _sourceType;
-            set => _sourceType = value;
+            get { return _sourceType; }
+            set { _sourceType = value; }
         }
 
         public object ConcreteIdentifier
         {
-            get => _concreteIdentifier;
-            set => _concreteIdentifier = value;
+            get { return _concreteIdentifier; }
+            set { _concreteIdentifier = value; }
         }
 
         // When optional, this is used to provide the value
         public object FallBackValue
         {
-            get => _fallBackValue;
-            set => _fallBackValue = value;
+            get { return _fallBackValue; }
+            set { _fallBackValue = value; }
         }
 
         // The container used for this injection
         public DiContainer Container
         {
-            get => _container;
-            set => _container = value;
+            get { return _container; }
+            set { _container = value; }
         }
 
         public IEnumerable<InjectContext> ParentContexts
         {
             get
             {
-                if (ParentContext == null) yield break;
+                if (ParentContext == null)
+                {
+                    yield break;
+                }
 
                 yield return ParentContext;
 
-                foreach (var context in ParentContext.ParentContexts) yield return context;
+                foreach (var context in ParentContext.ParentContexts)
+                {
+                    yield return context;
+                }
             }
         }
 
@@ -173,7 +182,10 @@ namespace Zenject
             {
                 yield return this;
 
-                foreach (var context in ParentContexts) yield return context;
+                foreach (var context in ParentContexts)
+                {
+                    yield return context;
+                }
             }
         }
 
@@ -185,8 +197,12 @@ namespace Zenject
             get
             {
                 foreach (var context in ParentContextsAndSelf)
+                {
                     if (context.ObjectType != null)
+                    {
                         yield return context.ObjectType;
+                    }
+                }
             }
         }
 
@@ -244,7 +260,10 @@ namespace Zenject
 
             foreach (var context in ParentContextsAndSelf.Reverse())
             {
-                if (context.ObjectType == null) continue;
+                if (context.ObjectType == null)
+                {
+                    continue;
+                }
 
                 result.AppendLine(context.ObjectType.PrettyName());
             }

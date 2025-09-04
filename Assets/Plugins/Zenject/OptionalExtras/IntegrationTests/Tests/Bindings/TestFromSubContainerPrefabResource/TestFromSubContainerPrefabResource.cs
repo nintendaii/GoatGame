@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using ModestTree;
 using UnityEngine.TestTools;
 using Zenject.Tests.Bindings.FromSubContainerPrefabResource;
@@ -7,10 +8,10 @@ namespace Zenject.Tests.Bindings
 {
     public class TestFromSubContainerPrefabResource : ZenjectIntegrationTestFixture
     {
-        private const string PathPrefix = "TestFromSubContainerPrefabResource/";
-        private const string FooResourcePath = PathPrefix + "FooSubContainer";
+        const string PathPrefix = "TestFromSubContainerPrefabResource/";
+        const string FooResourcePath = PathPrefix + "FooSubContainer";
 
-        private void CommonInstall()
+        void CommonInstall()
         {
             Container.Settings = new ZenjectSettings(ValidationErrorResponses.Throw);
         }
@@ -22,8 +23,7 @@ namespace Zenject.Tests.Bindings
             CommonInstall();
 
             // Validation should detect that it doesn't exist
-            Container.Bind<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(PathPrefix + "asdfasdfas")
-                .AsTransient().NonLazy();
+            Container.Bind<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(PathPrefix + "asdfasdfas").AsTransient().NonLazy();
 
             Assert.Throws(() => PostInstall());
             yield break;
@@ -35,8 +35,7 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             CommonInstall();
 
-            Container.Bind<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsSingle()
-                .NonLazy();
+            Container.Bind<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsSingle().NonLazy();
 
             PostInstall();
 
@@ -51,8 +50,7 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             CommonInstall();
 
-            Container.Bind<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsTransient()
-                .NonLazy();
+            Container.Bind<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsTransient().NonLazy();
 
             PostInstall();
 
@@ -67,8 +65,7 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             CommonInstall();
 
-            Container.Bind<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsSingle()
-                .NonLazy();
+            Container.Bind<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsSingle().NonLazy();
 
             PostInstall();
 
@@ -83,8 +80,7 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             CommonInstall();
 
-            Container.Bind(typeof(Foo), typeof(Bar)).FromSubContainerResolve()
-                .ByNewContextPrefabResource(FooResourcePath).AsSingle().NonLazy();
+            Container.Bind(typeof(Foo), typeof(Bar)).FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsSingle().NonLazy();
 
             PostInstall();
 
@@ -100,8 +96,7 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             CommonInstall();
 
-            Container.Bind(typeof(Foo), typeof(Bar)).FromSubContainerResolve()
-                .ByNewContextPrefabResource(FooResourcePath).AsSingle().NonLazy();
+            Container.Bind(typeof(Foo), typeof(Bar)).FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsSingle().NonLazy();
 
             PostInstall();
 
@@ -117,8 +112,7 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             CommonInstall();
 
-            Container.Bind(typeof(Foo), typeof(Bar)).FromSubContainerResolve()
-                .ByNewContextPrefabResource(FooResourcePath).AsTransient().NonLazy();
+            Container.Bind(typeof(Foo), typeof(Bar)).FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsTransient().NonLazy();
 
             PostInstall();
 
@@ -134,8 +128,7 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             CommonInstall();
 
-            Container.Bind<IFoo>().To<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath)
-                .AsSingle().NonLazy();
+            Container.Bind<IFoo>().To<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsSingle().NonLazy();
 
             PostInstall();
 
@@ -166,8 +159,7 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             CommonInstall();
 
-            Container.Bind<IFoo>().To<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath)
-                .AsSingle().NonLazy();
+            Container.Bind<IFoo>().To<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsSingle().NonLazy();
 
             PostInstall();
 
@@ -199,8 +191,7 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             CommonInstall();
 
-            Container.Bind(typeof(Foo), typeof(IFoo)).To<Foo>().FromSubContainerResolve()
-                .ByNewContextPrefabResource(FooResourcePath).AsSingle().NonLazy();
+            Container.Bind(typeof(Foo), typeof(IFoo)).To<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsSingle().NonLazy();
 
             PostInstall();
 
@@ -215,8 +206,7 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             CommonInstall();
 
-            Container.Bind<Gorp>().FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsSingle()
-                .NonLazy();
+            Container.Bind<Gorp>().FromSubContainerResolve().ByNewContextPrefabResource(FooResourcePath).AsSingle().NonLazy();
 
             Assert.Throws(() => PostInstall());
             yield break;
@@ -228,8 +218,7 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             CommonInstall();
 
-            Container.Bind<Gorp>().FromSubContainerResolve("gorp").ByNewContextPrefabResource(FooResourcePath)
-                .AsSingle().NonLazy();
+            Container.Bind<Gorp>().FromSubContainerResolve("gorp").ByNewContextPrefabResource(FooResourcePath).AsSingle().NonLazy();
 
             PostInstall();
 
@@ -238,3 +227,4 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
+

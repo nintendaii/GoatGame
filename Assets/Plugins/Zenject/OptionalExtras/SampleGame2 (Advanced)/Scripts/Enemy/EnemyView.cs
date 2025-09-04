@@ -4,44 +4,72 @@ namespace Zenject.SpaceFighter
 {
     public class EnemyView : MonoBehaviour
     {
-        [SerializeField] private MeshRenderer _renderer = null;
+        [SerializeField]
+        MeshRenderer _renderer = null;
 
-        [SerializeField] private Collider _collider = null;
+        [SerializeField]
+        Collider _collider = null;
 
-        [SerializeField] private Rigidbody _rigidBody = null;
+        [SerializeField]
+        Rigidbody _rigidBody = null;
 
-        [Inject] public EnemyFacade Facade { get; set; }
+        [Inject]
+        public EnemyFacade Facade
+        {
+            get; set;
+        }
 
-        public MeshRenderer Renderer => _renderer;
+        public MeshRenderer Renderer
+        {
+            get { return _renderer; }
+        }
 
-        public Collider Collider => _collider;
+        public Collider Collider
+        {
+            get { return _collider; }
+        }
 
-        public Rigidbody Rigidbody => _rigidBody;
+        public Rigidbody Rigidbody
+        {
+            get { return _rigidBody; }
+        }
 
-        public Vector3 LookDir => -_rigidBody.transform.right;
+        public Vector3 LookDir
+        {
+            get { return -_rigidBody.transform.right; }
+        }
 
-        public Vector3 RightDir => _rigidBody.transform.up;
+        public Vector3 RightDir
+        {
+            get { return _rigidBody.transform.up; }
+        }
 
-        public Vector3 ForwardDir => _rigidBody.transform.right;
+        public Vector3 ForwardDir
+        {
+            get { return _rigidBody.transform.right; }
+        }
 
         public Vector3 Position
         {
-            get => _rigidBody.transform.position;
-            set => _rigidBody.transform.position = value;
+            get { return _rigidBody.transform.position; }
+            set { _rigidBody.transform.position = value; }
         }
 
         public Quaternion Rotation
         {
-            get => _rigidBody.rotation;
-            set => _rigidBody.rotation = value;
+            get { return _rigidBody.rotation; }
+            set { _rigidBody.rotation = value; }
         }
 
-        public Vector3 Velocity => _rigidBody.linearVelocity;
+        public Vector3 Velocity
+        {
+            get { return _rigidBody.linearVelocity; }
+        }
 
         public Vector3 AngularVelocity
         {
-            get => _rigidBody.angularVelocity;
-            set => _rigidBody.angularVelocity = value;
+            get { return _rigidBody.angularVelocity; }
+            set { _rigidBody.angularVelocity = value; }
         }
 
         public void AddForce(Vector3 force)

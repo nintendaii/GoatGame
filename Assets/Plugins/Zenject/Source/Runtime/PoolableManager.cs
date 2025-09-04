@@ -8,12 +8,13 @@ namespace Zenject
 {
     public class PoolableManager
     {
-        private readonly List<IPoolable> _poolables;
+        readonly List<IPoolable> _poolables;
 
-        private bool _isSpawned;
+        bool _isSpawned;
 
         public PoolableManager(
-            [InjectLocal] List<IPoolable> poolables,
+            [InjectLocal]
+            List<IPoolable> poolables,
             [Inject(Optional = true, Source = InjectSources.Local)]
             List<ValuePair<Type, int>> priorities)
         {
@@ -21,11 +22,10 @@ namespace Zenject
                 .OrderBy(x => x.Priority).Select(x => x.Poolable).ToList();
         }
 
-        private PoolableInfo CreatePoolableInfo(IPoolable poolable, List<ValuePair<Type, int>> priorities)
+        PoolableInfo CreatePoolableInfo(IPoolable poolable, List<ValuePair<Type, int>> priorities)
         {
-            var match = priorities.Where(x => poolable.GetType().DerivesFromOrEqual(x.First))
-                .Select(x => (int?)x.Second).SingleOrDefault();
-            var priority = match.HasValue ? match.Value : 0;
+            var match = priorities.Where(x => poolable.GetType().DerivesFromOrEqual(x.First)).Select(x => (int?)(x.Second)).SingleOrDefault();
+            int priority = match.HasValue ? match.Value : 0;
 
             return new PoolableInfo(poolable, priority);
         }
@@ -35,7 +35,7 @@ namespace Zenject
             Assert.That(!_isSpawned);
             _isSpawned = true;
 
-            for (var i = 0; i < _poolables.Count; i++)
+            for (int i = 0; i < _poolables.Count; i++)
             {
 #if ZEN_INTERNAL_PROFILING
                 using (ProfileTimers.CreateTimedBlock("User Code"))
@@ -55,7 +55,7 @@ namespace Zenject
             _isSpawned = false;
 
             // Call OnDespawned in the reverse order just like how dispose works
-            for (var i = _poolables.Count - 1; i >= 0; i--)
+            for (int i = _poolables.Count - 1; i >= 0; i--)
             {
 #if ZEN_INTERNAL_PROFILING
                 using (ProfileTimers.CreateTimedBlock("User Code"))
@@ -69,7 +69,7 @@ namespace Zenject
             }
         }
 
-        private struct PoolableInfo
+        struct PoolableInfo
         {
             public IPoolable Poolable;
             public int Priority;
@@ -88,12 +88,13 @@ namespace Zenject
     /// </summary>
     public class PoolableManager<T>
     {
-        private readonly List<IPoolable<T>> _poolables;
+        readonly List<IPoolable<T>> _poolables;
 
-        private bool _isSpawned;
+        bool _isSpawned;
 
         public PoolableManager(
-            [InjectLocal] List<IPoolable<T>> poolables,
+            [InjectLocal]
+            List<IPoolable<T>> poolables,
             [Inject(Optional = true, Source = InjectSources.Local)]
             List<ValuePair<Type, int>> priorities)
         {
@@ -101,11 +102,10 @@ namespace Zenject
                 .OrderBy(x => x.Priority).Select(x => x.Poolable).ToList();
         }
 
-        private PoolableInfo CreatePoolableInfo(IPoolable<T> poolable, List<ValuePair<Type, int>> priorities)
+        PoolableInfo CreatePoolableInfo(IPoolable<T> poolable, List<ValuePair<Type, int>> priorities)
         {
-            var match = priorities.Where(x => poolable.GetType().DerivesFromOrEqual(x.First))
-                .Select(x => (int?)x.Second).SingleOrDefault();
-            var priority = match.HasValue ? match.Value : 0;
+            var match = priorities.Where(x => poolable.GetType().DerivesFromOrEqual(x.First)).Select(x => (int?)(x.Second)).SingleOrDefault();
+            int priority = match.HasValue ? match.Value : 0;
 
             return new PoolableInfo(poolable, priority);
         }
@@ -115,7 +115,7 @@ namespace Zenject
             Assert.That(!_isSpawned);
             _isSpawned = true;
 
-            for (var i = 0; i < _poolables.Count; i++)
+            for (int i = 0; i < _poolables.Count; i++)
             {
 #if ZEN_INTERNAL_PROFILING
                 using (ProfileTimers.CreateTimedBlock("User Code"))
@@ -135,7 +135,7 @@ namespace Zenject
             _isSpawned = false;
 
             // Call OnDespawned in the reverse order just like how dispose works
-            for (var i = _poolables.Count - 1; i >= 0; i--)
+            for (int i = _poolables.Count - 1; i >= 0; i--)
             {
 #if ZEN_INTERNAL_PROFILING
                 using (ProfileTimers.CreateTimedBlock("User Code"))
@@ -149,7 +149,7 @@ namespace Zenject
             }
         }
 
-        private struct PoolableInfo
+        struct PoolableInfo
         {
             public IPoolable<T> Poolable;
             public int Priority;
@@ -168,12 +168,13 @@ namespace Zenject
     /// </summary>
     public class PoolableManager<T1, T2>
     {
-        private readonly List<IPoolable<T1, T2>> _poolables;
+        readonly List<IPoolable<T1, T2>> _poolables;
 
-        private bool _isSpawned;
+        bool _isSpawned;
 
         public PoolableManager(
-            [InjectLocal] List<IPoolable<T1, T2>> poolables,
+            [InjectLocal]
+            List<IPoolable<T1, T2>> poolables,
             [Inject(Optional = true, Source = InjectSources.Local)]
             List<ValuePair<Type, int>> priorities)
         {
@@ -181,11 +182,10 @@ namespace Zenject
                 .OrderBy(x => x.Priority).Select(x => x.Poolable).ToList();
         }
 
-        private PoolableInfo CreatePoolableInfo(IPoolable<T1, T2> poolable, List<ValuePair<Type, int>> priorities)
+        PoolableInfo CreatePoolableInfo(IPoolable<T1, T2> poolable, List<ValuePair<Type, int>> priorities)
         {
-            var match = priorities.Where(x => poolable.GetType().DerivesFromOrEqual(x.First))
-                .Select(x => (int?)x.Second).SingleOrDefault();
-            var priority = match.HasValue ? match.Value : 0;
+            var match = priorities.Where(x => poolable.GetType().DerivesFromOrEqual(x.First)).Select(x => (int?)(x.Second)).SingleOrDefault();
+            int priority = match.HasValue ? match.Value : 0;
 
             return new PoolableInfo(poolable, priority);
         }
@@ -195,7 +195,7 @@ namespace Zenject
             Assert.That(!_isSpawned);
             _isSpawned = true;
 
-            for (var i = 0; i < _poolables.Count; i++)
+            for (int i = 0; i < _poolables.Count; i++)
             {
 #if ZEN_INTERNAL_PROFILING
                 using (ProfileTimers.CreateTimedBlock("User Code"))
@@ -215,7 +215,7 @@ namespace Zenject
             _isSpawned = false;
 
             // Call OnDespawned in the reverse order just like how dispose works
-            for (var i = _poolables.Count - 1; i >= 0; i--)
+            for (int i = _poolables.Count - 1; i >= 0; i--)
             {
 #if ZEN_INTERNAL_PROFILING
                 using (ProfileTimers.CreateTimedBlock("User Code"))
@@ -229,7 +229,7 @@ namespace Zenject
             }
         }
 
-        private struct PoolableInfo
+        struct PoolableInfo
         {
             public IPoolable<T1, T2> Poolable;
             public int Priority;
@@ -248,12 +248,13 @@ namespace Zenject
     /// </summary>
     public class PoolableManager<T1, T2, T3>
     {
-        private readonly List<IPoolable<T1, T2, T3>> _poolables;
+        readonly List<IPoolable<T1, T2, T3>> _poolables;
 
-        private bool _isSpawned;
+        bool _isSpawned;
 
         public PoolableManager(
-            [InjectLocal] List<IPoolable<T1, T2, T3>> poolables,
+            [InjectLocal]
+            List<IPoolable<T1, T2, T3>> poolables,
             [Inject(Optional = true, Source = InjectSources.Local)]
             List<ValuePair<Type, int>> priorities)
         {
@@ -261,11 +262,10 @@ namespace Zenject
                 .OrderBy(x => x.Priority).Select(x => x.Poolable).ToList();
         }
 
-        private PoolableInfo CreatePoolableInfo(IPoolable<T1, T2, T3> poolable, List<ValuePair<Type, int>> priorities)
+        PoolableInfo CreatePoolableInfo(IPoolable<T1, T2, T3> poolable, List<ValuePair<Type, int>> priorities)
         {
-            var match = priorities.Where(x => poolable.GetType().DerivesFromOrEqual(x.First))
-                .Select(x => (int?)x.Second).SingleOrDefault();
-            var priority = match.HasValue ? match.Value : 0;
+            var match = priorities.Where(x => poolable.GetType().DerivesFromOrEqual(x.First)).Select(x => (int?)(x.Second)).SingleOrDefault();
+            int priority = match.HasValue ? match.Value : 0;
 
             return new PoolableInfo(poolable, priority);
         }
@@ -275,7 +275,7 @@ namespace Zenject
             Assert.That(!_isSpawned);
             _isSpawned = true;
 
-            for (var i = 0; i < _poolables.Count; i++)
+            for (int i = 0; i < _poolables.Count; i++)
             {
 #if ZEN_INTERNAL_PROFILING
                 using (ProfileTimers.CreateTimedBlock("User Code"))
@@ -295,7 +295,7 @@ namespace Zenject
             _isSpawned = false;
 
             // Call OnDespawned in the reverse order just like how dispose works
-            for (var i = _poolables.Count - 1; i >= 0; i--)
+            for (int i = _poolables.Count - 1; i >= 0; i--)
             {
 #if ZEN_INTERNAL_PROFILING
                 using (ProfileTimers.CreateTimedBlock("User Code"))
@@ -309,7 +309,7 @@ namespace Zenject
             }
         }
 
-        private struct PoolableInfo
+        struct PoolableInfo
         {
             public IPoolable<T1, T2, T3> Poolable;
             public int Priority;
@@ -328,12 +328,13 @@ namespace Zenject
     /// </summary>
     public class PoolableManager<T1, T2, T3, T4>
     {
-        private readonly List<IPoolable<T1, T2, T3, T4>> _poolables;
+        readonly List<IPoolable<T1, T2, T3, T4>> _poolables;
 
-        private bool _isSpawned;
+        bool _isSpawned;
 
         public PoolableManager(
-            [InjectLocal] List<IPoolable<T1, T2, T3, T4>> poolables,
+            [InjectLocal]
+            List<IPoolable<T1, T2, T3, T4>> poolables,
             [Inject(Optional = true, Source = InjectSources.Local)]
             List<ValuePair<Type, int>> priorities)
         {
@@ -341,12 +342,10 @@ namespace Zenject
                 .OrderBy(x => x.Priority).Select(x => x.Poolable).ToList();
         }
 
-        private PoolableInfo CreatePoolableInfo(IPoolable<T1, T2, T3, T4> poolable,
-            List<ValuePair<Type, int>> priorities)
+        PoolableInfo CreatePoolableInfo(IPoolable<T1, T2, T3, T4> poolable, List<ValuePair<Type, int>> priorities)
         {
-            var match = priorities.Where(x => poolable.GetType().DerivesFromOrEqual(x.First))
-                .Select(x => (int?)x.Second).SingleOrDefault();
-            var priority = match.HasValue ? match.Value : 0;
+            var match = priorities.Where(x => poolable.GetType().DerivesFromOrEqual(x.First)).Select(x => (int?)(x.Second)).SingleOrDefault();
+            int priority = match.HasValue ? match.Value : 0;
 
             return new PoolableInfo(poolable, priority);
         }
@@ -356,7 +355,7 @@ namespace Zenject
             Assert.That(!_isSpawned);
             _isSpawned = true;
 
-            for (var i = 0; i < _poolables.Count; i++)
+            for (int i = 0; i < _poolables.Count; i++)
             {
 #if ZEN_INTERNAL_PROFILING
                 using (ProfileTimers.CreateTimedBlock("User Code"))
@@ -376,7 +375,7 @@ namespace Zenject
             _isSpawned = false;
 
             // Call OnDespawned in the reverse order just like how dispose works
-            for (var i = _poolables.Count - 1; i >= 0; i--)
+            for (int i = _poolables.Count - 1; i >= 0; i--)
             {
 #if ZEN_INTERNAL_PROFILING
                 using (ProfileTimers.CreateTimedBlock("User Code"))
@@ -390,7 +389,7 @@ namespace Zenject
             }
         }
 
-        private struct PoolableInfo
+        struct PoolableInfo
         {
             public IPoolable<T1, T2, T3, T4> Poolable;
             public int Priority;
@@ -410,12 +409,13 @@ namespace Zenject
     /// </summary>
     public class PoolableManager<T1, T2, T3, T4, T5>
     {
-        private readonly List<IPoolable<T1, T2, T3, T4, T5>> _poolables;
+        readonly List<IPoolable<T1, T2, T3, T4, T5>> _poolables;
 
-        private bool _isSpawned;
+        bool _isSpawned;
 
         public PoolableManager(
-            [InjectLocal] List<IPoolable<T1, T2, T3, T4, T5>> poolables,
+            [InjectLocal]
+            List<IPoolable<T1, T2, T3, T4, T5>> poolables,
             [Inject(Optional = true, Source = InjectSources.Local)]
             List<ValuePair<Type, int>> priorities)
         {
@@ -423,12 +423,10 @@ namespace Zenject
                 .OrderBy(x => x.Priority).Select(x => x.Poolable).ToList();
         }
 
-        private PoolableInfo CreatePoolableInfo(IPoolable<T1, T2, T3, T4, T5> poolable,
-            List<ValuePair<Type, int>> priorities)
+        PoolableInfo CreatePoolableInfo(IPoolable<T1, T2, T3, T4, T5> poolable, List<ValuePair<Type, int>> priorities)
         {
-            var match = priorities.Where(x => poolable.GetType().DerivesFromOrEqual(x.First))
-                .Select(x => (int?)x.Second).SingleOrDefault();
-            var priority = match.HasValue ? match.Value : 0;
+            var match = priorities.Where(x => poolable.GetType().DerivesFromOrEqual(x.First)).Select(x => (int?)(x.Second)).SingleOrDefault();
+            int priority = match.HasValue ? match.Value : 0;
 
             return new PoolableInfo(poolable, priority);
         }
@@ -438,7 +436,7 @@ namespace Zenject
             Assert.That(!_isSpawned);
             _isSpawned = true;
 
-            for (var i = 0; i < _poolables.Count; i++)
+            for (int i = 0; i < _poolables.Count; i++)
             {
 #if ZEN_INTERNAL_PROFILING
                 using (ProfileTimers.CreateTimedBlock("User Code"))
@@ -458,7 +456,7 @@ namespace Zenject
             _isSpawned = false;
 
             // Call OnDespawned in the reverse order just like how dispose works
-            for (var i = _poolables.Count - 1; i >= 0; i--)
+            for (int i = _poolables.Count - 1; i >= 0; i--)
             {
 #if ZEN_INTERNAL_PROFILING
                 using (ProfileTimers.CreateTimedBlock("User Code"))
@@ -472,7 +470,7 @@ namespace Zenject
             }
         }
 
-        private struct PoolableInfo
+        struct PoolableInfo
         {
             public IPoolable<T1, T2, T3, T4, T5> Poolable;
             public int Priority;

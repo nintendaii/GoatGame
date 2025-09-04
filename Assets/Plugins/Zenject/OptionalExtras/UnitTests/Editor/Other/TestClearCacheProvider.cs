@@ -44,3 +44,4 @@ namespace Zenject.Tests.Other
         }
     }
 }
+

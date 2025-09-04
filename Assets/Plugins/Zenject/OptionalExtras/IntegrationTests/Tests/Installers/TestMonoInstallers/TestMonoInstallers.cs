@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using ModestTree;
 using UnityEngine.TestTools;
 using Zenject.Tests.Installers.MonoInstallers;
@@ -53,3 +54,4 @@ namespace Zenject.Tests.Installers
         }
     }
 }
+

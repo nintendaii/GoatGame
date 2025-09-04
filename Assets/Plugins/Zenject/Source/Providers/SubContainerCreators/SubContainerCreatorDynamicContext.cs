@@ -11,14 +11,17 @@ namespace Zenject
     [NoReflectionBaking]
     public abstract class SubContainerCreatorDynamicContext : ISubContainerCreator
     {
-        private readonly DiContainer _container;
+        readonly DiContainer _container;
 
         public SubContainerCreatorDynamicContext(DiContainer container)
         {
             _container = container;
         }
 
-        protected DiContainer Container => _container;
+        protected DiContainer Container
+        {
+            get { return _container; }
+        }
 
         public DiContainer CreateSubContainer(
             List<TypeValuePair> args, InjectContext parentContext, out Action injectAction)
@@ -32,7 +35,7 @@ namespace Zenject
 
             context.Install(_container);
 
-            injectAction = () =>
+            injectAction = () => 
             {
                 // Note: We don't need to call ResolveRoots here because GameObjectContext does this for us
                 _container.Inject(context);

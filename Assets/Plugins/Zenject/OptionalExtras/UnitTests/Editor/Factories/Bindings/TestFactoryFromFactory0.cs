@@ -6,7 +6,7 @@ namespace Zenject.Tests.Bindings
     [TestFixture]
     public class TestFactoryFromFactory0 : ZenjectUnitTestFixture
     {
-        private static Foo StaticFoo = new();
+        static Foo StaticFoo = new Foo();
 
         [Test]
         public void TestSelf()
@@ -34,7 +34,7 @@ namespace Zenject.Tests.Bindings
             Container.Resolve<IFooFactory>().Create();
         }
 
-        private class CustomFooFactoryWithValidate : IFactory<Foo>, IValidatable
+        class CustomFooFactoryWithValidate : IFactory<Foo>, IValidatable
         {
             public Foo Create()
             {
@@ -47,7 +47,7 @@ namespace Zenject.Tests.Bindings
             }
         }
 
-        private class CustomFooFactory : IFactory<Foo>
+        class CustomFooFactory : IFactory<Foo>
         {
             public Foo Create()
             {
@@ -55,15 +55,15 @@ namespace Zenject.Tests.Bindings
             }
         }
 
-        private interface IFoo
+        interface IFoo
         {
         }
 
-        private class IFooFactory : PlaceholderFactory<IFoo>
+        class IFooFactory : PlaceholderFactory<IFoo>
         {
         }
 
-        private class Foo : IFoo
+        class Foo : IFoo
         {
             public class Factory : PlaceholderFactory<Foo>
             {
@@ -71,3 +71,5 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
+
+

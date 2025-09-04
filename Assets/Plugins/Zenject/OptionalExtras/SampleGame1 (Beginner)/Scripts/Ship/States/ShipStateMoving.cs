@@ -6,16 +6,17 @@ namespace Zenject.Asteroids
 {
     public class ShipStateMoving : ShipState
     {
-        private readonly Settings _settings;
-        private readonly Camera _mainCamera;
-        private readonly Ship _ship;
+        readonly Settings _settings;
+        readonly Camera _mainCamera;
+        readonly Ship _ship;
 
-        private Vector3 _lastPosition;
-        private float _oscillationTheta;
+        Vector3 _lastPosition;
+        float _oscillationTheta;
 
         public ShipStateMoving(
             Settings settings, Ship ship,
-            [Inject(Id = "Main")] Camera mainCamera)
+            [Inject(Id = "Main")]
+            Camera mainCamera)
         {
             _ship = ship;
             _settings = settings;
@@ -29,7 +30,7 @@ namespace Zenject.Asteroids
             ApplyOscillation();
         }
 
-        private void ApplyOscillation()
+        void ApplyOscillation()
         {
             var obj = _ship.MeshRenderer.gameObject;
 
@@ -38,11 +39,10 @@ namespace Zenject.Asteroids
 
             _oscillationTheta += thetaMoveSpeed * Time.deltaTime;
 
-            obj.transform.position = obj.transform.parent.position +
-                                     new Vector3(0, _settings.oscillationAmplitude * Mathf.Sin(_oscillationTheta), 0);
+            obj.transform.position = obj.transform.parent.position + new Vector3(0, _settings.oscillationAmplitude * Mathf.Sin(_oscillationTheta), 0);
         }
 
-        private void UpdateThruster()
+        void UpdateThruster()
         {
             var speed = (_ship.Position - _lastPosition).magnitude / Time.deltaTime;
             var speedPx = Mathf.Clamp(speed / _settings.speedForMaxEmisssion, 0.0f, 1.0f);
@@ -55,15 +55,14 @@ namespace Zenject.Asteroids
 #endif
         }
 
-        private void Move()
+        void Move()
         {
             var mouseRay = _mainCamera.ScreenPointToRay(Input.mousePosition);
             var mousePos = mouseRay.origin;
             mousePos.z = 0;
 
             _lastPosition = _ship.Position;
-            _ship.Position = Vector3.Lerp(_ship.Position, mousePos,
-                Mathf.Min(1.0f, _settings.moveSpeed * Time.deltaTime));
+            _ship.Position = Vector3.Lerp(_ship.Position, mousePos, Mathf.Min(1.0f, _settings.moveSpeed * Time.deltaTime));
 
             var moveDelta = _ship.Position - _lastPosition;
             var moveDistance = moveDelta.magnitude;

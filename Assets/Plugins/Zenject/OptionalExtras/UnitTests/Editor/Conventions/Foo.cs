@@ -11,7 +11,11 @@ namespace Zenject.Tests.Convention
             Num = num;
         }
 
-        public int Num { get; private set; }
+        public int Num
+        {
+            get;
+            private set;
+        }
     }
 
     public interface IFoo

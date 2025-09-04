@@ -9,11 +9,12 @@ namespace Zenject
     // to have a unique tick priority
     public class SignalDeclarationAsyncInitializer : IInitializable
     {
-        private readonly LazyInject<TickableManager> _tickManager;
-        private readonly List<SignalDeclaration> _declarations;
+        readonly LazyInject<TickableManager> _tickManager;
+        readonly List<SignalDeclaration> _declarations;
 
         public SignalDeclarationAsyncInitializer(
-            [Inject(Source = InjectSources.Local)] List<SignalDeclaration> declarations,
+            [Inject(Source = InjectSources.Local)]
+            List<SignalDeclaration> declarations,
             [Inject(Optional = true, Source = InjectSources.Local)]
             LazyInject<TickableManager> tickManager)
         {
@@ -23,7 +24,7 @@ namespace Zenject
 
         public void Initialize()
         {
-            for (var i = 0; i < _declarations.Count; i++)
+            for (int i = 0; i < _declarations.Count; i++)
             {
                 var declaration = _declarations[i];
 
@@ -36,3 +37,4 @@ namespace Zenject
         }
     }
 }
+

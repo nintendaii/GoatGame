@@ -7,7 +7,7 @@ namespace Zenject.Tests.Other
     [TestFixture]
     public class TestResolve : ZenjectUnitTestFixture
     {
-        private class Foo
+        class Foo
         {
         }
 
@@ -55,7 +55,7 @@ namespace Zenject.Tests.Other
             Assert.IsEqual(Container.Instantiate<Bar>().Foos, l1);
         }
 
-        private class Bar
+        class Bar
         {
             public List<Foo> Foos;
 
@@ -66,3 +66,6 @@ namespace Zenject.Tests.Other
         }
     }
 }
+
+
+

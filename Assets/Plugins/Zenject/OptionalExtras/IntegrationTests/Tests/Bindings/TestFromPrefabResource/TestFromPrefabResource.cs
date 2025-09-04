@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using ModestTree;
 using UnityEngine.TestTools;
 using Zenject.Tests.Bindings.FromPrefabResource;
@@ -7,7 +8,7 @@ namespace Zenject.Tests.Bindings
 {
     public class TestFromPrefabResource : ZenjectIntegrationTestFixture
     {
-        private const string PathPrefix = "TestFromPrefabResource/";
+        const string PathPrefix = "TestFromPrefabResource/";
 
         [UnityTest]
         public IEnumerator TestTransientError()
@@ -37,8 +38,7 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestSingle()
         {
             PreInstall();
-            Container.Bind(typeof(Foo), typeof(IFoo)).To<Foo>().FromComponentInNewPrefabResource(PathPrefix + "Foo")
-                .AsSingle().NonLazy();
+            Container.Bind(typeof(Foo), typeof(IFoo)).To<Foo>().FromComponentInNewPrefabResource(PathPrefix + "Foo").AsSingle().NonLazy();
 
             PostInstall();
 
@@ -67,8 +67,7 @@ namespace Zenject.Tests.Bindings
         {
             PreInstall();
             // They have required arguments
-            Container.Bind(typeof(Gorp), typeof(Qux)).FromComponentInNewPrefabResource(PathPrefix + "GorpAndQux")
-                .AsSingle().NonLazy();
+            Container.Bind(typeof(Gorp), typeof(Qux)).FromComponentInNewPrefabResource(PathPrefix + "GorpAndQux").AsSingle().NonLazy();
 
             Assert.Throws(() => PostInstall());
             yield break;
@@ -125,8 +124,7 @@ namespace Zenject.Tests.Bindings
         {
             PreInstall();
             // Should ignore the Norf2 component on it
-            Container.Bind<INorf>().To<Norf>().FromComponentsInNewPrefabResource(PathPrefix + "Norf").AsCached()
-                .NonLazy();
+            Container.Bind<INorf>().To<Norf>().FromComponentsInNewPrefabResource(PathPrefix + "Norf").AsCached().NonLazy();
 
             PostInstall();
 
@@ -149,8 +147,7 @@ namespace Zenject.Tests.Bindings
         {
             PreInstall();
             // Jim and Bob both depend on each other
-            Container.Bind(typeof(Jim), typeof(Bob)).FromComponentInNewPrefabResource(PathPrefix + "JimAndBob")
-                .AsSingle().NonLazy();
+            Container.Bind(typeof(Jim), typeof(Bob)).FromComponentInNewPrefabResource(PathPrefix + "JimAndBob").AsSingle().NonLazy();
 
             Container.BindInterfacesTo<JimAndBobRunner>().AsSingle().NonLazy();
 
@@ -160,8 +157,8 @@ namespace Zenject.Tests.Bindings
 
         public class JimAndBobRunner : IInitializable
         {
-            private readonly Bob _bob;
-            private readonly Jim _jim;
+            readonly Bob _bob;
+            readonly Jim _jim;
 
             public JimAndBobRunner(Jim jim, Bob bob)
             {
@@ -179,3 +176,4 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
+

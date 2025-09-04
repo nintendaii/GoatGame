@@ -7,7 +7,10 @@ namespace Zenject.Tests.TestDestructionOrder
     {
         public void Tick()
         {
-            if (Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("EmptyScene", LoadSceneMode.Single);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene("EmptyScene", LoadSceneMode.Single);
+            }
         }
     }
 

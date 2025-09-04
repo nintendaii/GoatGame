@@ -39,8 +39,7 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestInstallerSelfSingleMultipleContracts()
         {
-            Container.Bind(typeof(Foo), typeof(Bar)).FromSubContainerResolve().ByInstaller<FooInstaller>().AsSingle()
-                .NonLazy();
+            Container.Bind(typeof(Foo), typeof(Bar)).FromSubContainerResolve().ByInstaller<FooInstaller>().AsSingle().NonLazy();
 
             Assert.IsEqual(Container.Resolve<Foo>().Bar, Container.Resolve<Bar>());
         }
@@ -48,8 +47,7 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestInstallerSelfCachedMultipleContracts()
         {
-            Container.Bind(typeof(Foo), typeof(IFoo)).To<Foo>().FromSubContainerResolve().ByInstaller<FooInstaller>()
-                .AsSingle().NonLazy();
+            Container.Bind(typeof(Foo), typeof(IFoo)).To<Foo>().FromSubContainerResolve().ByInstaller<FooInstaller>().AsSingle().NonLazy();
 
             Assert.IsEqual(Container.Resolve<Foo>(), Container.Resolve<IFoo>());
         }
@@ -101,10 +99,14 @@ namespace Zenject.Tests.Bindings
                 Bar = bar;
             }
 
-            public Bar Bar { get; private set; }
+            public Bar Bar
+            {
+                get;
+                private set;
+            }
         }
 
-        private class FooInstaller : Installer<FooInstaller>
+        class FooInstaller : Installer<FooInstaller>
         {
             public override void InstallBindings()
             {
@@ -119,3 +121,4 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
+

@@ -5,14 +5,15 @@ namespace Zenject
 {
     public class ZenAutoInjecter : MonoBehaviour
     {
-        [SerializeField] private ContainerSources _containerSource = ContainerSources.SearchHierarchy;
+        [SerializeField]
+        ContainerSources _containerSource = ContainerSources.SearchHierarchy;
 
-        private bool _hasInjected;
+        bool _hasInjected;
 
         public ContainerSources ContainerSource
         {
-            get => _containerSource;
-            set => _containerSource = value;
+            get { return _containerSource; }
+            set { _containerSource = value; }
         }
 
         // Make sure they don't cause injection to happen twice
@@ -20,8 +21,10 @@ namespace Zenject
         public void Construct()
         {
             if (!_hasInjected)
+            {
                 throw Assert.CreateException(
                     "ZenAutoInjecter was injected!  Do not use ZenAutoInjecter for objects that are instantiated through zenject or which exist in the initial scene hierarchy");
+            }
         }
 
         public void Awake()
@@ -30,22 +33,31 @@ namespace Zenject
             LookupContainer().InjectGameObject(gameObject);
         }
 
-        private DiContainer LookupContainer()
+        DiContainer LookupContainer()
         {
-            if (_containerSource == ContainerSources.ProjectContext) return ProjectContext.Instance.Container;
+            if (_containerSource == ContainerSources.ProjectContext)
+            {
+                return ProjectContext.Instance.Container;
+            }
 
-            if (_containerSource == ContainerSources.SceneContext) return GetContainerForCurrentScene();
+            if (_containerSource == ContainerSources.SceneContext)
+            {
+                return GetContainerForCurrentScene();
+            }
 
             Assert.IsEqual(_containerSource, ContainerSources.SearchHierarchy);
 
             var parentContext = transform.GetComponentInParent<Context>();
 
-            if (parentContext != null) return parentContext.Container;
+            if (parentContext != null)
+            {
+                return parentContext.Container;
+            }
 
             return GetContainerForCurrentScene();
         }
 
-        private DiContainer GetContainerForCurrentScene()
+        DiContainer GetContainerForCurrentScene()
         {
             return ProjectContext.Instance.Container.Resolve<SceneContextRegistry>()
                 .GetContainerForScene(gameObject.scene);

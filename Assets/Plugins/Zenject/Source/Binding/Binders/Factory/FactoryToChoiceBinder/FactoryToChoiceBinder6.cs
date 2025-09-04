@@ -26,8 +26,7 @@ namespace Zenject
             BindInfo.ToTypes.Clear();
             BindInfo.ToTypes.Add(typeof(TConcrete));
 
-            return new FactoryFromBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TConcrete>(BindContainer,
-                BindInfo, FactoryBindInfo);
+            return new FactoryFromBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TConcrete>(BindContainer, BindInfo, FactoryBindInfo);
         }
     }
 }

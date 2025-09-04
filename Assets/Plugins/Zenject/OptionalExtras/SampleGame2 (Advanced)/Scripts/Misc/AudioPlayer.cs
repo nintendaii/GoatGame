@@ -4,7 +4,7 @@ namespace Zenject.SpaceFighter
 {
     public class AudioPlayer
     {
-        private readonly Camera _camera;
+        readonly Camera _camera;
 
         public AudioPlayer(Camera camera)
         {

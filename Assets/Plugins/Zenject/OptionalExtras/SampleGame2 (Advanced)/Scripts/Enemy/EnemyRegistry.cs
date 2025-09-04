@@ -4,9 +4,12 @@ namespace Zenject.SpaceFighter
 {
     public class EnemyRegistry
     {
-        private readonly List<EnemyFacade> _enemies = new();
+        readonly List<EnemyFacade> _enemies = new List<EnemyFacade>();
 
-        public IEnumerable<EnemyFacade> Enemies => _enemies;
+        public IEnumerable<EnemyFacade> Enemies
+        {
+            get { return _enemies; }
+        }
 
         public void AddEnemy(EnemyFacade enemy)
         {

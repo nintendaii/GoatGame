@@ -1,20 +1,19 @@
 using System;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Zenject.Asteroids
 {
     public class ShipStateDead : ShipState
     {
-        private readonly SignalBus _signalBus;
-        private readonly BrokenShipFactory _brokenShipFactory;
-        private readonly ExplosionFactory _explosionFactory;
-        private readonly Settings _settings;
-        private readonly Ship _ship;
+        readonly SignalBus _signalBus;
+        readonly BrokenShipFactory _brokenShipFactory;
+        readonly ExplosionFactory _explosionFactory;
+        readonly Settings _settings;
+        readonly Ship _ship;
 
-        private GameObject _shipBroken;
-        private GameObject _explosion;
+        GameObject _shipBroken;
+        GameObject _explosion;
 
         public ShipStateDead(
             Settings settings, Ship ship,
@@ -58,8 +57,8 @@ namespace Zenject.Asteroids
 
             _ship.ParticleEmitter.gameObject.SetActive(true);
 
-            Object.Destroy(_explosion);
-            Object.Destroy(_shipBroken);
+            GameObject.Destroy(_explosion);
+            GameObject.Destroy(_shipBroken);
         }
 
         public override void Update()

@@ -6,7 +6,10 @@ namespace Zenject.Tests
     [TestFixture]
     public class TestValidationSettings
     {
-        private DiContainer Container { get; set; }
+        DiContainer Container
+        {
+            get; set;
+        }
 
         [SetUp]
         public void Setup()
@@ -18,10 +21,10 @@ namespace Zenject.Tests
         //[Test]
         //public void TestValidationErrorLogOnly()
         //{
-        //Container.Settings = new ZenjectSettings(ValidationErrorResponses.Log);
-        //Container.Bind<Bar>().AsSingle().NonLazy();
+            //Container.Settings = new ZenjectSettings(ValidationErrorResponses.Log);
+            //Container.Bind<Bar>().AsSingle().NonLazy();
 
-        //Container.ResolveRoots();
+            //Container.ResolveRoots();
         //}
 
         [Test]
@@ -67,3 +70,5 @@ namespace Zenject.Tests
         }
     }
 }
+
+

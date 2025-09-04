@@ -8,7 +8,7 @@ namespace Zenject
     [NoReflectionBaking]
     public class GameObjectContextEditor : RunnableContextEditor
     {
-        private SerializedProperty _kernel;
+        SerializedProperty _kernel;
 
         public override void OnEnable()
         {

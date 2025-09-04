@@ -6,7 +6,7 @@ namespace Zenject.Tests.Other
     [TestFixture]
     public class TestPoolableManager : ZenjectUnitTestFixture
     {
-        private static int CallCount;
+        static int CallCount;
 
         public class Foo : IPoolable
         {

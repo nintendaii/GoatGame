@@ -5,7 +5,7 @@ namespace Zenject
 {
     public class DictionaryPool<TKey, TValue> : StaticMemoryPool<Dictionary<TKey, TValue>>
     {
-        private static DictionaryPool<TKey, TValue> _instance = new();
+        static DictionaryPool<TKey, TValue> _instance = new DictionaryPool<TKey, TValue>();
 
         public DictionaryPool()
         {
@@ -13,16 +13,20 @@ namespace Zenject
             OnDespawnedMethod = OnDespawned;
         }
 
-        public static DictionaryPool<TKey, TValue> Instance => _instance;
+        public static DictionaryPool<TKey, TValue> Instance
+        {
+            get { return _instance; }
+        }
 
-        private static void OnSpawned(Dictionary<TKey, TValue> items)
+        static void OnSpawned(Dictionary<TKey, TValue> items)
         {
             Assert.That(items.IsEmpty());
         }
 
-        private static void OnDespawned(Dictionary<TKey, TValue> items)
+        static void OnDespawned(Dictionary<TKey, TValue> items)
         {
             items.Clear();
         }
     }
 }
+

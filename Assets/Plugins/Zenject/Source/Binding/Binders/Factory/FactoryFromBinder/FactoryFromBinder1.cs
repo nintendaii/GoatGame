@@ -62,62 +62,58 @@ namespace Zenject
         }
 
         public static ArgConditionCopyNonLazyBinder FromPoolableMemoryPool<TParam1, TContract>(
-                this FactoryFromBinder<TParam1, TContract> fromBinder)
+            this FactoryFromBinder<TParam1, TContract> fromBinder)
             // Unfortunately we have to pass the same contract in again to satisfy the generic
             // constraints below
             where TContract : IPoolable<TParam1, IMemoryPool>
         {
-            return fromBinder.FromPoolableMemoryPool<TParam1, TContract>(x => { });
+            return fromBinder.FromPoolableMemoryPool<TParam1, TContract>(x => {});
         }
 
         public static ArgConditionCopyNonLazyBinder FromPoolableMemoryPool<TParam1, TContract>(
-                this FactoryFromBinder<TParam1, TContract> fromBinder,
-                Action<MemoryPoolInitialSizeMaxSizeBinder<TContract>> poolBindGenerator)
+            this FactoryFromBinder<TParam1, TContract> fromBinder,
+            Action<MemoryPoolInitialSizeMaxSizeBinder<TContract>> poolBindGenerator)
             // Unfortunately we have to pass the same contract in again to satisfy the generic
             // constraints below
             where TContract : IPoolable<TParam1, IMemoryPool>
         {
-            return fromBinder
-                .FromPoolableMemoryPool<TParam1, TContract, PoolableMemoryPool<TParam1, IMemoryPool, TContract>>(
-                    poolBindGenerator);
+            return fromBinder.FromPoolableMemoryPool<TParam1, TContract, PoolableMemoryPool<TParam1, IMemoryPool, TContract>>(poolBindGenerator);
         }
 
 #if !NOT_UNITY3D
         public static ArgConditionCopyNonLazyBinder FromMonoPoolableMemoryPool<TParam1, TContract>(
-                this FactoryFromBinder<TParam1, TContract> fromBinder)
+            this FactoryFromBinder<TParam1, TContract> fromBinder)
             // Unfortunately we have to pass the same contract in again to satisfy the generic
             // constraints below
             where TContract : Component, IPoolable<TParam1, IMemoryPool>
         {
-            return fromBinder.FromMonoPoolableMemoryPool<TParam1, TContract>(x => { });
+            return fromBinder.FromMonoPoolableMemoryPool<TParam1, TContract>(x => {});
         }
 
         public static ArgConditionCopyNonLazyBinder FromMonoPoolableMemoryPool<TParam1, TContract>(
-                this FactoryFromBinder<TParam1, TContract> fromBinder,
-                Action<MemoryPoolInitialSizeMaxSizeBinder<TContract>> poolBindGenerator)
+            this FactoryFromBinder<TParam1, TContract> fromBinder,
+            Action<MemoryPoolInitialSizeMaxSizeBinder<TContract>> poolBindGenerator)
             // Unfortunately we have to pass the same contract in again to satisfy the generic
             // constraints below
             where TContract : Component, IPoolable<TParam1, IMemoryPool>
         {
-            return fromBinder
-                .FromPoolableMemoryPool<TParam1, TContract, MonoPoolableMemoryPool<TParam1, IMemoryPool, TContract>>(
-                    poolBindGenerator);
+            return fromBinder.FromPoolableMemoryPool<TParam1, TContract, MonoPoolableMemoryPool<TParam1, IMemoryPool, TContract>>(poolBindGenerator);
         }
 #endif
 
         public static ArgConditionCopyNonLazyBinder FromPoolableMemoryPool<TParam1, TContract, TMemoryPool>(
-                this FactoryFromBinder<TParam1, TContract> fromBinder)
+            this FactoryFromBinder<TParam1, TContract> fromBinder)
             // Unfortunately we have to pass the same contract in again to satisfy the generic
             // constraints below
             where TContract : IPoolable<TParam1, IMemoryPool>
             where TMemoryPool : MemoryPool<TParam1, IMemoryPool, TContract>
         {
-            return fromBinder.FromPoolableMemoryPool<TParam1, TContract, TMemoryPool>(x => { });
+            return fromBinder.FromPoolableMemoryPool<TParam1, TContract, TMemoryPool>(x => {});
         }
 
         public static ArgConditionCopyNonLazyBinder FromPoolableMemoryPool<TParam1, TContract, TMemoryPool>(
-                this FactoryFromBinder<TParam1, TContract> fromBinder,
-                Action<MemoryPoolInitialSizeMaxSizeBinder<TContract>> poolBindGenerator)
+            this FactoryFromBinder<TParam1, TContract> fromBinder,
+            Action<MemoryPoolInitialSizeMaxSizeBinder<TContract>> poolBindGenerator)
             // Unfortunately we have to pass the same contract in again to satisfy the generic
             // constraints below
             where TContract : IPoolable<TParam1, IMemoryPool>
@@ -128,8 +124,7 @@ namespace Zenject
             var poolId = Guid.NewGuid();
 
             // Important to use NoFlush otherwise the binding will be finalized early
-            var binder = fromBinder.BindContainer
-                .BindMemoryPoolCustomInterfaceNoFlush<TContract, TMemoryPool, TMemoryPool>().WithId(poolId);
+            var binder = fromBinder.BindContainer.BindMemoryPoolCustomInterfaceNoFlush<TContract, TMemoryPool, TMemoryPool>().WithId(poolId);
 
             // Always make it non lazy by default in case the user sets an InitialSize
             binder.NonLazy();
@@ -137,10 +132,7 @@ namespace Zenject
             poolBindGenerator(binder);
 
             fromBinder.ProviderFunc =
-                (container) =>
-                {
-                    return new PoolableMemoryPoolProvider<TParam1, TContract, TMemoryPool>(container, poolId);
-                };
+                (container) => { return new PoolableMemoryPoolProvider<TParam1, TContract, TMemoryPool>(container, poolId); };
 
             return new ArgConditionCopyNonLazyBinder(fromBinder.BindInfo);
         }

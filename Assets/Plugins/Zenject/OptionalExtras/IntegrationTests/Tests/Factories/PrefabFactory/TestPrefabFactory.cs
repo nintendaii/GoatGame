@@ -8,13 +8,25 @@ namespace Zenject.Tests.Factories
 {
     public class TestPrefabFactory : ZenjectIntegrationTestFixture
     {
-        private string FooPrefabResourcePath => "TestPrefabFactory/Foo";
+        string FooPrefabResourcePath
+        {
+            get { return "TestPrefabFactory/Foo"; }
+        }
 
-        private GameObject FooPrefab => FixtureUtil.GetPrefab(FooPrefabResourcePath);
+        GameObject FooPrefab
+        {
+            get { return FixtureUtil.GetPrefab(FooPrefabResourcePath); }
+        }
 
-        private string Foo2PrefabResourcePath => "TestPrefabFactory/Foo2";
+        string Foo2PrefabResourcePath
+        {
+            get { return "TestPrefabFactory/Foo2"; }
+        }
 
-        private GameObject Foo2Prefab => FixtureUtil.GetPrefab(Foo2PrefabResourcePath);
+        GameObject Foo2Prefab
+        {
+            get { return FixtureUtil.GetPrefab(Foo2PrefabResourcePath); }
+        }
 
         [UnityTest]
         public IEnumerator Test1()
@@ -57,8 +69,7 @@ namespace Zenject.Tests.Factories
         {
             PreInstall();
 
-            Container.BindFactory<string, string, Foo2, Foo2.Factory2>()
-                .FromFactory<PrefabResourceFactory<string, Foo2>>();
+            Container.BindFactory<string, string, Foo2, Foo2.Factory2>().FromFactory<PrefabResourceFactory<string, Foo2>>();
             Container.Bind<IInitializable>().To<Runner4>().AsSingle().WithArguments(Foo2PrefabResourcePath);
 
             PostInstall();
@@ -67,8 +78,8 @@ namespace Zenject.Tests.Factories
 
         public class Runner : IInitializable
         {
-            private readonly GameObject _prefab;
-            private readonly Foo.Factory _fooFactory;
+            readonly GameObject _prefab;
+            readonly Foo.Factory _fooFactory;
 
             public Runner(
                 Foo.Factory fooFactory,
@@ -88,8 +99,8 @@ namespace Zenject.Tests.Factories
 
         public class Runner2 : IInitializable
         {
-            private readonly GameObject _prefab;
-            private readonly Foo2.Factory _fooFactory;
+            readonly GameObject _prefab;
+            readonly Foo2.Factory _fooFactory;
 
             public Runner2(
                 Foo2.Factory fooFactory,
@@ -109,8 +120,8 @@ namespace Zenject.Tests.Factories
 
         public class Runner3 : IInitializable
         {
-            private readonly string _prefabPath;
-            private readonly Foo.Factory2 _fooFactory;
+            readonly string _prefabPath;
+            readonly Foo.Factory2 _fooFactory;
 
             public Runner3(
                 Foo.Factory2 fooFactory,
@@ -129,8 +140,8 @@ namespace Zenject.Tests.Factories
 
         public class Runner4 : IInitializable
         {
-            private readonly string _prefabPath;
-            private readonly Foo2.Factory2 _fooFactory;
+            readonly string _prefabPath;
+            readonly Foo2.Factory2 _fooFactory;
 
             public Runner4(
                 Foo2.Factory2 fooFactory,

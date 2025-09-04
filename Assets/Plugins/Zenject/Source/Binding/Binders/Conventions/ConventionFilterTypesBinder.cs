@@ -121,14 +121,17 @@ namespace Zenject
             return this;
         }
 
-        private static bool IsInNamespace(Type type, string requiredNs)
+        static bool IsInNamespace(Type type, string requiredNs)
         {
             var actualNs = type.Namespace ?? "";
 
-            if (requiredNs.Length > actualNs.Length) return false;
+            if (requiredNs.Length > actualNs.Length)
+            {
+                return false;
+            }
 
             return actualNs.StartsWith(requiredNs)
-                   && (actualNs.Length == requiredNs.Length || actualNs[requiredNs.Length] == '.');
+                && (actualNs.Length == requiredNs.Length || actualNs[requiredNs.Length] == '.');
         }
     }
 }

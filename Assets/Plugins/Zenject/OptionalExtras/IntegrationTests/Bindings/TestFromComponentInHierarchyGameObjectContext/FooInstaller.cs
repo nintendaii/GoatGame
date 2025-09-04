@@ -6,7 +6,8 @@ namespace Zenject.Tests.Bindings.FromComponentInHierarchyGameObjectContext
 {
     public class FooInstaller : MonoInstaller
     {
-        [SerializeField] private Foo _foo;
+        [SerializeField]
+        Foo _foo;
 
         public override void InstallBindings()
         {

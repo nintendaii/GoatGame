@@ -213,34 +213,39 @@ namespace Zenject.Tests
 
         public class Bar
         {
-            public static readonly StaticMemoryPool<Bar> Pool = new(OnSpawned, OnDespawned);
+            public static readonly StaticMemoryPool<Bar> Pool =
+                new StaticMemoryPool<Bar>(OnSpawned, OnDespawned);
 
-            private static void OnSpawned(Bar that)
+            static void OnSpawned(Bar that)
             {
             }
 
-            private static void OnDespawned(Bar that)
+            static void OnDespawned(Bar that)
             {
             }
         }
 
         public class Foo : IDisposable
         {
-            public static readonly StaticMemoryPool<string, Foo> Pool = new(OnSpawned, OnDespawned);
+            public static readonly StaticMemoryPool<string, Foo> Pool =
+                new StaticMemoryPool<string, Foo>(OnSpawned, OnDespawned);
 
-            public string Value { get; private set; }
+            public string Value
+            {
+                get; private set;
+            }
 
             public void Dispose()
             {
                 Pool.Despawn(this);
             }
 
-            private static void OnSpawned(string value, Foo that)
+            static void OnSpawned(string value, Foo that)
             {
                 that.Value = value;
             }
 
-            private static void OnDespawned(Foo that)
+            static void OnDespawned(Foo that)
             {
                 that.Value = null;
             }

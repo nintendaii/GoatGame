@@ -7,17 +7,24 @@ namespace Zenject
 {
     public abstract class ZenjectEditorWindow : EditorWindow
     {
-        [Inject] [NonSerialized] private Kernel _kernel;
+        [Inject]
+        [NonSerialized]
+        Kernel _kernel;
 
-        [Inject] [NonSerialized] private GuiRenderableManager _guiRenderableManager;
+        [Inject]
+        [NonSerialized]
+        GuiRenderableManager _guiRenderableManager;
 
-        [NonSerialized] private DiContainer _container;
+        [NonSerialized]
+        DiContainer _container;
 
-        [NonSerialized] private Exception _fatalError;
+        [NonSerialized]
+        Exception _fatalError;
 
-        [NonSerialized] private GUIStyle _errorTextStyle;
+        [NonSerialized]
+        GUIStyle _errorTextStyle;
 
-        private GUIStyle ErrorTextStyle
+        GUIStyle ErrorTextStyle
         {
             get
             {
@@ -34,11 +41,17 @@ namespace Zenject
             }
         }
 
-        protected DiContainer Container => _container;
+        protected DiContainer Container
+        {
+            get { return _container; }
+        }
 
         public virtual void OnEnable()
         {
-            if (_fatalError != null) return;
+            if (_fatalError != null)
+            {
+                return;
+            }
 
             Initialize();
         }
@@ -68,14 +81,20 @@ namespace Zenject
 
         public virtual void OnDisable()
         {
-            if (_fatalError != null) return;
+            if (_fatalError != null)
+            {
+                return;
+            }
 
             _kernel.Dispose();
         }
 
         public virtual void Update()
         {
-            if (_fatalError != null) return;
+            if (_fatalError != null)
+            {
+                return;
+            }
 
             try
             {
@@ -98,24 +117,25 @@ namespace Zenject
                 var labelWidth = 600;
                 var labelHeight = 200;
 
-                GUI.Label(
-                    new Rect(Screen.width / 2 - labelWidth / 2, Screen.height / 3 - labelHeight / 2, labelWidth,
-                        labelHeight), "Unrecoverable error occurred!  \nSee log for details.", ErrorTextStyle);
+                GUI.Label(new Rect(Screen.width / 2 - labelWidth / 2, Screen.height / 3 - labelHeight / 2, labelWidth, labelHeight), "Unrecoverable error occurred!  \nSee log for details.", ErrorTextStyle);
 
                 var buttonWidth = 100;
                 var buttonHeight = 50;
                 var offset = new Vector2(0, 100);
 
-                if (GUI.Button(
-                        new Rect(Screen.width / 2 - buttonWidth / 2 + offset.x,
-                            Screen.height / 3 - buttonHeight / 2 + offset.y, buttonWidth, buttonHeight), "Reload"))
+                if (GUI.Button(new Rect(Screen.width / 2 - buttonWidth / 2 + offset.x, Screen.height / 3 - buttonHeight / 2 + offset.y, buttonWidth, buttonHeight), "Reload"))
+                {
                     ExecuteFullReload();
+                }
             }
             else
             {
                 try
                 {
-                    if (_guiRenderableManager != null) _guiRenderableManager.OnGui();
+                    if (_guiRenderableManager != null)
+                    {
+                        _guiRenderableManager.OnGui();
+                    }
                 }
                 catch (Exception e)
                 {

@@ -23,7 +23,7 @@ namespace Zenject.Internal
 
         public override int GetHashCode()
         {
-            var hash = 17;
+            int hash = 17;
             hash = hash * 23 + Provider.GetHashCode();
             hash = hash * 23 + BindingId.GetHashCode();
             return hash;

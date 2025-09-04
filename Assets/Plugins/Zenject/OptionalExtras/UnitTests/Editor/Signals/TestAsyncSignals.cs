@@ -6,17 +6,22 @@ namespace Zenject.Tests.Signals
     [TestFixture]
     public class TestAsyncSignals : ZenjectUnitTestFixture
     {
-        private static int CallCount;
+        static int CallCount;
 
-        [Inject] private SignalBus _signalBus = null;
+        [Inject]
+        SignalBus _signalBus = null;
 
-        [Inject] private Receiver1 _receiver1 = null;
+        [Inject]
+        Receiver1 _receiver1 = null;
 
-        [Inject] private Receiver2 _receiver2 = null;
+        [Inject]
+        Receiver2 _receiver2 = null;
 
-        [Inject] private TickableManager _tickManager = null;
+        [Inject]
+        TickableManager _tickManager = null;
 
-        [InjectOptional] private Foo _foo = null;
+        [InjectOptional]
+        Foo _foo = null;
 
         public override void Setup()
         {
@@ -99,7 +104,10 @@ namespace Zenject.Tests.Signals
 
         public class Foo : ITickable
         {
-            public int CallIndex { get; set; }
+            public int CallIndex
+            {
+                get; set;
+            }
 
             public void Tick()
             {
@@ -117,7 +125,10 @@ namespace Zenject.Tests.Signals
 
         public class Receiver1
         {
-            public int CallIndex { get; set; }
+            public int CallIndex
+            {
+                get; set;
+            }
 
             public void OnSignal()
             {
@@ -127,7 +138,10 @@ namespace Zenject.Tests.Signals
 
         public class Receiver2
         {
-            public int CallIndex { get; set; }
+            public int CallIndex
+            {
+                get; set;
+            }
 
             public void OnSignal()
             {
@@ -136,3 +150,4 @@ namespace Zenject.Tests.Signals
         }
     }
 }
+

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using ModestTree;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -82,17 +83,21 @@ namespace Zenject.Tests.Bindings
 
         public class Bar : MonoBehaviour
         {
-            [Inject] public Foo Foo;
+            [Inject]
+            public Foo Foo;
         }
 
         public class Gorp : MonoBehaviour
         {
-            [Inject] public Foo Foo;
+            [Inject]
+            public Foo Foo;
         }
 
         public class Qiv : MonoBehaviour
         {
-            [InjectOptional] public Foo Foo;
+            [InjectOptional]
+            public Foo Foo;
         }
     }
 }
+

@@ -5,6 +5,10 @@ namespace Zenject
     {
         void InstallBindings();
 
-        bool IsEnabled { get; }
+        bool IsEnabled
+        {
+            get;
+        }
     }
+
 }

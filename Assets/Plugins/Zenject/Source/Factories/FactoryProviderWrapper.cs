@@ -4,8 +4,8 @@ namespace Zenject
 {
     public class FactoryProviderWrapper<TContract> : IFactory<TContract>
     {
-        private readonly IProvider _provider;
-        private readonly InjectContext _injectContext;
+        readonly IProvider _provider;
+        readonly InjectContext _injectContext;
 
         public FactoryProviderWrapper(
             IProvider provider, InjectContext injectContext)
@@ -21,13 +21,16 @@ namespace Zenject
             var instance = _provider.GetInstance(_injectContext);
 
             if (_injectContext.Container.IsValidating)
+            {
                 // During validation it is sufficient to just call the _provider.GetInstance
-                return default;
+                return default(TContract);
+            }
 
             Assert.That(instance == null
-                        || instance.GetType().DerivesFromOrEqual(_injectContext.MemberType));
+                || instance.GetType().DerivesFromOrEqual(_injectContext.MemberType));
 
             return (TContract)instance;
         }
     }
 }
+

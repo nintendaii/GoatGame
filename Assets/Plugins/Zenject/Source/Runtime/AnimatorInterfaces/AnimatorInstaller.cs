@@ -4,7 +4,7 @@ namespace Zenject
 {
     public class AnimatorInstaller : Installer<Animator, AnimatorInstaller>
     {
-        private readonly Animator _animator;
+        readonly Animator _animator;
 
         public AnimatorInstaller(Animator animator)
         {
@@ -18,3 +18,4 @@ namespace Zenject
         }
     }
 }
+

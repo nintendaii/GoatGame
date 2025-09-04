@@ -6,7 +6,7 @@ namespace Zenject.Tests.Other
     [TestFixture]
     public class TestSubContainers : ZenjectUnitTestFixture
     {
-        private class Test0
+        class Test0
         {
         }
 
@@ -24,9 +24,10 @@ namespace Zenject.Tests.Other
                 delegate { Container.Resolve<Test0>(); });
         }
 
-        private class Test1
+        class Test1
         {
-            [Inject] public Test0 Test = null;
+            [Inject]
+            public Test0 Test = null;
         }
 
         [Test]
@@ -60,15 +61,15 @@ namespace Zenject.Tests.Other
             Assert.That(Container.Resolve<Test1>() != test1);
         }
 
-        private interface IFoo
+        interface IFoo
         {
         }
 
-        private interface IFoo2
+        interface IFoo2
         {
         }
 
-        private class Foo : IFoo, IFoo2
+        class Foo : IFoo, IFoo2
         {
         }
 
@@ -89,3 +90,4 @@ namespace Zenject.Tests.Other
         }
     }
 }
+

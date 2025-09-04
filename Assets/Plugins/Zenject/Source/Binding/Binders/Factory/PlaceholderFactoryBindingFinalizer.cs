@@ -6,7 +6,7 @@ namespace Zenject
     [NoReflectionBaking]
     public class PlaceholderFactoryBindingFinalizer<TContract> : ProviderBindingFinalizer
     {
-        private readonly FactoryBindInfo _factoryBindInfo;
+        readonly FactoryBindInfo _factoryBindInfo;
 
         public PlaceholderFactoryBindingFinalizer(
             BindInfo bindInfo, FactoryBindInfo factoryBindInfo)

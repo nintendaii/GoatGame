@@ -6,8 +6,8 @@ namespace Zenject
     [NoReflectionBaking]
     public class MemoryPoolBindingFinalizer<TContract> : ProviderBindingFinalizer
     {
-        private readonly MemoryPoolBindInfo _poolBindInfo;
-        private readonly FactoryBindInfo _factoryBindInfo;
+        readonly MemoryPoolBindInfo _poolBindInfo;
+        readonly FactoryBindInfo _factoryBindInfo;
 
         public MemoryPoolBindingFinalizer(
             BindInfo bindInfo, FactoryBindInfo factoryBindInfo, MemoryPoolBindInfo poolBindInfo)
@@ -52,3 +52,4 @@ namespace Zenject
         }
     }
 }
+

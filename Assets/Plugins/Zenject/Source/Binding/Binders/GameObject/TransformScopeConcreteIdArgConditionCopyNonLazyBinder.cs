@@ -16,7 +16,11 @@ namespace Zenject
             GameObjectInfo = gameObjectInfo;
         }
 
-        protected GameObjectCreationParameters GameObjectInfo { get; private set; }
+        protected GameObjectCreationParameters GameObjectInfo
+        {
+            get;
+            private set;
+        }
 
         public ScopeConcreteIdArgConditionCopyNonLazyBinder UnderTransform(Transform parent)
         {

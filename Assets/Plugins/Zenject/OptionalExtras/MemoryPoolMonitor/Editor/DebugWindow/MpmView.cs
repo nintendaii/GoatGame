@@ -11,31 +11,31 @@ namespace Zenject.MemoryPoolMonitor
 {
     public class MpmView : IGuiRenderable, ITickable, IInitializable
     {
-        private readonly Settings _settings;
-        private readonly MpmWindow _window;
+        readonly Settings _settings;
+        readonly MpmWindow _window;
 
-        private readonly List<IMemoryPool> _pools = new();
+        readonly List<IMemoryPool> _pools = new List<IMemoryPool>();
 
-        private const int NumColumns = 6;
+        const int NumColumns = 6;
 
-        private static string[] ColumnTitles = new string[]
+        static string[] ColumnTitles = new string[]
         {
             "Pool Type", "Num Total", "Num Active", "Num Inactive", "", ""
         };
 
-        private int _controlID;
-        private int _sortColumn = 0;
-        private float _scrollPosition;
-        private bool _poolListDirty;
-        private bool _sortDescending;
-        private Texture2D _rowBackground1;
-        private Texture2D _rowBackground2;
-        private Texture2D _rowBackgroundHighlighted;
-        private Texture2D _rowBackgroundSelected;
-        private Texture2D _lineTexture;
-        private Type _selectedPoolType;
-        private string _searchFilter = "";
-        private string _actualFilter = "";
+        int _controlID;
+        int _sortColumn = 0;
+        float _scrollPosition;
+        bool _poolListDirty;
+        bool _sortDescending;
+        Texture2D _rowBackground1;
+        Texture2D _rowBackground2;
+        Texture2D _rowBackgroundHighlighted;
+        Texture2D _rowBackgroundSelected;
+        Texture2D _lineTexture;
+        Type _selectedPoolType;
+        string _searchFilter = "";
+        string _actualFilter = "";
 
         public MpmView(
             MpmWindow window,
@@ -45,19 +45,28 @@ namespace Zenject.MemoryPoolMonitor
             _window = window;
         }
 
-        public float HeaderTop => _settings.HeaderHeight + _settings.FilterHeight;
+        public float HeaderTop
+        {
+            get { return _settings.HeaderHeight + _settings.FilterHeight; }
+        }
 
-        public float TotalWidth => _window.position.width;
+        public float TotalWidth
+        {
+            get { return _window.position.width; }
+        }
 
-        public float TotalHeight => _window.position.height;
+        public float TotalHeight
+        {
+            get { return _window.position.height; }
+        }
 
-        private string GetName(IMemoryPool pool)
+        string GetName(IMemoryPool pool)
         {
             var type = pool.GetType();
             return "{0}.{1}".Fmt(type.Namespace, type.PrettyName());
         }
 
-        private Texture2D CreateColorTexture(Color color)
+        Texture2D CreateColorTexture(Color color)
         {
             var texture = new Texture2D(1, 1);
             texture.SetPixel(1, 1, color);
@@ -65,53 +74,66 @@ namespace Zenject.MemoryPoolMonitor
             return texture;
         }
 
-        private Texture2D RowBackground1
+        Texture2D RowBackground1
         {
             get
             {
-                if (_rowBackground1 == null) _rowBackground1 = CreateColorTexture(_settings.RowBackground1);
+                if (_rowBackground1 == null)
+                {
+                    _rowBackground1 = CreateColorTexture(_settings.RowBackground1);
+                }
 
                 return _rowBackground1;
             }
         }
 
-        private Texture2D RowBackground2
+        Texture2D RowBackground2
         {
             get
             {
-                if (_rowBackground2 == null) _rowBackground2 = CreateColorTexture(_settings.RowBackground2);
+                if (_rowBackground2 == null)
+                {
+                    _rowBackground2 = CreateColorTexture(_settings.RowBackground2);
+                }
 
                 return _rowBackground2;
             }
         }
 
-        private Texture2D RowBackgroundHighlighted
+        Texture2D RowBackgroundHighlighted
         {
             get
             {
                 if (_rowBackgroundHighlighted == null)
+                {
                     _rowBackgroundHighlighted = CreateColorTexture(_settings.RowBackgroundHighlighted);
+                }
 
                 return _rowBackgroundHighlighted;
             }
         }
 
-        private Texture2D RowBackgroundSelected
+        Texture2D RowBackgroundSelected
         {
             get
             {
                 if (_rowBackgroundSelected == null)
+                {
                     _rowBackgroundSelected = CreateColorTexture(_settings.RowBackgroundSelected);
+                }
 
                 return _rowBackgroundSelected;
             }
         }
 
-        private Texture2D LineTexture
+        Texture2D LineTexture
         {
             get
             {
-                if (_lineTexture == null) _lineTexture = CreateColorTexture(_settings.LineColor);
+                if (_lineTexture == null)
+                {
+                    _lineTexture = CreateColorTexture(_settings.LineColor);
+                }
 
                 return _lineTexture;
             }
@@ -124,7 +146,7 @@ namespace Zenject.MemoryPoolMonitor
             _poolListDirty = true;
         }
 
-        private void OnPoolListChanged(IMemoryPool pool)
+        void OnPoolListChanged(IMemoryPool pool)
         {
             _poolListDirty = true;
         }
@@ -142,16 +164,19 @@ namespace Zenject.MemoryPoolMonitor
             InPlaceStableSort<IMemoryPool>.Sort(_pools, ComparePools);
         }
 
-        private bool ShouldIncludePool(IMemoryPool pool)
+        bool ShouldIncludePool(IMemoryPool pool)
         {
             //var poolType = pool.GetType();
 
             //if (poolType.Namespace == "Zenject")
             //{
-            //return false;
+                //return false;
             //}
 
-            if (_actualFilter.IsEmpty()) return true;
+            if (_actualFilter.IsEmpty())
+            {
+                return true;
+            }
 
             return GetName(pool).ToLowerInvariant().Contains(_actualFilter);
         }
@@ -160,9 +185,9 @@ namespace Zenject.MemoryPoolMonitor
         {
             _controlID = GUIUtility.GetControlID(FocusType.Passive);
 
-            var windowBounds = new Rect(0, 0, TotalWidth, _window.position.height);
+            Rect windowBounds = new Rect(0, 0, TotalWidth, _window.position.height);
 
-            var scrollbarSize = new Vector2(
+            Vector2 scrollbarSize = new Vector2(
                 GUI.skin.horizontalScrollbar.CalcSize(GUIContent.none).y,
                 GUI.skin.verticalScrollbar.CalcSize(GUIContent.none).x);
 
@@ -170,8 +195,7 @@ namespace Zenject.MemoryPoolMonitor
                 0, 0, _settings.FilterPaddingLeft, _settings.FilterHeight), "Filter:", _settings.FilterTextStyle);
 
             var searchFilter = GUI.TextField(
-                new Rect(_settings.FilterPaddingLeft, _settings.FilterPaddingTop, _settings.FilterWidth,
-                    _settings.FilterInputHeight), _searchFilter, 999);
+                new Rect(_settings.FilterPaddingLeft, _settings.FilterPaddingTop, _settings.FilterWidth, _settings.FilterInputHeight), _searchFilter, 999);
 
             if (searchFilter != _searchFilter)
             {
@@ -180,12 +204,12 @@ namespace Zenject.MemoryPoolMonitor
                 _poolListDirty = true;
             }
 
-            var viewArea = new Rect(0, HeaderTop, TotalWidth - scrollbarSize.y, _window.position.height - HeaderTop);
+            Rect viewArea = new Rect(0, HeaderTop, TotalWidth - scrollbarSize.y, _window.position.height - HeaderTop);
 
-            var contentRect = new Rect(
+            Rect contentRect = new Rect(
                 0, 0, viewArea.width, _pools.Count() * _settings.RowHeight);
 
-            var vScrRect = new Rect(
+            Rect vScrRect = new Rect(
                 windowBounds.x + viewArea.width, HeaderTop, scrollbarSize.y, viewArea.height);
 
             _scrollPosition = GUI.VerticalScrollbar(
@@ -208,18 +232,17 @@ namespace Zenject.MemoryPoolMonitor
             HandleEvents();
         }
 
-        private void DrawColumnHeaders(float width)
+        void DrawColumnHeaders(float width)
         {
             GUI.DrawTexture(new Rect(
-                    0, _settings.FilterHeight - 0.5f * _settings.SplitterWidth, width, _settings.SplitterWidth),
-                LineTexture);
+                0, _settings.FilterHeight - 0.5f * _settings.SplitterWidth, width, _settings.SplitterWidth), LineTexture);
 
             GUI.DrawTexture(new Rect(
                 0, HeaderTop - 0.5f * _settings.SplitterWidth, width, _settings.SplitterWidth), LineTexture);
 
             var columnPos = 0.0f;
 
-            for (var i = 0; i < NumColumns; i++)
+            for (int i = 0; i < NumColumns; i++)
             {
                 var columnWidth = GetColumnWidth(i);
                 DrawColumn1(i, columnPos, columnWidth);
@@ -227,15 +250,17 @@ namespace Zenject.MemoryPoolMonitor
             }
         }
 
-        private void DrawColumn1(
+        void DrawColumn1(
             int index, float position, float width)
         {
             var columnHeight = _settings.HeaderHeight + _pools.Count() * _settings.RowHeight;
 
             if (index < 4)
+            {
                 GUI.DrawTexture(new Rect(
                     position + width - _settings.SplitterWidth * 0.5f, _settings.FilterHeight,
                     _settings.SplitterWidth, columnHeight), LineTexture);
+            }
 
             var headerBounds = new Rect(
                 position + 0.5f * _settings.SplitterWidth,
@@ -245,14 +270,13 @@ namespace Zenject.MemoryPoolMonitor
             DrawColumnHeader(index, headerBounds, ColumnTitles[index]);
         }
 
-        private void HandleEvents()
+        void HandleEvents()
         {
             switch (Event.current.GetTypeForControl(_controlID))
             {
                 case EventType.ScrollWheel:
                 {
-                    _scrollPosition = Mathf.Clamp(_scrollPosition + Event.current.delta.y * _settings.ScrollSpeed, 0,
-                        TotalHeight);
+                    _scrollPosition = Mathf.Clamp(_scrollPosition + Event.current.delta.y * _settings.ScrollSpeed, 0, TotalHeight);
                     break;
                 }
                 case EventType.MouseDown:
@@ -263,34 +287,37 @@ namespace Zenject.MemoryPoolMonitor
             }
         }
 
-        private Type TryGetPoolTypeUnderMouse()
+        Type TryGetPoolTypeUnderMouse()
         {
             var mousePositionInContent = Event.current.mousePosition + Vector2.up * _scrollPosition;
 
-            for (var i = 0; i < _pools.Count; i++)
+            for (int i = 0; i < _pools.Count; i++)
             {
                 var pool = _pools[i];
 
                 var rowRect = GetPoolRowRect(i);
                 rowRect.y += HeaderTop;
 
-                if (rowRect.Contains(mousePositionInContent)) return pool.GetType();
+                if (rowRect.Contains(mousePositionInContent))
+                {
+                    return pool.GetType();
+                }
             }
 
             return null;
         }
 
-        private Rect GetPoolRowRect(int index)
+        Rect GetPoolRowRect(int index)
         {
             return new Rect(
                 0, index * _settings.RowHeight, TotalWidth, _settings.RowHeight);
         }
 
-        private void DrawRowBackgrounds()
+        void DrawRowBackgrounds()
         {
             var mousePositionInContent = Event.current.mousePosition;
 
-            for (var i = 0; i < _pools.Count; i++)
+            for (int i = 0; i < _pools.Count; i++)
             {
                 var pool = _pools[i];
                 var rowRect = GetPoolRowRect(i);
@@ -304,31 +331,40 @@ namespace Zenject.MemoryPoolMonitor
                 else
                 {
                     if (rowRect.Contains(mousePositionInContent))
+                    {
                         background = RowBackgroundHighlighted;
+                    }
                     else if (i % 2 == 0)
+                    {
                         background = RowBackground1;
+                    }
                     else
+                    {
                         background = RowBackground2;
+                    }
                 }
 
                 GUI.DrawTexture(rowRect, background);
             }
         }
 
-        private float GetColumnWidth(int index)
+        float GetColumnWidth(int index)
         {
-            if (index == 0) return TotalWidth - (NumColumns - 1) * _settings.NormalColumnWidth;
+            if (index == 0)
+            {
+                return TotalWidth - (NumColumns - 1) * _settings.NormalColumnWidth;
+            }
 
             return _settings.NormalColumnWidth;
         }
 
-        private void DrawContent(float width)
+        void DrawContent(float width)
         {
             DrawRowBackgrounds();
 
             var columnPos = 0.0f;
 
-            for (var i = 0; i < NumColumns; i++)
+            for (int i = 0; i < NumColumns; i++)
             {
                 var columnWidth = GetColumnWidth(i);
                 DrawColumn(i, columnPos, columnWidth);
@@ -336,22 +372,24 @@ namespace Zenject.MemoryPoolMonitor
             }
         }
 
-        private void DrawColumn(
+        void DrawColumn(
             int index, float position, float width)
         {
             var columnHeight = _settings.HeaderHeight + _pools.Count() * _settings.RowHeight;
 
             if (index < 4)
+            {
                 GUI.DrawTexture(new Rect(
                     position + width - _settings.SplitterWidth * 0.5f, 0,
                     _settings.SplitterWidth, columnHeight), LineTexture);
+            }
 
             var columnBounds = new Rect(
                 position + 0.5f * _settings.SplitterWidth, 0, width - _settings.SplitterWidth, columnHeight);
 
             GUI.BeginGroup(columnBounds);
             {
-                for (var i = 0; i < _pools.Count; i++)
+                for (int i = 0; i < _pools.Count; i++)
                 {
                     var pool = _pools[i];
 
@@ -365,7 +403,7 @@ namespace Zenject.MemoryPoolMonitor
             GUI.EndGroup();
         }
 
-        private void DrawColumnContents(
+        void DrawColumnContents(
             int index, Rect bounds, IMemoryPool pool)
         {
             switch (index)
@@ -393,10 +431,12 @@ namespace Zenject.MemoryPoolMonitor
                 case 4:
                 {
                     var buttonBounds = new Rect(
-                        bounds.x + _settings.ButtonMargin, bounds.y, bounds.width - _settings.ButtonMargin,
-                        bounds.height);
+                        bounds.x + _settings.ButtonMargin, bounds.y, bounds.width - _settings.ButtonMargin, bounds.height);
 
-                    if (GUI.Button(buttonBounds, "Clear")) pool.Clear();
+                    if (GUI.Button(buttonBounds, "Clear"))
+                    {
+                        pool.Clear();
+                    }
                     break;
                 }
                 case 5:
@@ -404,7 +444,10 @@ namespace Zenject.MemoryPoolMonitor
                     var buttonBounds = new Rect(
                         bounds.x, bounds.y, bounds.width - 15.0f, bounds.height);
 
-                    if (GUI.Button(buttonBounds, "Expand")) pool.ExpandBy(5);
+                    if (GUI.Button(buttonBounds, "Expand"))
+                    {
+                        pool.ExpandBy(5);
+                    }
                     break;
                 }
                 default:
@@ -414,9 +457,12 @@ namespace Zenject.MemoryPoolMonitor
             }
         }
 
-        private void DrawColumnHeader(int index, Rect bounds, string text)
+        void DrawColumnHeader(int index, Rect bounds, string text)
         {
-            if (index > 3) return;
+            if (index > 3)
+            {
+                return;
+            }
 
             if (_sortColumn == index)
             {
@@ -429,13 +475,17 @@ namespace Zenject.MemoryPoolMonitor
             if (GUI.Button(bounds, text, index == 0 ? _settings.HeaderTextStyleName : _settings.HeaderTextStyle))
             {
                 if (_sortColumn == index)
+                {
                     _sortDescending = !_sortDescending;
+                }
                 else
+                {
                     _sortColumn = index;
+                }
             }
         }
 
-        private int ComparePools(IMemoryPool left, IMemoryPool right)
+        int ComparePools(IMemoryPool left, IMemoryPool right)
         {
             if (_sortDescending)
             {

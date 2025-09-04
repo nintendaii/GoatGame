@@ -13,34 +13,41 @@ namespace Zenject
     public class ProfileBlock : IDisposable
     {
 #if UNITY_EDITOR
-        private static int _blockCount;
-        private static ProfileBlock _instance = new();
-        private static Dictionary<int, string> _nameCache = new();
+        static int _blockCount;
+        static ProfileBlock _instance = new ProfileBlock();
+        static Dictionary<int, string> _nameCache = new Dictionary<int, string>();
 
-        private ProfileBlock()
+        ProfileBlock()
         {
         }
 
-        public static Thread UnityMainThread { get; set; }
+        public static Thread UnityMainThread
+        {
+            get; set;
+        }
 
-        public static Regex ProfilePattern { get; set; }
+        public static Regex ProfilePattern
+        {
+            get;
+            set;
+        }
 
-        private static int GetHashCode(object p1, object p2)
+        static int GetHashCode(object p1, object p2)
         {
             unchecked // Overflow is fine, just wrap
             {
-                var hash = 17;
+                int hash = 17;
                 hash = hash * 29 + p1.GetHashCode();
                 hash = hash * 29 + p2.GetHashCode();
                 return hash;
             }
         }
 
-        private static int GetHashCode(object p1, object p2, object p3)
+        static int GetHashCode(object p1, object p2, object p3)
         {
             unchecked // Overflow is fine, just wrap
             {
-                var hash = 17;
+                int hash = 17;
                 hash = hash * 29 + p1.GetHashCode();
                 hash = hash * 29 + p2.GetHashCode();
                 hash = hash * 29 + p3.GetHashCode();
@@ -55,9 +62,14 @@ namespace Zenject
 #else
             if (UnityMainThread == null
                 || !UnityMainThread.Equals(Thread.CurrentThread))
+            {
                 return null;
+            }
 
-            if (!Profiler.enabled) return null;
+            if (!Profiler.enabled)
+            {
+                return null;
+            }
 
             // We need to ensure that we do not have per-frame allocations in ProfileBlock
             // to avoid infecting the test too much, so use a cache of formatted strings given
@@ -84,9 +96,14 @@ namespace Zenject
 #else
             if (UnityMainThread == null
                 || !UnityMainThread.Equals(Thread.CurrentThread))
+            {
                 return null;
+            }
 
-            if (!Profiler.enabled) return null;
+            if (!Profiler.enabled)
+            {
+                return null;
+            }
 
             // We need to ensure that we do not have per-frame allocations in ProfileBlock
             // to avoid infecting the test too much, so use a cache of formatted strings given
@@ -113,15 +130,20 @@ namespace Zenject
 #else
             if (UnityMainThread == null
                 || !UnityMainThread.Equals(Thread.CurrentThread))
+            {
                 return null;
+            }
 
-            if (!Profiler.enabled) return null;
+            if (!Profiler.enabled)
+            {
+                return null;
+            }
 
             return StartInternal(sampleName);
 #endif
         }
 
-        private static ProfileBlock StartInternal(string sampleName)
+        static ProfileBlock StartInternal(string sampleName)
         {
             Assert.That(Profiler.enabled);
 

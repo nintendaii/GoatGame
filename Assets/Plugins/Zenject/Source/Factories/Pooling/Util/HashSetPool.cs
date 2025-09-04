@@ -5,7 +5,7 @@ namespace Zenject
 {
     public class HashSetPool<T> : StaticMemoryPool<HashSet<T>>
     {
-        private static HashSetPool<T> _instance = new();
+        static HashSetPool<T> _instance = new HashSetPool<T>();
 
         public HashSetPool()
         {
@@ -13,14 +13,17 @@ namespace Zenject
             OnDespawnedMethod = OnDespawned;
         }
 
-        public static HashSetPool<T> Instance => _instance;
+        public static HashSetPool<T> Instance
+        {
+            get { return _instance; }
+        }
 
-        private static void OnSpawned(HashSet<T> items)
+        static void OnSpawned(HashSet<T> items)
         {
             Assert.That(items.IsEmpty());
         }
 
-        private static void OnDespawned(HashSet<T> items)
+        static void OnDespawned(HashSet<T> items)
         {
             items.Clear();
         }

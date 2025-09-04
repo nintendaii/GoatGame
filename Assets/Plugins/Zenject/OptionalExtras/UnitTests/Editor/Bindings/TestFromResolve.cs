@@ -124,8 +124,7 @@ namespace Zenject.Tests.Bindings
 
             Assert.IsEqual(Container.ResolveAll<IBar>().Count, 2);
             Assert.IsEqual(Container.ResolveAll<IFoo>().Count, 2);
-            Assert.That(Enumerable.SequenceEqual(Container.ResolveAll<IFoo>().Cast<object>(),
-                Container.ResolveAll<IBar>().Cast<object>()));
+            Assert.That(Enumerable.SequenceEqual(Container.ResolveAll<IFoo>().Cast<object>(), Container.ResolveAll<IBar>().Cast<object>()));
         }
 
         [Test]
@@ -139,8 +138,7 @@ namespace Zenject.Tests.Bindings
 
             Assert.IsEqual(Container.ResolveAll<IFoo>().Count, 2);
             Assert.IsEqual(Container.ResolveAll<IBar>().Count, 2);
-            Assert.That(!Enumerable.SequenceEqual(Container.ResolveAll<IFoo>().Cast<object>(),
-                Container.ResolveAll<IBar>().Cast<object>()));
+            Assert.That(!Enumerable.SequenceEqual(Container.ResolveAll<IFoo>().Cast<object>(), Container.ResolveAll<IBar>().Cast<object>()));
         }
 
         [Test]
@@ -191,18 +189,18 @@ namespace Zenject.Tests.Bindings
             subContainer.Bind<IFoo>().To<Foo>().FromResolveAll(null, InjectSources.Local);
 
             Assert.Throws(() => subContainer.Resolve<IFoo>());
-            Assert.That(Enumerable.SequenceEqual(subContainer.ResolveAll<IFoo>(), new[] { foo2, foo3 }));
+            Assert.That(Enumerable.SequenceEqual(subContainer.ResolveAll<IFoo>(), new [] { foo2, foo3, }));
         }
 
-        private interface IBar
+        interface IBar
         {
         }
 
-        private interface IFoo
+        interface IFoo
         {
         }
 
-        private class Foo : IFoo, IBar
+        class Foo : IFoo, IBar
         {
         }
     }

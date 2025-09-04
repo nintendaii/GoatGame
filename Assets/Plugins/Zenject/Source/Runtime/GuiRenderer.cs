@@ -4,10 +4,10 @@ namespace Zenject
 {
     public class GuiRenderer : MonoBehaviour
     {
-        private GuiRenderableManager _renderableManager;
+        GuiRenderableManager _renderableManager;
 
         [Inject]
-        private void Construct(GuiRenderableManager renderableManager)
+        void Construct(GuiRenderableManager renderableManager)
         {
             _renderableManager = renderableManager;
         }

@@ -35,32 +35,32 @@ namespace Zenject
     [NoReflectionBaking]
     public class ZenjectSettings
     {
-        public static ZenjectSettings Default = new();
+        public static ZenjectSettings Default = new ZenjectSettings();
 
 #if !NOT_UNITY3D
         [SerializeField]
 #endif
-        private bool _ensureDeterministicDestructionOrderOnApplicationQuit;
+        bool _ensureDeterministicDestructionOrderOnApplicationQuit;
 
 #if !NOT_UNITY3D
         [SerializeField]
 #endif
-        private bool _displayWarningWhenResolvingDuringInstall;
+        bool _displayWarningWhenResolvingDuringInstall;
 
 #if !NOT_UNITY3D
         [SerializeField]
 #endif
-        private RootResolveMethods _validationRootResolveMethod;
+        RootResolveMethods _validationRootResolveMethod;
 
 #if !NOT_UNITY3D
         [SerializeField]
 #endif
-        private ValidationErrorResponses _validationErrorResponse;
+        ValidationErrorResponses _validationErrorResponse;
 
 #if !NOT_UNITY3D
         [SerializeField]
 #endif
-        private SignalSettings _signalSettings;
+        SignalSettings _signalSettings;
 
         public ZenjectSettings(
             ValidationErrorResponses validationErrorResponse,
@@ -72,8 +72,7 @@ namespace Zenject
             _validationErrorResponse = validationErrorResponse;
             _validationRootResolveMethod = validationRootResolveMethod;
             _displayWarningWhenResolvingDuringInstall = displayWarningWhenResolvingDuringInstall;
-            _ensureDeterministicDestructionOrderOnApplicationQuit =
-                ensureDeterministicDestructionOrderOnApplicationQuit;
+            _ensureDeterministicDestructionOrderOnApplicationQuit =ensureDeterministicDestructionOrderOnApplicationQuit;
             _signalSettings = signalSettings ?? SignalSettings.Default;
         }
 
@@ -84,19 +83,31 @@ namespace Zenject
         {
         }
 
-        public SignalSettings Signals => _signalSettings;
+        public SignalSettings Signals
+        {
+            get { return _signalSettings; }
+        }
 
         // Setting this to Log can be more useful because it will print out
         // multiple validation errors at once so you can fix multiple problems before
         // attempting validation again
-        public ValidationErrorResponses ValidationErrorResponse => _validationErrorResponse;
+        public ValidationErrorResponses ValidationErrorResponse
+        {
+            get { return _validationErrorResponse; }
+        }
 
         // Settings this to true will ensure that every binding in the container can be
         // instantiated with all its dependencies, and not just those bindings that will be
         // constructed as part of the object graph generated from the nonlazy bindings
-        public RootResolveMethods ValidationRootResolveMethod => _validationRootResolveMethod;
+        public RootResolveMethods ValidationRootResolveMethod
+        {
+            get { return _validationRootResolveMethod; }
+        }
 
-        public bool DisplayWarningWhenResolvingDuringInstall => _displayWarningWhenResolvingDuringInstall;
+        public bool DisplayWarningWhenResolvingDuringInstall
+        {
+            get { return _displayWarningWhenResolvingDuringInstall; }
+        }
 
         // When this is set to true and the application is exitted, all the scenes will be
         // destroyed in the reverse order in which they were loaded, and then the project context
@@ -104,33 +115,35 @@ namespace Zenject
         // When this is set to false (the default) the order that this occurs in is not predictable
         // It is set to false by default because manually destroying objects during OnApplicationQuit
         // event can cause crashes on android (see github issue #468)
-        public bool EnsureDeterministicDestructionOrderOnApplicationQuit =>
-            _ensureDeterministicDestructionOrderOnApplicationQuit;
+        public bool EnsureDeterministicDestructionOrderOnApplicationQuit
+        {
+            get { return _ensureDeterministicDestructionOrderOnApplicationQuit; }
+        }
 
         [Serializable]
         public class SignalSettings
         {
-            public static SignalSettings Default = new();
+            public static SignalSettings Default = new SignalSettings();
 
 #if !NOT_UNITY3D
             [SerializeField]
 #endif
-            private SignalDefaultSyncModes _defaultSyncMode;
+            SignalDefaultSyncModes _defaultSyncMode;
 
 #if !NOT_UNITY3D
             [SerializeField]
 #endif
-            private SignalMissingHandlerResponses _missingHandlerDefaultResponse;
+            SignalMissingHandlerResponses _missingHandlerDefaultResponse;
 
 #if !NOT_UNITY3D
             [SerializeField]
 #endif
-            private bool _requireStrictUnsubscribe;
+            bool _requireStrictUnsubscribe;
 
 #if !NOT_UNITY3D
             [SerializeField]
 #endif
-            private int _defaultAsyncTickPriority;
+            int _defaultAsyncTickPriority;
 
             public SignalSettings(
                 SignalDefaultSyncModes defaultSyncMode,
@@ -153,13 +166,25 @@ namespace Zenject
             {
             }
 
-            public int DefaultAsyncTickPriority => _defaultAsyncTickPriority;
+            public int DefaultAsyncTickPriority
+            {
+                get { return _defaultAsyncTickPriority; }
+            }
 
-            public SignalDefaultSyncModes DefaultSyncMode => _defaultSyncMode;
+            public SignalDefaultSyncModes DefaultSyncMode
+            {
+                get { return _defaultSyncMode; }
+            }
 
-            public SignalMissingHandlerResponses MissingHandlerDefaultResponse => _missingHandlerDefaultResponse;
+            public SignalMissingHandlerResponses MissingHandlerDefaultResponse
+            {
+                get { return _missingHandlerDefaultResponse; }
+            }
 
-            public bool RequireStrictUnsubscribe => _requireStrictUnsubscribe;
+            public bool RequireStrictUnsubscribe
+            {
+                get { return _requireStrictUnsubscribe; }
+            }
         }
     }
 }

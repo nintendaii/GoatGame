@@ -7,7 +7,7 @@ namespace Zenject
     [NoReflectionBaking]
     public class SubContainerCreatorByInstanceGetter : ISubContainerCreator
     {
-        private readonly Func<InjectContext, DiContainer> _subcontainerGetter;
+        readonly Func<InjectContext, DiContainer> _subcontainerGetter;
 
         public SubContainerCreatorByInstanceGetter(
             Func<InjectContext, DiContainer> subcontainerGetter)
@@ -28,3 +28,4 @@ namespace Zenject
         }
     }
 }
+

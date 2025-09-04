@@ -9,7 +9,7 @@ namespace Zenject
     [NoReflectionBaking]
     public class PrefabProviderCustom : IPrefabProvider
     {
-        private readonly Func<InjectContext, UnityEngine.Object> _getter;
+        readonly Func<InjectContext, UnityEngine.Object> _getter;
 
         public PrefabProviderCustom(Func<InjectContext, UnityEngine.Object> getter)
         {
@@ -26,3 +26,4 @@ namespace Zenject
 }
 
 #endif
+

@@ -5,14 +5,13 @@ namespace Zenject
 {
     public class BindSignalFromBinder<TObject, TSignal>
     {
-        private readonly BindStatement _bindStatement;
-        private readonly Func<TObject, Action<TSignal>> _methodGetter;
-        private readonly DiContainer _container;
-        private readonly SignalBindingBindInfo _signalBindInfo;
+        readonly BindStatement _bindStatement;
+        readonly Func<TObject, Action<TSignal>> _methodGetter;
+        readonly DiContainer _container;
+        readonly SignalBindingBindInfo _signalBindInfo;
 
         public BindSignalFromBinder(
-            SignalBindingBindInfo signalBindInfo, BindStatement bindStatement,
-            Func<TObject, Action<TSignal>> methodGetter,
+            SignalBindingBindInfo signalBindInfo, BindStatement bindStatement, Func<TObject, Action<TSignal>> methodGetter,
             DiContainer container)
         {
             _signalBindInfo = signalBindInfo;
@@ -59,7 +58,7 @@ namespace Zenject
                 .WithArguments(_signalBindInfo, typeof(TObject), objectLookupId, methodGetterMapper)
                 .NonLazy();
 
-            var copyBinder = new SignalCopyBinder(wrapperBinder.BindInfo);
+            var copyBinder = new SignalCopyBinder( wrapperBinder.BindInfo);
             // Make sure if they use one of the Copy/Move methods that it applies to both bindings
             copyBinder.AddCopyBindInfo(objectBinder.BindInfo);
             return copyBinder;

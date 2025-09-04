@@ -24,9 +24,9 @@ namespace Zenject.Tests.Bindings
             Assert.IsEqual(Container.Resolve<IFooFactory>().Create(), FooInstaller.Foo);
         }
 
-        private class FooInstaller : Installer<FooInstaller>
+        class FooInstaller : Installer<FooInstaller>
         {
-            public static Foo Foo = new();
+            public static Foo Foo = new Foo();
 
             public override void InstallBindings()
             {
@@ -34,15 +34,15 @@ namespace Zenject.Tests.Bindings
             }
         }
 
-        private interface IFoo
+        interface IFoo
         {
         }
 
-        private class IFooFactory : PlaceholderFactory<IFoo>
+        class IFooFactory : PlaceholderFactory<IFoo>
         {
         }
 
-        private class Foo : IFoo
+        class Foo : IFoo
         {
             public class Factory : PlaceholderFactory<Foo>
             {
@@ -50,3 +50,6 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
+
+
+

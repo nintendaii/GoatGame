@@ -19,7 +19,7 @@ namespace Zenject.ReflectionBaking
             CompilationPipeline.assemblyCompilationFinished += OnAssemblyCompiled;
         }
 
-        private static void OnAssemblyCompiled(string assemblyAssetPath, CompilerMessage[] messages)
+        static void OnAssemblyCompiled(string assemblyAssetPath, CompilerMessage[] messages)
         {
 #if !UNITY_2018_1_OR_NEWER
             if (Application.isEditor && !BuildPipeline.isBuildingPlayer)
@@ -29,20 +29,33 @@ namespace Zenject.ReflectionBaking
 #endif
 
             if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.WSAPlayer)
+            {
                 Log.Warn("Zenject reflection baking skipped because it is not currently supported on WSA platform!");
+            }
             else
+            {
                 TryWeaveAssembly(assemblyAssetPath);
+            }
         }
 
-        private static void TryWeaveAssembly(string assemblyAssetPath)
+        static void TryWeaveAssembly(string assemblyAssetPath)
         {
             var settings = ReflectionBakingInternalUtil.TryGetEnabledSettingsInstance();
 
-            if (settings == null) return;
+            if (settings == null)
+            {
+                return;
+            }
 
-            if (settings.AllGeneratedAssemblies && settings.ExcludeAssemblies.Contains(assemblyAssetPath)) return;
+            if (settings.AllGeneratedAssemblies && settings.ExcludeAssemblies.Contains(assemblyAssetPath))
+            {
+                return;
+            }
 
-            if (!settings.AllGeneratedAssemblies && !settings.IncludeAssemblies.Contains(assemblyAssetPath)) return;
+            if (!settings.AllGeneratedAssemblies && !settings.IncludeAssemblies.Contains(assemblyAssetPath))
+            {
+                return;
+            }
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -51,7 +64,7 @@ namespace Zenject.ReflectionBaking
 
             var readerParameters = new ReaderParameters
             {
-                AssemblyResolver = new UnityAssemblyResolver()
+                AssemblyResolver = new UnityAssemblyResolver(),
                 // Is this necessary?
                 //ReadSymbols = true,
             };
@@ -61,18 +74,19 @@ namespace Zenject.ReflectionBaking
             var assemblyRefNames = module.AssemblyReferences.Select(x => x.Name.ToLower()).ToList();
 
             if (!assemblyRefNames.Contains("zenject-usage"))
+            {
                 // Zenject-usage is used by the generated methods
                 // Important that we do this check otherwise we can corrupt some dlls that don't have access to it
                 return;
+            }
 
             var assemblyName = Path.GetFileNameWithoutExtension(assemblyAssetPath);
             var assembly = AppDomain.CurrentDomain.GetAssemblies()
                 .Where(x => x.GetName().Name == assemblyName).OnlyOrDefault();
 
-            Assert.IsNotNull(assembly, "Could not find unique assembly '{0}' in currently loaded list of assemblies",
-                assemblyName);
+            Assert.IsNotNull(assembly, "Could not find unique assembly '{0}' in currently loaded list of assemblies", assemblyName);
 
-            var numTypesChanged = ReflectionBakingModuleEditor.WeaveAssembly(
+            int numTypesChanged = ReflectionBakingModuleEditor.WeaveAssembly(
                 module, assembly, settings.NamespacePatterns);
 
             if (numTypesChanged > 0)

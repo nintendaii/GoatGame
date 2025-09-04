@@ -4,8 +4,8 @@ namespace Zenject
 {
     public class SceneContextRegistryAdderAndRemover : IInitializable, IDisposable
     {
-        private readonly SceneContextRegistry _registry;
-        private readonly SceneContext _sceneContext;
+        readonly SceneContextRegistry _registry;
+        readonly SceneContext _sceneContext;
 
         public SceneContextRegistryAdderAndRemover(
             SceneContext sceneContext,
@@ -26,3 +26,4 @@ namespace Zenject
         }
     }
 }
+

@@ -7,15 +7,15 @@ namespace Zenject.Tests.Other
     [TestFixture]
     public class TestResolveMany : ZenjectUnitTestFixture
     {
-        private class Test0
+        class Test0
         {
         }
 
-        private class Test1 : Test0
+        class Test1 : Test0
         {
         }
 
-        private class Test2 : Test0
+        class Test2 : Test0
         {
         }
 
@@ -25,7 +25,7 @@ namespace Zenject.Tests.Other
             Container.Bind<Test0>().To<Test1>().AsSingle();
             Container.Bind<Test0>().To<Test2>().AsSingle();
 
-            var many = Container.ResolveAll<Test0>();
+            List<Test0> many = Container.ResolveAll<Test0>();
 
             Assert.That(many.Count == 2);
         }
@@ -33,8 +33,10 @@ namespace Zenject.Tests.Other
         [Test]
         public void TestOptional()
         {
-            var many = Container.ResolveAll<Test0>();
+            List<Test0> many = Container.ResolveAll<Test0>();
             Assert.That(many.Count == 0);
         }
     }
 }
+
+

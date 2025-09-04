@@ -5,13 +5,13 @@ namespace Zenject.SpaceFighter
 {
     public class PlayerShootHandler : ITickable
     {
-        private readonly AudioPlayer _audioPlayer;
-        private readonly Player _player;
-        private readonly Settings _settings;
-        private readonly Bullet.Factory _bulletFactory;
-        private readonly PlayerInputState _inputState;
+        readonly AudioPlayer _audioPlayer;
+        readonly Player _player;
+        readonly Settings _settings;
+        readonly Bullet.Factory _bulletFactory;
+        readonly PlayerInputState _inputState;
 
-        private float _lastFireTime;
+        float _lastFireTime;
 
         public PlayerShootHandler(
             PlayerInputState inputState,
@@ -29,7 +29,10 @@ namespace Zenject.SpaceFighter
 
         public void Tick()
         {
-            if (_player.IsDead) return;
+            if (_player.IsDead)
+            {
+                return;
+            }
 
             if (_inputState.IsFiring && Time.realtimeSinceStartup - _lastFireTime > _settings.MaxShootInterval)
             {
@@ -38,7 +41,7 @@ namespace Zenject.SpaceFighter
             }
         }
 
-        private void Fire()
+        void Fire()
         {
             _audioPlayer.Play(_settings.Laser, _settings.LaserVolume);
 

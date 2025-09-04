@@ -6,20 +6,19 @@ using System.Linq;
 using ModestTree;
 using UnityEngine;
 using Zenject.Internal;
-using Object = UnityEngine.Object;
 
 namespace Zenject
 {
     [NoReflectionBaking]
     public class ScriptableObjectInstanceProvider : IProvider
     {
-        private readonly DiContainer _container;
-        private readonly Type _resourceType;
-        private readonly List<TypeValuePair> _extraArguments;
-        private readonly bool _createNew;
-        private readonly object _concreteIdentifier;
-        private readonly Action<InjectContext, object> _instantiateCallback;
-        private readonly UnityEngine.Object _resource;
+        readonly DiContainer _container;
+        readonly Type _resourceType;
+        readonly List<TypeValuePair> _extraArguments;
+        readonly bool _createNew;
+        readonly object _concreteIdentifier;
+        readonly Action<InjectContext, object> _instantiateCallback;
+        readonly UnityEngine.Object _resource;
 
         public ScriptableObjectInstanceProvider(
             UnityEngine.Object resource, Type resourceType,
@@ -38,9 +37,15 @@ namespace Zenject
             _instantiateCallback = instantiateCallback;
         }
 
-        public bool IsCached => false;
+        public bool IsCached
+        {
+            get { return false; }
+        }
 
-        public bool TypeVariesBasedOnMemberType => false;
+        public bool TypeVariesBasedOnMemberType
+        {
+            get { return false; }
+        }
 
         public Type GetInstanceType(InjectContext context)
         {
@@ -53,13 +58,17 @@ namespace Zenject
             Assert.IsNotNull(context);
 
             if (_createNew)
-                buffer.Add(Object.Instantiate(_resource));
+            {
+                buffer.Add(UnityEngine.ScriptableObject.Instantiate(_resource));
+            }
             else
+            {
                 buffer.Add(_resource);
+            }
 
             injectAction = () =>
             {
-                for (var i = 0; i < buffer.Count; i++)
+                for (int i = 0; i < buffer.Count; i++)
                 {
                     var obj = buffer[i];
 
@@ -73,7 +82,10 @@ namespace Zenject
 
                     ZenPools.DespawnList(extraArgs);
 
-                    if (_instantiateCallback != null) _instantiateCallback(context, obj);
+                    if (_instantiateCallback != null)
+                    {
+                        _instantiateCallback(context, obj);
+                    }
                 }
             };
         }
@@ -81,3 +93,4 @@ namespace Zenject
 }
 
 #endif
+

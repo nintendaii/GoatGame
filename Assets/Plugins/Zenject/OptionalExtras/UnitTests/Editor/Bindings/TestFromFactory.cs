@@ -8,7 +8,7 @@ namespace Zenject.Tests.Bindings
     [TestFixture]
     public class TestFromFactory : ZenjectUnitTestFixture
     {
-        private static Foo StaticFoo = new();
+        static Foo StaticFoo = new Foo();
 
         [Test]
         public void Test1()
@@ -160,7 +160,7 @@ namespace Zenject.Tests.Bindings
             Assert.IsEqual(FooFactory.InstanceCount, 1);
         }
 
-        private class FooFactory : IFactory<Foo>
+        class FooFactory : IFactory<Foo>
         {
             public static int InstanceCount;
 
@@ -175,12 +175,13 @@ namespace Zenject.Tests.Bindings
             }
         }
 
-        private interface IFoo
+        interface IFoo
         {
         }
 
-        private class Foo : IFoo
+        class Foo : IFoo
         {
         }
     }
 }
+

@@ -6,7 +6,8 @@ namespace Zenject.SpaceFighter
     // Main installer for our game
     public class GameInstaller : MonoInstaller
     {
-        [Inject] private Settings _settings = null;
+        [Inject]
+        Settings _settings = null;
 
         public override void InstallBindings()
         {
@@ -64,15 +65,15 @@ namespace Zenject.SpaceFighter
 
         // We could just use FromMonoPoolableMemoryPool above, but we have to use these instead
         // for IL2CPP to work
-        private class EnemyFacadePool : MonoPoolableMemoryPool<float, float, IMemoryPool, EnemyFacade>
+        class EnemyFacadePool : MonoPoolableMemoryPool<float, float, IMemoryPool, EnemyFacade>
         {
         }
 
-        private class BulletPool : MonoPoolableMemoryPool<float, float, BulletTypes, IMemoryPool, Bullet>
+        class BulletPool : MonoPoolableMemoryPool<float, float, BulletTypes, IMemoryPool, Bullet>
         {
         }
 
-        private class ExplosionPool : MonoPoolableMemoryPool<IMemoryPool, Explosion>
+        class ExplosionPool : MonoPoolableMemoryPool<IMemoryPool, Explosion>
         {
         }
     }

@@ -7,17 +7,19 @@ namespace Zenject.Asteroids
 {
     public class Ship : MonoBehaviour
     {
-        [SerializeField] private MeshRenderer _meshRenderer;
+        [SerializeField]
+        MeshRenderer _meshRenderer;
 
 #if UNITY_2018_1_OR_NEWER
-        [SerializeField] private ParticleSystem _particleSystem;
+        [SerializeField]
+        ParticleSystem _particleSystem;
 #else
         [SerializeField]
         ParticleEmitter _particleEmitter;
 #endif
 
-        private ShipStateFactory _stateFactory;
-        private ShipState _state;
+        ShipStateFactory _stateFactory;
+        ShipState _state;
 
         [Inject]
         public void Construct(ShipStateFactory stateFactory)
@@ -25,10 +27,16 @@ namespace Zenject.Asteroids
             _stateFactory = stateFactory;
         }
 
-        public MeshRenderer MeshRenderer => _meshRenderer;
+        public MeshRenderer MeshRenderer
+        {
+            get { return _meshRenderer; }
+        }
 
 #if UNITY_2018_1_OR_NEWER
-        public ParticleSystem ParticleEmitter => _particleSystem;
+        public ParticleSystem ParticleEmitter
+        {
+            get { return _particleSystem; }
+        }
 #else
         public ParticleEmitter ParticleEmitter
         {
@@ -38,14 +46,14 @@ namespace Zenject.Asteroids
 
         public Vector3 Position
         {
-            get => transform.position;
-            set => transform.position = value;
+            get { return transform.position; }
+            set { transform.position = value; }
         }
 
         public Quaternion Rotation
         {
-            get => transform.rotation;
-            set => transform.rotation = value;
+            get { return transform.rotation; }
+            set { transform.rotation = value; }
         }
 
         public void Start()
@@ -76,3 +84,4 @@ namespace Zenject.Asteroids
         }
     }
 }
+

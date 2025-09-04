@@ -7,16 +7,22 @@ namespace Zenject
     [NoReflectionBaking]
     public class MethodProviderSimple<TReturn> : IProvider
     {
-        private readonly Func<TReturn> _method;
+        readonly Func<TReturn> _method;
 
         public MethodProviderSimple(Func<TReturn> method)
         {
             _method = method;
         }
 
-        public bool IsCached => false;
+        public bool IsCached
+        {
+            get { return false; }
+        }
 
-        public bool TypeVariesBasedOnMemberType => false;
+        public bool TypeVariesBasedOnMemberType
+        {
+            get { return false; }
+        }
 
         public Type GetInstanceType(InjectContext context)
         {

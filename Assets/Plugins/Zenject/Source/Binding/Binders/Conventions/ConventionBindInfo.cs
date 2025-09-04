@@ -10,13 +10,13 @@ namespace Zenject
     [NoReflectionBaking]
     public class ConventionBindInfo
     {
-        private readonly List<Func<Type, bool>> _typeFilters = new();
-        private readonly List<Func<Assembly, bool>> _assemblyFilters = new();
+        readonly List<Func<Type, bool>> _typeFilters = new List<Func<Type, bool>>();
+        readonly List<Func<Assembly, bool>> _assemblyFilters = new List<Func<Assembly, bool>>();
 
 #if ZEN_MULTITHREADING
         readonly object _locker = new object();
 #endif
-        private static Dictionary<Assembly, Type[]> _assemblyTypeCache = new();
+        static Dictionary<Assembly, Type[]> _assemblyTypeCache = new Dictionary<Assembly, Type[]>();
 
         public void AddAssemblyFilter(Func<Assembly, bool> predicate)
         {
@@ -28,24 +28,24 @@ namespace Zenject
             _typeFilters.Add(predicate);
         }
 
-        private IEnumerable<Assembly> GetAllAssemblies()
+        IEnumerable<Assembly> GetAllAssemblies()
         {
             // This seems fast enough that it's not worth caching
             // We also want to allow dynamically loading assemblies
             return AppDomain.CurrentDomain.GetAssemblies();
         }
 
-        private bool ShouldIncludeAssembly(Assembly assembly)
+        bool ShouldIncludeAssembly(Assembly assembly)
         {
             return _assemblyFilters.All(predicate => predicate(assembly));
         }
 
-        private bool ShouldIncludeType(Type type)
+        bool ShouldIncludeType(Type type)
         {
             return _typeFilters.All(predicate => predicate(type));
         }
 
-        private Type[] GetTypes(Assembly assembly)
+        Type[] GetTypes(Assembly assembly)
         {
             Type[] types;
 

@@ -6,28 +6,30 @@ namespace Zenject.Tests.Injection
     [TestFixture]
     public class TestPostInjectCall : ZenjectUnitTestFixture
     {
-        private class Test0
+        class Test0
         {
         }
 
-        private class Test1
+        class Test1
         {
         }
 
-        private class Test2
+        class Test2
         {
         }
 
-        private class Test3
+        class Test3
         {
             public bool HasInitialized;
             public bool HasInitialized2;
 
-            [Inject] public Test1 test1 = null;
+            [Inject]
+            public Test1 test1 = null;
 
-            [Inject] public Test0 test0 = null;
+            [Inject]
+            public Test0 test0 = null;
 
-            private Test2 _test2;
+            Test2 _test2;
 
             public Test3(Test2 test2)
             {
@@ -45,7 +47,7 @@ namespace Zenject.Tests.Injection
             }
 
             [Inject]
-            private void TestPrivatePostInject()
+            void TestPrivatePostInject()
             {
                 HasInitialized2 = true;
             }
@@ -69,7 +71,7 @@ namespace Zenject.Tests.Injection
             public bool WasCalled;
 
             [Inject]
-            private void Init()
+            void Init()
             {
                 WasCalled = true;
             }
@@ -123,20 +125,20 @@ namespace Zenject.Tests.Injection
             Assert.IsEqual(FooDerived2.Derived2CallOrder, 2);
         }
 
-        private static int _initOrder;
+        static int _initOrder;
 
-        private interface IFoo
+        interface IFoo
         {
         }
 
-        private class FooBase : IFoo
+        class FooBase : IFoo
         {
             public bool WasBaseCalled;
             public bool WasBaseCalled2;
             public static int BaseCallOrder;
 
             [Inject]
-            private void TestBase()
+            void TestBase()
             {
                 Assert.That(!WasBaseCalled);
                 WasBaseCalled = true;
@@ -151,14 +153,14 @@ namespace Zenject.Tests.Injection
             }
         }
 
-        private class FooDerived : FooBase
+        class FooDerived : FooBase
         {
             public bool WasDerivedCalled;
             public bool WasDerivedCalled2;
             public static int DerivedCallOrder;
 
             [Inject]
-            private void TestDerived()
+            void TestDerived()
             {
                 Assert.That(!WasDerivedCalled);
                 WasDerivedCalled = true;
@@ -173,7 +175,7 @@ namespace Zenject.Tests.Injection
             }
         }
 
-        private class FooDerived2 : FooDerived
+        class FooDerived2 : FooDerived
         {
             public bool WasDerived2Called;
             public static int Derived2CallOrder;
@@ -188,3 +190,4 @@ namespace Zenject.Tests.Injection
         }
     }
 }
+

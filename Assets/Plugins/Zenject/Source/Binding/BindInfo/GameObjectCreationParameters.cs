@@ -8,25 +8,49 @@ namespace Zenject
     [NoReflectionBaking]
     public class GameObjectCreationParameters
     {
-        public string Name { get; set; }
+        public string Name
+        {
+            get;
+            set;
+        }
 
-        public string GroupName { get; set; }
+        public string GroupName
+        {
+            get;
+            set;
+        }
 
-        public Transform ParentTransform { get; set; }
+        public Transform ParentTransform
+        {
+            get;
+            set;
+        }
 
-        public Func<InjectContext, Transform> ParentTransformGetter { get; set; }
+        public Func<InjectContext, Transform> ParentTransformGetter
+        {
+            get;
+            set;
+        }
 
-        public Vector3? Position { get; set; }
+        public Vector3? Position
+        {
+            get;
+            set;
+        }
 
-        public Quaternion? Rotation { get; set; }
+        public Quaternion? Rotation
+        {
+            get;
+            set;
+        }
 
-        public static readonly GameObjectCreationParameters Default = new();
+        public static readonly GameObjectCreationParameters Default = new GameObjectCreationParameters();
 
         public override int GetHashCode()
         {
             unchecked // Overflow is fine, just wrap
             {
-                var hash = 17;
+                int hash = 17;
                 hash = hash * 29 + (Name == null ? 0 : Name.GetHashCode());
                 hash = hash * 29 + (GroupName == null ? 0 : GroupName.GetHashCode());
                 hash = hash * 29 + (ParentTransform == null ? 0 : ParentTransform.GetHashCode());
@@ -41,7 +65,7 @@ namespace Zenject
         {
             if (other is GameObjectCreationParameters)
             {
-                var otherId = (GameObjectCreationParameters)other;
+                GameObjectCreationParameters otherId = (GameObjectCreationParameters)other;
                 return otherId == this;
             }
 
@@ -56,7 +80,7 @@ namespace Zenject
         public static bool operator ==(GameObjectCreationParameters left, GameObjectCreationParameters right)
         {
             return Equals(left.Name, right.Name)
-                   && Equals(left.GroupName, right.GroupName);
+                && Equals(left.GroupName, right.GroupName);
         }
 
         public static bool operator !=(GameObjectCreationParameters left, GameObjectCreationParameters right)

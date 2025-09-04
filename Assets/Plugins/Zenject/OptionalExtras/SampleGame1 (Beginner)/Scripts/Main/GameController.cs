@@ -13,12 +13,12 @@ namespace Zenject.Asteroids
 
     public class GameController : IInitializable, ITickable, IDisposable
     {
-        private readonly SignalBus _signalBus;
-        private readonly Ship _ship;
-        private readonly AsteroidManager _asteroidSpawner;
+        readonly SignalBus _signalBus;
+        readonly Ship _ship;
+        readonly AsteroidManager _asteroidSpawner;
 
-        private GameStates _state = GameStates.WaitingToStart;
-        private float _elapsedTime;
+        GameStates _state = GameStates.WaitingToStart;
+        float _elapsedTime;
 
         public GameController(
             Ship ship, AsteroidManager asteroidSpawner,
@@ -29,9 +29,15 @@ namespace Zenject.Asteroids
             _ship = ship;
         }
 
-        public float ElapsedTime => _elapsedTime;
+        public float ElapsedTime
+        {
+            get { return _elapsedTime; }
+        }
 
-        public GameStates State => _state;
+        public GameStates State
+        {
+            get { return _state; }
+        }
 
         public void Initialize()
         {
@@ -74,34 +80,40 @@ namespace Zenject.Asteroids
             }
         }
 
-        private void UpdateGameOver()
+        void UpdateGameOver()
         {
             Assert.That(_state == GameStates.GameOver);
 
-            if (Input.GetMouseButtonDown(0)) StartGame();
+            if (Input.GetMouseButtonDown(0))
+            {
+                StartGame();
+            }
         }
 
-        private void OnShipCrashed()
+        void OnShipCrashed()
         {
             Assert.That(_state == GameStates.Playing);
             _state = GameStates.GameOver;
             _asteroidSpawner.Stop();
         }
 
-        private void UpdatePlaying()
+        void UpdatePlaying()
         {
             Assert.That(_state == GameStates.Playing);
             _elapsedTime += Time.deltaTime;
         }
 
-        private void UpdateStarting()
+        void UpdateStarting()
         {
             Assert.That(_state == GameStates.WaitingToStart);
 
-            if (Input.GetMouseButtonDown(0)) StartGame();
+            if (Input.GetMouseButtonDown(0))
+            {
+                StartGame();
+            }
         }
 
-        private void StartGame()
+        void StartGame()
         {
             Assert.That(_state == GameStates.WaitingToStart || _state == GameStates.GameOver);
 

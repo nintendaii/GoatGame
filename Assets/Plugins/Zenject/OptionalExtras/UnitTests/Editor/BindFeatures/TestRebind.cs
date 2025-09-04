@@ -6,15 +6,15 @@ namespace Zenject.Tests.BindFeatures
     [TestFixture]
     public class TestRebind : ZenjectUnitTestFixture
     {
-        private interface ITest
+        interface ITest
         {
         }
 
-        private class Test2 : ITest
+        class Test2 : ITest
         {
         }
 
-        private class Test3 : ITest
+        class Test3 : ITest
         {
         }
 

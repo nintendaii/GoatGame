@@ -15,7 +15,11 @@ namespace Zenject
             BindInfo = bindInfo;
         }
 
-        protected ConventionBindInfo BindInfo { get; private set; }
+        protected ConventionBindInfo BindInfo
+        {
+            get;
+            private set;
+        }
 
         public void FromAllAssemblies()
         {

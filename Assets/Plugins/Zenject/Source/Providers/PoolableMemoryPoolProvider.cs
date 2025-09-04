@@ -13,13 +13,27 @@ namespace Zenject
             PoolId = poolId;
         }
 
-        public bool IsCached => false;
+        public bool IsCached
+        {
+            get { return false; }
+        }
 
-        protected Guid PoolId { get; private set; }
+        protected Guid PoolId
+        {
+            get;
+            private set;
+        }
 
-        protected DiContainer Container { get; private set; }
+        protected DiContainer Container
+        {
+            get;
+            private set;
+        }
 
-        public bool TypeVariesBasedOnMemberType => false;
+        public bool TypeVariesBasedOnMemberType
+        {
+            get { return false; }
+        }
 
         public Type GetInstanceType(InjectContext context)
         {
@@ -33,12 +47,11 @@ namespace Zenject
     // Zero parameters
 
     [NoReflectionBaking]
-    public class PoolableMemoryPoolProvider<TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>,
-        IValidatable
+    public class PoolableMemoryPoolProvider<TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable
         where TContract : IPoolable<IMemoryPool>
         where TMemoryPool : MemoryPool<IMemoryPool, TContract>
     {
-        private TMemoryPool _pool;
+        TMemoryPool _pool;
 
         public PoolableMemoryPoolProvider(
             DiContainer container, Guid poolId)
@@ -62,7 +75,10 @@ namespace Zenject
 
             injectAction = null;
 
-            if (_pool == null) _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            if (_pool == null)
+            {
+                _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            }
 
             buffer.Add(_pool.Spawn(_pool));
         }
@@ -71,13 +87,11 @@ namespace Zenject
     // One parameters
 
     [NoReflectionBaking]
-    public class
-        PoolableMemoryPoolProvider<TParam1, TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>,
-        IValidatable
+    public class PoolableMemoryPoolProvider<TParam1, TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable
         where TContract : IPoolable<TParam1, IMemoryPool>
         where TMemoryPool : MemoryPool<TParam1, IMemoryPool, TContract>
     {
-        private TMemoryPool _pool;
+        TMemoryPool _pool;
 
         public PoolableMemoryPoolProvider(
             DiContainer container, Guid poolId)
@@ -101,7 +115,10 @@ namespace Zenject
 
             injectAction = null;
 
-            if (_pool == null) _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            if (_pool == null)
+            {
+                _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            }
 
             buffer.Add(_pool.Spawn((TParam1)args[0].Value, _pool));
         }
@@ -110,14 +127,11 @@ namespace Zenject
     // Two parameters
 
     [NoReflectionBaking]
-    public class
-        PoolableMemoryPoolProvider<TParam1, TParam2, TContract, TMemoryPool> :
-        PoolableMemoryPoolProviderBase<TContract>,
-        IValidatable
+    public class PoolableMemoryPoolProvider<TParam1, TParam2, TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable
         where TContract : IPoolable<TParam1, TParam2, IMemoryPool>
         where TMemoryPool : MemoryPool<TParam1, TParam2, IMemoryPool, TContract>
     {
-        private TMemoryPool _pool;
+        TMemoryPool _pool;
 
         public PoolableMemoryPoolProvider(
             DiContainer container, Guid poolId)
@@ -142,7 +156,10 @@ namespace Zenject
 
             injectAction = null;
 
-            if (_pool == null) _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            if (_pool == null)
+            {
+                _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            }
 
             buffer.Add(_pool.Spawn(
                 (TParam1)args[0].Value,
@@ -154,13 +171,11 @@ namespace Zenject
     // Three parameters
 
     [NoReflectionBaking]
-    public class
-        PoolableMemoryPoolProvider<TParam1, TParam2, TParam3, TContract, TMemoryPool> :
-        PoolableMemoryPoolProviderBase<TContract>, IValidatable
+    public class PoolableMemoryPoolProvider<TParam1, TParam2, TParam3, TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable
         where TContract : IPoolable<TParam1, TParam2, TParam3, IMemoryPool>
         where TMemoryPool : MemoryPool<TParam1, TParam2, TParam3, IMemoryPool, TContract>
     {
-        private TMemoryPool _pool;
+        TMemoryPool _pool;
 
         public PoolableMemoryPoolProvider(
             DiContainer container, Guid poolId)
@@ -186,7 +201,10 @@ namespace Zenject
 
             injectAction = null;
 
-            if (_pool == null) _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            if (_pool == null)
+            {
+                _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            }
 
             buffer.Add(_pool.Spawn(
                 (TParam1)args[0].Value,
@@ -199,13 +217,11 @@ namespace Zenject
     // Four parameters
 
     [NoReflectionBaking]
-    public class
-        PoolableMemoryPoolProvider<TParam1, TParam2, TParam3, TParam4, TContract, TMemoryPool> :
-        PoolableMemoryPoolProviderBase<TContract>, IValidatable
+    public class PoolableMemoryPoolProvider<TParam1, TParam2, TParam3, TParam4, TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable
         where TContract : IPoolable<TParam1, TParam2, TParam3, TParam4, IMemoryPool>
         where TMemoryPool : MemoryPool<TParam1, TParam2, TParam3, TParam4, IMemoryPool, TContract>
     {
-        private TMemoryPool _pool;
+        TMemoryPool _pool;
 
         public PoolableMemoryPoolProvider(
             DiContainer container, Guid poolId)
@@ -232,7 +248,10 @@ namespace Zenject
 
             injectAction = null;
 
-            if (_pool == null) _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            if (_pool == null)
+            {
+                _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            }
 
             buffer.Add(_pool.Spawn(
                 (TParam1)args[0].Value,
@@ -246,13 +265,11 @@ namespace Zenject
     // Five parameters
 
     [NoReflectionBaking]
-    public class
-        PoolableMemoryPoolProvider<TParam1, TParam2, TParam3, TParam4, TParam5, TContract, TMemoryPool> :
-        PoolableMemoryPoolProviderBase<TContract>, IValidatable
+    public class PoolableMemoryPoolProvider<TParam1, TParam2, TParam3, TParam4, TParam5, TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable
         where TContract : IPoolable<TParam1, TParam2, TParam3, TParam4, TParam5, IMemoryPool>
         where TMemoryPool : MemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, IMemoryPool, TContract>
     {
-        private TMemoryPool _pool;
+        TMemoryPool _pool;
 
         public PoolableMemoryPoolProvider(
             DiContainer container, Guid poolId)
@@ -280,7 +297,10 @@ namespace Zenject
 
             injectAction = null;
 
-            if (_pool == null) _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            if (_pool == null)
+            {
+                _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            }
 
             buffer.Add(_pool.Spawn(
                 (TParam1)args[0].Value,
@@ -295,12 +315,11 @@ namespace Zenject
     // Six parameters
 
     [NoReflectionBaking]
-    public class PoolableMemoryPoolProvider<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TContract,
-        TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable
+    public class PoolableMemoryPoolProvider<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable
         where TContract : IPoolable<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, IMemoryPool>
         where TMemoryPool : MemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, IMemoryPool, TContract>
     {
-        private TMemoryPool _pool;
+        TMemoryPool _pool;
 
         public PoolableMemoryPoolProvider(
             DiContainer container, Guid poolId)
@@ -329,7 +348,10 @@ namespace Zenject
 
             injectAction = null;
 
-            if (_pool == null) _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            if (_pool == null)
+            {
+                _pool = Container.ResolveId<TMemoryPool>(PoolId);
+            }
 
             buffer.Add(_pool.Spawn(
                 (TParam1)args[0].Value,
@@ -342,3 +364,4 @@ namespace Zenject
         }
     }
 }
+

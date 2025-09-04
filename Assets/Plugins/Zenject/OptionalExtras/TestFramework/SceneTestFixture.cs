@@ -15,14 +15,20 @@ namespace Zenject
 {
     public abstract class SceneTestFixture
     {
-        private readonly List<DiContainer> _sceneContainers = new();
+        readonly List<DiContainer> _sceneContainers = new List<DiContainer>();
 
-        private bool _hasLoadedScene;
-        private DiContainer _sceneContainer;
+        bool _hasLoadedScene;
+        DiContainer _sceneContainer;
 
-        protected DiContainer SceneContainer => _sceneContainer;
+        protected DiContainer SceneContainer
+        {
+            get { return _sceneContainer; }
+        }
 
-        protected IEnumerable<DiContainer> SceneContainers => _sceneContainers;
+        protected IEnumerable<DiContainer> SceneContainers
+        {
+            get { return _sceneContainers; }
+        }
 
         public IEnumerator LoadScene(string sceneName)
         {
@@ -39,7 +45,7 @@ namespace Zenject
 
             Assert.That(SceneContainers.IsEmpty());
 
-            for (var i = 0; i < sceneNames.Length; i++)
+            for (int i = 0; i < sceneNames.Length; i++)
             {
                 var sceneName = sceneNames[i];
 
@@ -49,15 +55,17 @@ namespace Zenject
 
                 Log.Info("Loading scene '{0}' for testing", sceneName);
 
-                var loader =
-                    SceneManager.LoadSceneAsync(sceneName, i == 0 ? LoadSceneMode.Single : LoadSceneMode.Additive);
+                var loader = SceneManager.LoadSceneAsync(sceneName, i == 0 ? LoadSceneMode.Single : LoadSceneMode.Additive);
 
-                while (!loader.isDone) yield return null;
+                while (!loader.isDone)
+                {
+                    yield return null;
+                }
 
                 SceneContext sceneContext = null;
 
                 if (ProjectContext.HasInstance)
-                    // ProjectContext might be null if scene does not have a scene context
+                // ProjectContext might be null if scene does not have a scene context
                 {
                     var scene = SceneManager.GetSceneByName(sceneName);
 
@@ -70,7 +78,10 @@ namespace Zenject
 
             _sceneContainer = _sceneContainers.Where(x => x != null).LastOrDefault();
 
-            if (_sceneContainer != null) _sceneContainer.Inject(this);
+            if (_sceneContainer != null)
+            {
+                _sceneContainer.Inject(this);
+            }
         }
 
         [SetUp]
@@ -80,7 +91,7 @@ namespace Zenject
             SetMemberDefaults();
         }
 
-        private void SetMemberDefaults()
+        void SetMemberDefaults()
         {
             _hasLoadedScene = false;
             _sceneContainer = null;

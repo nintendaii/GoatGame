@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using ModestTree;
@@ -8,10 +9,10 @@ namespace Zenject.Tests.Bindings
 {
     public class TestFromComponentInChildren : ZenjectIntegrationTestFixture
     {
-        private Root _root;
-        private Child _child1;
-        private Child _child2;
-        private Grandchild _grandchild;
+        Root _root;
+        Child _child1;
+        Child _child2;
+        Grandchild _grandchild;
 
         public void Setup1()
         {
@@ -203,9 +204,11 @@ namespace Zenject.Tests.Bindings
 
         public class Root : MonoBehaviour
         {
-            [Inject] public Grandchild Grandchild;
+            [Inject]
+            public Grandchild Grandchild;
 
-            [Inject] public List<Child> Childs;
+            [Inject]
+            public List<Child> Childs;
         }
 
         public class Child : MonoBehaviour
@@ -218,7 +221,9 @@ namespace Zenject.Tests.Bindings
 
         public class RootWithOptional : MonoBehaviour
         {
-            [InjectOptional] public Child Child;
+            [InjectOptional]
+            public Child Child;
         }
     }
 }
+

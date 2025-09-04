@@ -6,18 +6,18 @@ namespace Zenject.Tests.Conditions
     [TestFixture]
     public class TestConditionsTarget : ZenjectUnitTestFixture
     {
-        private class Test0
+        class Test0
         {
         }
 
-        private class Test1
+        class Test1
         {
             public Test1(Test0 test)
             {
             }
         }
 
-        private class Test2
+        class Test2
         {
             public Test2(Test0 test)
             {
@@ -50,3 +50,5 @@ namespace Zenject.Tests.Conditions
         }
     }
 }
+
+

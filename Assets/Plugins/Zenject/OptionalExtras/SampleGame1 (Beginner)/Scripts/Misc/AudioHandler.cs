@@ -5,9 +5,9 @@ namespace Zenject.Asteroids
 {
     public class AudioHandler : IInitializable, IDisposable
     {
-        private readonly SignalBus _signalBus;
-        private readonly Settings _settings;
-        private readonly AudioSource _audioSource;
+        readonly SignalBus _signalBus;
+        readonly Settings _settings;
+        readonly AudioSource _audioSource;
 
         public AudioHandler(
             AudioSource audioSource,
@@ -29,7 +29,7 @@ namespace Zenject.Asteroids
             _signalBus.Unsubscribe<ShipCrashedSignal>(OnShipCrashed);
         }
 
-        private void OnShipCrashed()
+        void OnShipCrashed()
         {
             _audioSource.PlayOneShot(_settings.CrashSound);
         }

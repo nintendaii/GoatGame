@@ -32,7 +32,7 @@ namespace Zenject.Tests.Bindings
             Assert.IsEqual(pool.NumTotal, 1);
         }
 
-        private class CustomFactory : IFactory<Qux>
+        class CustomFactory : IFactory<Qux>
         {
             public Qux Create()
             {
@@ -40,7 +40,7 @@ namespace Zenject.Tests.Bindings
             }
         }
 
-        private class Qux
+        class Qux
         {
             public class Pool : MemoryPool<Qux>
             {
@@ -48,3 +48,5 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
+
+

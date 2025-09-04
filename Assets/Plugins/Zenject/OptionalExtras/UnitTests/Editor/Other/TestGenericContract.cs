@@ -7,12 +7,12 @@ namespace Zenject.Tests.Other
     [TestFixture]
     public class TestGenericContract : ZenjectUnitTestFixture
     {
-        private class Test1<T>
+        class Test1<T>
         {
             public T Data;
         }
 
-        private class Test2
+        class Test2
         {
         }
 
@@ -48,15 +48,15 @@ namespace Zenject.Tests.Other
             Container.Resolve<Test1<Test2>>();
         }
 
-        private interface IFoo<T>
+        interface IFoo<T>
         {
         }
 
-        private interface IBar<T>
+        interface IBar<T>
         {
         }
 
-        private class Test2<T> : IFoo<T>, IBar<T>
+        class Test2<T> : IFoo<T>, IBar<T>
         {
         }
 
@@ -76,12 +76,10 @@ namespace Zenject.Tests.Other
             Assert.IsEqual(bar, Container.Resolve<IBar<int>>());
         }
 
-        public interface IQux
-        {
+        public interface IQux {
         }
 
-        public class Qux : IQux
-        {
+        public class Qux : IQux {
         }
 
         [Test]

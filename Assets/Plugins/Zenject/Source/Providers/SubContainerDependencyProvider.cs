@@ -7,10 +7,10 @@ namespace Zenject
     [NoReflectionBaking]
     public class SubContainerDependencyProvider : IProvider
     {
-        private readonly ISubContainerCreator _subContainerCreator;
-        private readonly Type _dependencyType;
-        private readonly object _identifier;
-        private readonly bool _resolveAll;
+        readonly ISubContainerCreator _subContainerCreator;
+        readonly Type _dependencyType;
+        readonly object _identifier;
+        readonly bool _resolveAll;
 
         // if concreteType is null we use the contract type from inject context
         public SubContainerDependencyProvider(
@@ -24,16 +24,22 @@ namespace Zenject
             _resolveAll = resolveAll;
         }
 
-        public bool IsCached => false;
+        public bool IsCached
+        {
+            get { return false; }
+        }
 
-        public bool TypeVariesBasedOnMemberType => false;
+        public bool TypeVariesBasedOnMemberType
+        {
+            get { return false; }
+        }
 
         public Type GetInstanceType(InjectContext context)
         {
             return _dependencyType;
         }
 
-        private InjectContext CreateSubContext(
+        InjectContext CreateSubContext(
             InjectContext parent, DiContainer subContainer)
         {
             var subContext = parent.CreateSubContext(_dependencyType, _identifier);

@@ -42,21 +42,24 @@ namespace Zenject.Tests.Injection
             Assert.IsEqual(gorp.ChosenConstructor, 1);
         }
 
-        private class Bar
+        class Bar
         {
         }
 
-        private class Foo
+        class Foo
         {
             public Foo(Bar bar)
             {
                 Bar = bar;
             }
 
-            public Bar Bar { get; private set; }
+            public Bar Bar
+            {
+                get; private set;
+            }
         }
 
-        private class Qux
+        class Qux
         {
             public Qux()
             {
@@ -68,7 +71,7 @@ namespace Zenject.Tests.Injection
             }
         }
 
-        private class Gorp
+        class Gorp
         {
             public Gorp()
             {
@@ -85,7 +88,12 @@ namespace Zenject.Tests.Injection
                 ChosenConstructor = 3;
             }
 
-            public int ChosenConstructor { get; private set; }
+            public int ChosenConstructor
+            {
+                get; private set;
+            }
         }
     }
 }
+
+

@@ -8,7 +8,7 @@ namespace Zenject.Tests.Other
     [TestFixture]
     public class TestTaskUpdater
     {
-        private DiContainer _container;
+        DiContainer _container;
 
         [SetUp]
         public void Setup()
@@ -44,7 +44,7 @@ namespace Zenject.Tests.Other
             var tick2 = _container.Resolve<Tickable2>();
             var tick3 = _container.Resolve<Tickable3>();
 
-            var tickCount = 0;
+            int tickCount = 0;
 
             tick1.TickCalled += delegate
             {
@@ -67,9 +67,9 @@ namespace Zenject.Tests.Other
             taskUpdater.UpdateAll();
         }
 
-        private class Tickable1 : ITickable
+        class Tickable1 : ITickable
         {
-            public event Action TickCalled = delegate { };
+            public event Action TickCalled = delegate {};
 
             public void Tick()
             {
@@ -77,9 +77,9 @@ namespace Zenject.Tests.Other
             }
         }
 
-        private class Tickable2 : ITickable
+        class Tickable2 : ITickable
         {
-            public event Action TickCalled = delegate { };
+            public event Action TickCalled = delegate {};
 
             public void Tick()
             {
@@ -87,9 +87,9 @@ namespace Zenject.Tests.Other
             }
         }
 
-        private class Tickable3 : ITickable
+        class Tickable3 : ITickable
         {
-            public event Action TickCalled = delegate { };
+            public event Action TickCalled = delegate {};
 
             public void Tick()
             {

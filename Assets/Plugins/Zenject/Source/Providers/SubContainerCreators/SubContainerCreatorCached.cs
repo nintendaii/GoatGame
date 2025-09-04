@@ -7,14 +7,14 @@ namespace Zenject
     [NoReflectionBaking]
     public class SubContainerCreatorCached : ISubContainerCreator
     {
-        private readonly ISubContainerCreator _subCreator;
+        readonly ISubContainerCreator _subCreator;
 
 #if ZEN_MULTITHREADING
         readonly object _locker = new object();
 #else
-        private bool _isLookingUp;
+        bool _isLookingUp;
 #endif
-        private DiContainer _subContainer;
+        DiContainer _subContainer;
 
         public SubContainerCreatorCached(ISubContainerCreator subCreator)
         {
@@ -35,13 +35,12 @@ namespace Zenject
                 {
 #if !ZEN_MULTITHREADING
                     Assert.That(!_isLookingUp,
-                        "Found unresolvable circular dependency when looking up sub container!  Object graph:\n {0}",
-                        context.GetObjectGraphString());
+                        "Found unresolvable circular dependency when looking up sub container!  Object graph:\n {0}", context.GetObjectGraphString());
                     _isLookingUp = true;
 #endif
 
                     _subContainer = _subCreator.CreateSubContainer(
-                        new List<TypeValuePair>(), context, out injectAction);
+                            new List<TypeValuePair>(), context, out injectAction);
 
 #if !ZEN_MULTITHREADING
                     _isLookingUp = false;
@@ -49,7 +48,7 @@ namespace Zenject
 
                     Assert.IsNotNull(_subContainer);
                 }
-                else
+                else 
                 {
                     injectAction = null;
                 }

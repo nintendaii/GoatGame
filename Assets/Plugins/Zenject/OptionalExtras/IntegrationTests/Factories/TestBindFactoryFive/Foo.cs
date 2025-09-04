@@ -4,7 +4,10 @@ namespace Zenject.Tests.Factories.BindFactoryFive
 {
     public interface IFoo
     {
-        string Value { get; }
+        string Value
+        {
+            get;
+        }
     }
 
     public class IFooFactory : PlaceholderFactory<double, int, float, string, char, IFoo>
@@ -19,7 +22,11 @@ namespace Zenject.Tests.Factories.BindFactoryFive
             Value = p4;
         }
 
-        public string Value { get; private set; }
+        public string Value
+        {
+            get;
+            private set;
+        }
 
         public class Factory : PlaceholderFactory<double, int, float, string, char, Foo>
         {

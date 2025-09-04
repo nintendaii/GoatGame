@@ -7,9 +7,9 @@ namespace Zenject
     [NoReflectionBaking]
     public class SubContainerBindingFinalizer : ProviderBindingFinalizer
     {
-        private readonly object _subIdentifier;
-        private readonly bool _resolveAll;
-        private readonly Func<DiContainer, ISubContainerCreator> _creatorFactory;
+        readonly object _subIdentifier;
+        readonly bool _resolveAll;
+        readonly Func<DiContainer, ISubContainerCreator> _creatorFactory;
 
         public SubContainerBindingFinalizer(
             BindInfo bindInfo, object subIdentifier,
@@ -34,7 +34,7 @@ namespace Zenject
             }
         }
 
-        private void FinalizeBindingConcrete(DiContainer container, List<Type> concreteTypes)
+        void FinalizeBindingConcrete(DiContainer container, List<Type> concreteTypes)
         {
             var scope = GetScope();
 
@@ -69,7 +69,7 @@ namespace Zenject
             }
         }
 
-        private void FinalizeBindingSelf(DiContainer container)
+        void FinalizeBindingSelf(DiContainer container)
         {
             var scope = GetScope();
 
@@ -102,3 +102,5 @@ namespace Zenject
         }
     }
 }
+
+

@@ -7,7 +7,7 @@ namespace Zenject
     [NoReflectionBaking]
     public class SubContainerCreatorByInstance : ISubContainerCreator
     {
-        private readonly DiContainer _subcontainer;
+        readonly DiContainer _subcontainer;
 
         public SubContainerCreatorByInstance(DiContainer subcontainer)
         {
@@ -27,3 +27,4 @@ namespace Zenject
         }
     }
 }
+

@@ -7,7 +7,7 @@ namespace Zenject
     [NoReflectionBaking]
     public class ScopableBindingFinalizer : ProviderBindingFinalizer
     {
-        private readonly Func<DiContainer, Type, IProvider> _providerFactory;
+        readonly Func<DiContainer, Type, IProvider> _providerFactory;
 
         public ScopableBindingFinalizer(
             BindInfo bindInfo, Func<DiContainer, Type, IProvider> providerFactory)
@@ -29,11 +29,13 @@ namespace Zenject
             }
         }
 
-        private void FinalizeBindingConcrete(DiContainer container, List<Type> concreteTypes)
+        void FinalizeBindingConcrete(DiContainer container, List<Type> concreteTypes)
         {
             if (concreteTypes.Count == 0)
+            {
                 // This can be common when using convention based bindings
                 return;
+            }
 
             var scope = GetScope();
             switch (scope)
@@ -61,7 +63,7 @@ namespace Zenject
             }
         }
 
-        private void FinalizeBindingSelf(DiContainer container)
+        void FinalizeBindingSelf(DiContainer container)
         {
             var scope = GetScope();
 

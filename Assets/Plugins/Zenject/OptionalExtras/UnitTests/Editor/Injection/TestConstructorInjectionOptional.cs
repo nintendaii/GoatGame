@@ -6,11 +6,11 @@ namespace Zenject.Tests.Injection
     [TestFixture]
     public class TestConstructorInjectionOptional : ZenjectUnitTestFixture
     {
-        private class Test1
+        class Test1
         {
         }
 
-        private class Test2
+        class Test2
         {
             public Test1 val;
 
@@ -20,7 +20,7 @@ namespace Zenject.Tests.Injection
             }
         }
 
-        private class Test3
+        class Test3
         {
             public Test1 val;
 
@@ -59,3 +59,5 @@ namespace Zenject.Tests.Injection
         }
     }
 }
+
+

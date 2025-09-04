@@ -7,10 +7,10 @@ namespace Zenject
     // exceptions on AOT platforms
     public class SignalCallbackWrapper : IDisposable
     {
-        private readonly SignalBus _signalBus;
-        private readonly Action<object> _action;
-        private readonly Type _signalType;
-        private readonly object _identifier;
+        readonly SignalBus _signalBus;
+        readonly Action<object> _action;
+        readonly Type _signalType;
+        readonly object _identifier;
 
         public SignalCallbackWrapper(
             SignalBindingBindInfo bindInfo,
@@ -25,7 +25,7 @@ namespace Zenject
             signalBus.SubscribeId(bindInfo.SignalType, _identifier, OnSignalFired);
         }
 
-        private void OnSignalFired(object signal)
+        void OnSignalFired(object signal)
         {
             _action(signal);
         }

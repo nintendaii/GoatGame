@@ -1,3 +1,4 @@
+
 using System;
 using NUnit.Framework;
 using Assert = ModestTree.Assert;
@@ -13,15 +14,18 @@ namespace Zenject.Tests.Bindings
 
         public class Foo : IPoolable<IMemoryPool>, IDisposable
         {
-            private IMemoryPool _pool;
+            IMemoryPool _pool;
 
             public Foo(Bar bar)
             {
             }
 
-            public IMemoryPool Pool => _pool;
+            public IMemoryPool Pool
+            {
+                get { return _pool; }
+            }
 
-            private void SetDefaults()
+            void SetDefaults()
             {
                 _pool = null;
             }
@@ -74,3 +78,4 @@ namespace Zenject.Tests.Bindings
         }
     }
 }
+

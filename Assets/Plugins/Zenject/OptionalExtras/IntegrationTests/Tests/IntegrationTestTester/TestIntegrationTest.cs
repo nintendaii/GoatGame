@@ -9,9 +9,15 @@ namespace Zenject.Tests
     {
         public class Foo : IInitializable, IDisposable
         {
-            public static bool WasDisposed { get; set; }
+            public static bool WasDisposed
+            {
+                get; set;
+            }
 
-            public static bool WasInitialized { get; set; }
+            public static bool WasInitialized
+            {
+                get; set;
+            }
 
             public void Initialize()
             {

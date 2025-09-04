@@ -10,8 +10,8 @@ namespace Zenject
     [NoReflectionBaking]
     public class EmptyGameObjectProvider : IProvider
     {
-        private readonly DiContainer _container;
-        private readonly GameObjectCreationParameters _gameObjectBindInfo;
+        readonly DiContainer _container;
+        readonly GameObjectCreationParameters _gameObjectBindInfo;
 
         public EmptyGameObjectProvider(
             DiContainer container, GameObjectCreationParameters gameObjectBindInfo)
@@ -20,9 +20,15 @@ namespace Zenject
             _container = container;
         }
 
-        public bool IsCached => false;
+        public bool IsCached
+        {
+            get { return false; }
+        }
 
-        public bool TypeVariesBasedOnMemberType => false;
+        public bool TypeVariesBasedOnMemberType
+        {
+            get { return false; }
+        }
 
         public Type GetInstanceType(InjectContext context)
         {
@@ -43,3 +49,4 @@ namespace Zenject
 }
 
 #endif
+

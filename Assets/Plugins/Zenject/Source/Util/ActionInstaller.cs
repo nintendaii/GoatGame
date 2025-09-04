@@ -4,7 +4,7 @@ namespace Zenject
 {
     public class ActionInstaller : Installer<ActionInstaller>
     {
-        private readonly Action<DiContainer> _installMethod;
+        readonly Action<DiContainer> _installMethod;
 
         public ActionInstaller(Action<DiContainer> installMethod)
         {

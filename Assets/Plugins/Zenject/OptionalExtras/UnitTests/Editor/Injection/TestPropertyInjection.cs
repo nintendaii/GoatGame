@@ -6,15 +6,17 @@ namespace Zenject.Tests.Injection
     [TestFixture]
     public class TestPropertyInjection : ZenjectUnitTestFixture
     {
-        private class Test1
+        class Test1
         {
         }
 
-        private class Test2
+        class Test2
         {
-            [Inject] public Test1 val2 { get; private set; }
+            [Inject]
+            public Test1 val2 { get; private set; }
 
-            [Inject] private Test1 val4 { get; set; }
+            [Inject]
+            Test1 val4 { get; set; }
 
             public Test1 GetVal4()
             {
@@ -42,3 +44,5 @@ namespace Zenject.Tests.Injection
         }
     }
 }
+
+

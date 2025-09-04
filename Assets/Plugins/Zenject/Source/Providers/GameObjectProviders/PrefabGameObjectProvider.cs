@@ -9,7 +9,7 @@ namespace Zenject
     [NoReflectionBaking]
     public class PrefabGameObjectProvider : IProvider
     {
-        private readonly IPrefabInstantiator _prefabCreator;
+        readonly IPrefabInstantiator _prefabCreator;
 
         public PrefabGameObjectProvider(
             IPrefabInstantiator prefabCreator)
@@ -17,9 +17,15 @@ namespace Zenject
             _prefabCreator = prefabCreator;
         }
 
-        public bool IsCached => false;
+        public bool IsCached
+        {
+            get { return false; }
+        }
 
-        public bool TypeVariesBasedOnMemberType => false;
+        public bool TypeVariesBasedOnMemberType
+        {
+            get { return false; }
+        }
 
         public Type GetInstanceType(InjectContext context)
         {

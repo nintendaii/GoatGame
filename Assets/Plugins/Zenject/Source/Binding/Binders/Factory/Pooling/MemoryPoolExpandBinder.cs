@@ -4,8 +4,7 @@ namespace Zenject
     public class MemoryPoolExpandBinder<TContract> : FactoryArgumentsToChoiceBinder<TContract>
     {
         public MemoryPoolExpandBinder(
-            DiContainer bindContainer, BindInfo bindInfo, FactoryBindInfo factoryBindInfo,
-            MemoryPoolBindInfo poolBindInfo)
+            DiContainer bindContainer, BindInfo bindInfo, FactoryBindInfo factoryBindInfo, MemoryPoolBindInfo poolBindInfo)
             : base(bindContainer, bindInfo, factoryBindInfo)
         {
             MemoryPoolBindInfo = poolBindInfo;
@@ -13,7 +12,10 @@ namespace Zenject
             ExpandByOneAtATime();
         }
 
-        protected MemoryPoolBindInfo MemoryPoolBindInfo { get; private set; }
+        protected MemoryPoolBindInfo MemoryPoolBindInfo
+        {
+            get; private set;
+        }
 
         public FactoryArgumentsToChoiceBinder<TContract> ExpandByOneAtATime()
         {
@@ -28,3 +30,4 @@ namespace Zenject
         }
     }
 }
+

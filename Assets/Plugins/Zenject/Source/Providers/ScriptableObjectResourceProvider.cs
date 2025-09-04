@@ -6,20 +6,19 @@ using System.Linq;
 using ModestTree;
 using UnityEngine;
 using Zenject.Internal;
-using Object = UnityEngine.Object;
 
 namespace Zenject
 {
     [NoReflectionBaking]
     public class ScriptableObjectResourceProvider : IProvider
     {
-        private readonly DiContainer _container;
-        private readonly Type _resourceType;
-        private readonly string _resourcePath;
-        private readonly List<TypeValuePair> _extraArguments;
-        private readonly bool _createNew;
-        private readonly object _concreteIdentifier;
-        private readonly Action<InjectContext, object> _instantiateCallback;
+        readonly DiContainer _container;
+        readonly Type _resourceType;
+        readonly string _resourcePath;
+        readonly List<TypeValuePair> _extraArguments;
+        readonly bool _createNew;
+        readonly object _concreteIdentifier;
+        readonly Action<InjectContext, object> _instantiateCallback;
 
         public ScriptableObjectResourceProvider(
             string resourcePath, Type resourceType,
@@ -38,9 +37,15 @@ namespace Zenject
             _instantiateCallback = instantiateCallback;
         }
 
-        public bool IsCached => false;
+        public bool IsCached
+        {
+            get { return false; }
+        }
 
-        public bool TypeVariesBasedOnMemberType => false;
+        public bool TypeVariesBasedOnMemberType
+        {
+            get { return false; }
+        }
 
         public Type GetInstanceType(InjectContext context)
         {
@@ -56,7 +61,10 @@ namespace Zenject
             {
                 var objects = Resources.LoadAll(_resourcePath, _resourceType);
 
-                for (var i = 0; i < objects.Length; i++) buffer.Add(Object.Instantiate(objects[i]));
+                for (int i = 0; i < objects.Length; i++)
+                {
+                    buffer.Add(ScriptableObject.Instantiate(objects[i]));
+                }
             }
             else
             {
@@ -65,11 +73,11 @@ namespace Zenject
             }
 
             Assert.That(buffer.Count > 0,
-                "Could not find resource at path '{0}' with type '{1}'", _resourcePath, _resourceType);
+            "Could not find resource at path '{0}' with type '{1}'", _resourcePath, _resourceType);
 
             injectAction = () =>
             {
-                for (var i = 0; i < buffer.Count; i++)
+                for (int i = 0; i < buffer.Count; i++)
                 {
                     var obj = buffer[i];
 
@@ -83,7 +91,10 @@ namespace Zenject
 
                     ZenPools.DespawnList(extraArgs);
 
-                    if (_instantiateCallback != null) _instantiateCallback(context, obj);
+                    if (_instantiateCallback != null)
+                    {
+                        _instantiateCallback(context, obj);
+                    }
                 }
             };
         }

@@ -68,8 +68,7 @@ namespace Zenject
 
             // Automatically filter by the given contract types
             bindInfo.AddTypeFilter(
-                concreteType =>
-                    BindInfo.ContractTypes.All(contractType => concreteType.DerivesFromOrEqual(contractType)));
+                concreteType => BindInfo.ContractTypes.All(contractType => concreteType.DerivesFromOrEqual(contractType)));
 
             generator(new ConventionSelectTypesBinder(bindInfo));
             return To(bindInfo.ResolveTypes());

@@ -1,3 +1,4 @@
+
 using System;
 using NUnit.Framework;
 using Zenject.Internal;
@@ -12,14 +13,15 @@ namespace Zenject.Tests.Other
         {
         }
 
-        private class Bar
+        class Bar
         {
         }
 
         [NoReflectionBaking]
-        private class Foo
+        class Foo
         {
-            [InjectCustom] public Bar BarField = null;
+            [InjectCustom]
+            public Bar BarField = null;
 
             public Foo(Bar barParam)
             {
@@ -29,7 +31,11 @@ namespace Zenject.Tests.Other
             public Bar BarParam;
             public Bar BarMethod;
 
-            [InjectCustom] public Bar BarProperty { get; private set; }
+            [InjectCustom]
+            public Bar BarProperty
+            {
+                get; private set;
+            }
 
             [InjectCustom]
             public void Construct(Bar bar)

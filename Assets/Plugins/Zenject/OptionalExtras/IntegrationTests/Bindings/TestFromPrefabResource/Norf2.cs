@@ -6,3 +6,4 @@ namespace Zenject.Tests.Bindings.FromPrefabResource
     {
     }
 }
+

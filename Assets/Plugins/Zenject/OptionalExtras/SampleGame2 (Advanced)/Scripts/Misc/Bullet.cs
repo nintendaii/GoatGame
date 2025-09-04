@@ -10,22 +10,31 @@ namespace Zenject.SpaceFighter
 
     public class Bullet : MonoBehaviour, IPoolable<float, float, BulletTypes, IMemoryPool>
     {
-        private float _startTime;
-        private BulletTypes _type;
-        private float _speed;
-        private float _lifeTime;
+        float _startTime;
+        BulletTypes _type;
+        float _speed;
+        float _lifeTime;
 
-        [SerializeField] private MeshRenderer _renderer = null;
+        [SerializeField]
+        MeshRenderer _renderer = null;
 
-        [SerializeField] private Material _playerMaterial = null;
+        [SerializeField]
+        Material _playerMaterial = null;
 
-        [SerializeField] private Material _enemyMaterial = null;
+        [SerializeField]
+        Material _enemyMaterial = null;
 
-        private IMemoryPool _pool;
+        IMemoryPool _pool;
 
-        public BulletTypes Type => _type;
+        public BulletTypes Type
+        {
+            get { return _type; }
+        }
 
-        public Vector3 MoveDirection => transform.right;
+        public Vector3 MoveDirection
+        {
+            get { return transform.right; }
+        }
 
         public void OnTriggerEnter(Collider other)
         {
@@ -52,7 +61,10 @@ namespace Zenject.SpaceFighter
         {
             transform.position -= transform.right * _speed * Time.deltaTime;
 
-            if (Time.realtimeSinceStartup - _startTime > _lifeTime) _pool.Despawn(this);
+            if (Time.realtimeSinceStartup - _startTime > _lifeTime)
+            {
+                _pool.Despawn(this);
+            }
         }
 
         public void OnSpawned(float speed, float lifeTime, BulletTypes type, IMemoryPool pool)

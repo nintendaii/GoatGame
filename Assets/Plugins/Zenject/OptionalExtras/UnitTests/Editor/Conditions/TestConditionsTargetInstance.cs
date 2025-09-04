@@ -6,16 +6,17 @@ namespace Zenject.Tests.Conditions
     [TestFixture]
     public class TestConditionsTargetInstance : ZenjectUnitTestFixture
     {
-        private class Test0
+        class Test0
         {
         }
 
-        private class Test1
+        class Test1
         {
-            [Inject] public Test0 test0 = null;
+            [Inject]
+            public Test0 test0 = null;
         }
 
-        private Test1 _test1;
+        Test1 _test1;
 
         public override void Setup()
         {

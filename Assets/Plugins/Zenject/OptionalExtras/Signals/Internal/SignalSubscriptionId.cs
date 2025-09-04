@@ -6,8 +6,8 @@ namespace Zenject
     [DebuggerStepThrough]
     public struct SignalSubscriptionId : IEquatable<SignalSubscriptionId>
     {
-        private BindingId _signalId;
-        private object _callback;
+        BindingId _signalId;
+        object _callback;
 
         public SignalSubscriptionId(BindingId signalId, object callback)
         {
@@ -15,15 +15,21 @@ namespace Zenject
             _callback = callback;
         }
 
-        public BindingId SignalId => _signalId;
+        public BindingId SignalId
+        {
+            get { return _signalId; }
+        }
 
-        public object Callback => _callback;
+        public object Callback
+        {
+            get { return _callback; }
+        }
 
         public override int GetHashCode()
         {
             unchecked // Overflow is fine, just wrap
             {
-                var hash = 17;
+                int hash = 17;
                 hash = hash * 29 + _signalId.GetHashCode();
                 hash = hash * 29 + _callback.GetHashCode();
                 return hash;
@@ -32,7 +38,10 @@ namespace Zenject
 
         public override bool Equals(object that)
         {
-            if (that is SignalSubscriptionId) return Equals((SignalSubscriptionId)that);
+            if (that is SignalSubscriptionId)
+            {
+                return Equals((SignalSubscriptionId)that);
+            }
 
             return false;
         }
@@ -40,15 +49,15 @@ namespace Zenject
         public bool Equals(SignalSubscriptionId that)
         {
             return Equals(_signalId, that._signalId)
-                   && Equals(Callback, that.Callback);
+                && Equals(Callback, that.Callback);
         }
 
-        public static bool operator ==(SignalSubscriptionId left, SignalSubscriptionId right)
+        public static bool operator == (SignalSubscriptionId left, SignalSubscriptionId right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(SignalSubscriptionId left, SignalSubscriptionId right)
+        public static bool operator != (SignalSubscriptionId left, SignalSubscriptionId right)
         {
             return !left.Equals(right);
         }

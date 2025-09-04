@@ -12,8 +12,7 @@ namespace Zenject
         {
         }
 
-        public ScopeConcreteIdArgConditionCopyNonLazyBinder ByMethod(
-            Action<DiContainer, TParam1, TParam2, TParam3> installerMethod)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder ByMethod(Action<DiContainer, TParam1, TParam2, TParam3> installerMethod)
         {
             var subcontainerBindInfo = new SubContainerCreatorBindInfo();
 
@@ -42,8 +41,7 @@ namespace Zenject
         }
 
         public NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(
-            Func<InjectContext, UnityEngine.Object> prefabGetter,
-            Action<DiContainer, TParam1, TParam2, TParam3> installerMethod)
+            Func<InjectContext, UnityEngine.Object> prefabGetter, Action<DiContainer, TParam1, TParam2, TParam3> installerMethod)
         {
             var gameObjectInfo = new GameObjectCreationParameters();
 
@@ -96,3 +94,5 @@ namespace Zenject
 #endif
     }
 }
+
+

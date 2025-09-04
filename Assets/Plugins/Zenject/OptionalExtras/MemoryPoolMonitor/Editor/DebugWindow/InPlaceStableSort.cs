@@ -8,20 +8,20 @@ namespace Zenject.MemoryPoolMonitor
     // Taken from: http://thomas.baudel.name/Visualisation/VisuTri/inplacestablesort.html
     public class InPlaceStableSort<T>
     {
-        private static void Exchange(List<T> list, int a, int b)
+        static void Exchange(List<T> list, int a, int b)
         {
             var temp = list[a];
             list[a] = list[b];
             list[b] = temp;
         }
 
-        private static int Lower(List<T> list, Comparison<T> comparer, int from, int to, int val)
+        static int Lower(List<T> list, Comparison<T> comparer, int from, int to, int val)
         {
             int len = to - from, half;
             while (len > 0)
             {
                 half = len / 2;
-                var mid = from + half;
+                int mid = from + half;
                 if (comparer(list[mid], list[val]) < 0)
                 {
                     from = mid + 1;
@@ -32,17 +32,16 @@ namespace Zenject.MemoryPoolMonitor
                     len = half;
                 }
             }
-
             return from;
         }
 
-        private static int Upper(List<T> list, Comparison<T> comparer, int from, int to, int val)
+        static int Upper(List<T> list, Comparison<T> comparer, int from, int to, int val)
         {
             int len = to - from, half;
             while (len > 0)
             {
                 half = len / 2;
-                var mid = from + half;
+                int mid = from + half;
                 if (comparer(list[val], list[mid]) < 0)
                 {
                     len = half;
@@ -53,73 +52,96 @@ namespace Zenject.MemoryPoolMonitor
                     len = len - half - 1;
                 }
             }
-
             return from;
         }
 
-        private static void InsertSort(List<T> list, Comparison<T> comparer, int from, int to)
+        static void InsertSort(List<T> list, Comparison<T> comparer, int from, int to)
         {
             if (to > from + 1)
-                for (var i = from + 1; i < to; i++)
-                for (var j = i; j > from; j--)
-                    if (comparer(list[j], list[j - 1]) < 0)
-                        Exchange(list, j, j - 1);
-                    else
-                        break;
+            {
+                for (int i = from + 1; i < to; i++)
+                {
+                    for (int j = i; j > from; j--)
+                    {
+                        if (comparer(list[j], list[j - 1]) < 0)
+                        {
+                            Exchange(list, j, j - 1);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
-        private static int Gcd(int m, int n)
+        static int Gcd(int m, int n)
         {
             while (n != 0)
             {
-                var t = m % n;
+                int t = m % n;
                 m = n;
                 n = t;
             }
-
             return m;
         }
 
-        private static void Reverse(List<T> list, int from, int to)
+        static void Reverse(List<T> list, int from, int to)
         {
-            while (from < to) Exchange(list, from++, to--);
+            while (from < to)
+            {
+                Exchange(list, from++, to--);
+            }
         }
 
-        private static void Rotate(List<T> list, Comparison<T> comparer, int from, int mid, int to)
+        static void Rotate(List<T> list, Comparison<T> comparer, int from, int mid, int to)
         {
             /*  a less sophisticated but costlier version:
                     Reverse(from, mid-1);
                     Reverse(mid, to-1);
                     Reverse(from, to-1);
                     */
-            if (from == mid || mid == to) return;
-            var n = Gcd(to - from, mid - from);
+            if (from == mid || mid == to)
+            {
+                return;
+            }
+            int n = Gcd(to - from, mid - from);
             while (n-- != 0)
             {
-                var val = list[from + n];
-                var shift = mid - from;
+                T val = list[from + n];
+                int shift = mid - from;
                 int p1 = from + n, p2 = from + n + shift;
                 while (p2 != from + n)
                 {
                     list[p1] = list[p2];
                     p1 = p2;
                     if (to - p2 > shift)
+                    {
                         p2 += shift;
+                    }
                     else
+                    {
                         p2 = from + (shift - (to - p2));
+                    }
                 }
-
                 list[p1] = val;
             }
         }
 
-        private static void Merge(List<T> list, Comparison<T> comparer, int from, int pivot, int to, int len1, int len2)
+        static void Merge(List<T> list, Comparison<T> comparer, int from, int pivot, int to, int len1, int len2)
         {
-            if (len1 == 0 || len2 == 0) return;
+            if (len1 == 0 || len2 == 0)
+            {
+                return;
+            }
 
             if (len1 + len2 == 2)
             {
-                if (comparer(list[pivot], list[from]) < 0) Exchange(list, pivot, from);
+                if (comparer(list[pivot], list[from]) < 0)
+                {
+                    Exchange(list, pivot, from);
+                }
 
                 return;
             }
@@ -143,7 +165,7 @@ namespace Zenject.MemoryPoolMonitor
             }
 
             Rotate(list, comparer, first_cut, pivot, second_cut);
-            var new_mid = first_cut + len22;
+            int new_mid = first_cut + len22;
             Merge(list, comparer, from, first_cut, new_mid, len11, len22);
             Merge(list, comparer, new_mid, second_cut, to, len1 - len11, len2 - len22);
         }
@@ -156,7 +178,7 @@ namespace Zenject.MemoryPoolMonitor
                 return;
             }
 
-            var middle = (from + to) / 2;
+            int middle = (from + to) / 2;
             Sort(list, comparer, from, middle);
             Sort(list, comparer, middle, to);
             Merge(list, comparer, from, middle, to, middle - from, to - middle);

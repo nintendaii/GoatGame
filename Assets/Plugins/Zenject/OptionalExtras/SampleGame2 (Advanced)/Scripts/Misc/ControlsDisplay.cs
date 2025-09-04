@@ -6,13 +6,17 @@ namespace Zenject.SpaceFighter
 {
     public class ControlsDisplay : MonoBehaviour
     {
-        [SerializeField] private float _leftPadding;
+        [SerializeField]
+        float _leftPadding;
 
-        [SerializeField] private float _topPadding;
+        [SerializeField]
+        float _topPadding;
 
-        [SerializeField] private float _width;
+        [SerializeField]
+        float _width;
 
-        [SerializeField] private float _height;
+        [SerializeField]
+        float _height;
 
         public void OnGUI()
         {
@@ -21,3 +25,4 @@ namespace Zenject.SpaceFighter
         }
     }
 }
+

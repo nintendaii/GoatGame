@@ -5,7 +5,7 @@ namespace Zenject.Tests.Other
     [TestFixture]
     public class ZenjectProfileTest
     {
-        private class Test0
+        class Test0
         {
             public void DoStuff()
             {
@@ -16,11 +16,17 @@ namespace Zenject.Tests.Other
             }
         }
 
-        private class Test1
+        class Test1
         {
-            [Inject] public Test0 TestB { set; get; }
+            [Inject]
+            public Test0 TestB
+            {
+                set;
+                get;
+            }
 
-            [Inject] public Test0 _testC = null;
+            [Inject]
+            public Test0 _testC = null;
 
             public Test1(Test0 test1, Test0 test2, Test0 test3, Test0 test4)
             {
@@ -35,11 +41,17 @@ namespace Zenject.Tests.Other
             }
         }
 
-        private class Test2
+        class Test2
         {
-            [Inject] public Test1 TestB { set; get; }
+            [Inject]
+            public Test1 TestB
+            {
+                set;
+                get;
+            }
 
-            [Inject] public Test1 _testC = null;
+            [Inject]
+            public Test1 _testC = null;
 
             public Test2(Test1 test1, Test1 test2, Test1 test3, Test1 test4)
             {
@@ -61,9 +73,9 @@ namespace Zenject.Tests.Other
 
             //for (int i = 0; i < 1000; i++)
             //{
-            //var test0 = container.Resolve<Test2>();
-            //var test1 = container.Resolve<Test2>();
-            //var test2 = container.Resolve<Test2>();
+                //var test0 = container.Resolve<Test2>();
+                //var test1 = container.Resolve<Test2>();
+                //var test2 = container.Resolve<Test2>();
             //}
 
             //stopwatch.Stop();
@@ -74,3 +86,5 @@ namespace Zenject.Tests.Other
         }
     }
 }
+
+

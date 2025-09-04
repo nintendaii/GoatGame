@@ -4,6 +4,7 @@ namespace Zenject.Tests.Bindings.FromSubContainerPrefab
 {
     public class CircBar : MonoBehaviour
     {
-        [Inject] public CircFoo Foo;
+        [Inject]
+        public CircFoo Foo;
     }
 }

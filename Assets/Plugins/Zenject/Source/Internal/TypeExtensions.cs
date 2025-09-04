@@ -8,10 +8,10 @@ namespace ModestTree
 {
     public static class TypeExtensions
     {
-        private static readonly Dictionary<Type, bool> _isClosedGenericType = new();
-        private static readonly Dictionary<Type, bool> _isOpenGenericType = new();
-        private static readonly Dictionary<Type, bool> _isValueType = new();
-        private static readonly Dictionary<Type, Type[]> _interfaces = new();
+        static readonly Dictionary<Type, bool> _isClosedGenericType = new Dictionary<Type, bool>();
+        static readonly Dictionary<Type, bool> _isOpenGenericType = new Dictionary<Type, bool>();
+        static readonly Dictionary<Type, bool> _isValueType = new Dictionary<Type, bool>();
+        static readonly Dictionary<Type, Type[]> _interfaces = new Dictionary<Type, Type[]>();
 
         public static bool DerivesFrom<T>(this Type a)
         {
@@ -45,14 +45,24 @@ namespace ModestTree
             var interfaceTypes = givenType.Interfaces();
 
             foreach (var it in interfaceTypes)
+            {
                 if (it.IsGenericType && it.GetGenericTypeDefinition() == genericType)
+                {
                     return true;
+                }
+            }
 
-            if (givenType.IsGenericType && givenType.GetGenericTypeDefinition() == genericType) return true;
+            if (givenType.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
+            {
+                return true;
+            }
 
-            var baseType = givenType.BaseType;
+            Type baseType = givenType.BaseType;
 
-            if (baseType == null) return false;
+            if (baseType == null)
+            {
+                return false;
+            }
 
             return IsAssignableToGenericType(baseType, genericType);
         }
@@ -79,7 +89,6 @@ namespace ModestTree
 #endif
                 _isValueType[type] = result;
             }
-
             return result;
         }
 
@@ -141,7 +150,6 @@ namespace ModestTree
             return type.IsGenericType;
 #endif
         }
-
         public static bool IsGenericTypeDefinition(this Type type)
         {
 #if UNITY_WSA && ENABLE_DOTNET && !UNITY_EDITOR
@@ -226,7 +234,6 @@ namespace ModestTree
 #endif
                 _interfaces.Add(type, result);
             }
-
             return result;
         }
 
@@ -250,7 +257,10 @@ namespace ModestTree
             }
 #endif
 
-            if (type.IsValueType()) return Activator.CreateInstance(type);
+            if (type.IsValueType())
+            {
+                return Activator.CreateInstance(type);
+            }
 
             return null;
         }
@@ -263,18 +273,22 @@ namespace ModestTree
                 result = type.IsGenericType() && type != type.GetGenericTypeDefinition();
                 _isClosedGenericType[type] = result;
             }
-
             return result;
         }
 
         public static IEnumerable<Type> GetParentTypes(this Type type)
         {
-            if (type == null || type.BaseType() == null || type == typeof(object) ||
-                type.BaseType() == typeof(object)) yield break;
+            if (type == null || type.BaseType() == null || type == typeof(object) || type.BaseType() == typeof(object))
+            {
+                yield break;
+            }
 
             yield return type.BaseType();
 
-            foreach (var ancestor in type.BaseType().GetParentTypes()) yield return ancestor;
+            foreach (var ancestor in type.BaseType().GetParentTypes())
+            {
+                yield return ancestor;
+            }
         }
 
         public static bool IsOpenGenericType(this Type type)
@@ -285,7 +299,6 @@ namespace ModestTree
                 result = type.IsGenericType() && type == type.GetGenericTypeDefinition();
                 _isOpenGenericType[type] = result;
             }
-
             return result;
         }
 
@@ -327,9 +340,12 @@ namespace ModestTree
 #if NETFX_CORE
             allAttributes = provider.GetCustomAttributes<Attribute>(true).ToArray();
 #else
-            allAttributes = Attribute.GetCustomAttributes(provider, typeof(Attribute), true);
+            allAttributes = System.Attribute.GetCustomAttributes(provider, typeof(Attribute), true);
 #endif
-            if (attributeTypes.Length == 0) return allAttributes;
+            if (attributeTypes.Length == 0)
+            {
+                return allAttributes;
+            }
 
             return allAttributes.Where(a => attributeTypes.Any(x => a.GetType().DerivesFromOrEqual(x)));
         }
@@ -362,9 +378,12 @@ namespace ModestTree
 #if NETFX_CORE
             allAttributes = provider.GetCustomAttributes<Attribute>(true).ToArray();
 #else
-            allAttributes = Attribute.GetCustomAttributes(provider, typeof(Attribute), true);
+            allAttributes = System.Attribute.GetCustomAttributes(provider, typeof(Attribute), true);
 #endif
-            if (attributeTypes.Length == 0) return allAttributes;
+            if (attributeTypes.Length == 0)
+            {
+                return allAttributes;
+            }
 
             return allAttributes.Where(a => attributeTypes.Any(x => a.GetType().DerivesFromOrEqual(x)));
         }

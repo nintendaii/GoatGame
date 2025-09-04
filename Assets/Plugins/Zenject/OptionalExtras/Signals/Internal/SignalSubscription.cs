@@ -6,11 +6,11 @@ namespace Zenject
 {
     public class SignalSubscription : IDisposable, IPoolable<Action<object>, SignalDeclaration>
     {
-        private readonly Pool _pool;
+        readonly Pool _pool;
 
-        private Action<object> _callback;
-        private SignalDeclaration _declaration;
-        private BindingId _signalId;
+        Action<object> _callback;
+        SignalDeclaration _declaration;
+        BindingId _signalId;
 
         public SignalSubscription(Pool pool)
         {
@@ -19,7 +19,10 @@ namespace Zenject
             SetDefaults();
         }
 
-        public BindingId SignalId => _signalId;
+        public BindingId SignalId
+        {
+            get { return _signalId; }
+        }
 
         public void OnSpawned(
             Action<object> callback, SignalDeclaration declaration)
@@ -35,12 +38,15 @@ namespace Zenject
 
         public void OnDespawned()
         {
-            if (_declaration != null) _declaration.Remove(this);
+            if (_declaration != null)
+            {
+                _declaration.Remove(this);
+            }
 
             SetDefaults();
         }
 
-        private void SetDefaults()
+        void SetDefaults()
         {
             _callback = null;
             _declaration = null;
@@ -52,7 +58,10 @@ namespace Zenject
             // Allow calling this twice since signals automatically unsubscribe in SignalBus.LateDispose
             // and so this causes issues if users also unsubscribe in a MonoBehaviour OnDestroy on a
             // root game object
-            if (!_pool.InactiveItems.Contains(this)) _pool.Despawn(this);
+            if (!_pool.InactiveItems.Contains(this))
+            {
+                _pool.Despawn(this);
+            }
         }
 
         // See comment in SignalDeclaration for why this exists

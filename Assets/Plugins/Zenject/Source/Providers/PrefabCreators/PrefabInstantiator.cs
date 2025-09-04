@@ -12,13 +12,13 @@ namespace Zenject
     [NoReflectionBaking]
     public class PrefabInstantiator : IPrefabInstantiator
     {
-        private readonly IPrefabProvider _prefabProvider;
-        private readonly DiContainer _container;
-        private readonly List<TypeValuePair> _extraArguments;
-        private readonly GameObjectCreationParameters _gameObjectBindInfo;
-        private readonly Type _argumentTarget;
-        private readonly List<Type> _instantiateCallbackTypes;
-        private readonly Action<InjectContext, object> _instantiateCallback;
+        readonly IPrefabProvider _prefabProvider;
+        readonly DiContainer _container;
+        readonly List<TypeValuePair> _extraArguments;
+        readonly GameObjectCreationParameters _gameObjectBindInfo;
+        readonly Type _argumentTarget;
+        readonly List<Type> _instantiateCallbackTypes;
+        readonly Action<InjectContext, object> _instantiateCallback;
 
         public PrefabInstantiator(
             DiContainer container,
@@ -38,11 +38,20 @@ namespace Zenject
             _instantiateCallback = instantiateCallback;
         }
 
-        public GameObjectCreationParameters GameObjectCreationParameters => _gameObjectBindInfo;
+        public GameObjectCreationParameters GameObjectCreationParameters
+        {
+            get { return _gameObjectBindInfo; }
+        }
 
-        public Type ArgumentTarget => _argumentTarget;
+        public Type ArgumentTarget
+        {
+            get { return _argumentTarget; }
+        }
 
-        public List<TypeValuePair> ExtraArguments => _extraArguments;
+        public List<TypeValuePair> ExtraArguments
+        {
+            get { return _extraArguments; }
+        }
 
         public UnityEngine.Object GetPrefab(InjectContext context)
         {
@@ -66,9 +75,11 @@ namespace Zenject
                 allArgs.AllocFreeAddRange(args);
 
                 if (_argumentTarget == null)
+                {
                     Assert.That(
                         allArgs.IsEmpty(),
                         "Unexpected arguments provided to prefab instantiator.  Arguments are not allowed if binding multiple components in the same binding");
+                }
 
                 if (_argumentTarget == null || allArgs.IsEmpty())
                 {
@@ -102,10 +113,16 @@ namespace Zenject
                     {
                         var obj = gameObject.GetComponentInChildren(type);
 
-                        if (obj != null) callbackObjects.Add(obj);
+                        if (obj != null)
+                        {
+                            callbackObjects.Add(obj);
+                        }
                     }
 
-                    foreach (var obj in callbackObjects) _instantiateCallback(context, obj);
+                    foreach (var obj in callbackObjects)
+                    {
+                        _instantiateCallback(context, obj);
+                    }
 
                     ZenPools.DespawnHashSet(callbackObjects);
                 }

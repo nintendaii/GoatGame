@@ -5,7 +5,8 @@ namespace Zenject.Asteroids
 {
     public class GameInstaller : MonoInstaller
     {
-        [Inject] private Settings _settings = null;
+        [Inject]
+        Settings _settings = null;
 
         public override void InstallBindings()
         {
@@ -31,7 +32,7 @@ namespace Zenject.Asteroids
             InstallExecutionOrder();
         }
 
-        private void InstallAsteroids()
+        void InstallAsteroids()
         {
             // ITickable, IFixedTickable, IInitializable and IDisposable are special Zenject interfaces.
             // Binding a class to any of these interfaces creates an instance of the class at startup.
@@ -64,7 +65,7 @@ namespace Zenject.Asteroids
                 .UnderTransformGroup("Asteroids");
         }
 
-        private void InstallMisc()
+        void InstallMisc()
         {
             Container.BindInterfacesAndSelfTo<GameController>().AsSingle();
             Container.Bind<LevelHelper>().AsSingle();
@@ -80,7 +81,7 @@ namespace Zenject.Asteroids
                 .FromComponentInNewPrefab(_settings.BrokenShipPrefab);
         }
 
-        private void InstallSignals()
+        void InstallSignals()
         {
             // Every scene that uses signals needs to install the built-in installer SignalBusInstaller
             // Or alternatively it can be installed at the project context level (see docs for details)
@@ -90,20 +91,19 @@ namespace Zenject.Asteroids
             Container.DeclareSignal<ShipCrashedSignal>();
         }
 
-        private void InstallShip()
+        void InstallShip()
         {
             Container.Bind<ShipStateFactory>().AsSingle();
 
             // Note that the ship itself is bound using a ZenjectBinding component (see Ship
             // game object in scene heirarchy)
 
-            Container.BindFactory<ShipStateWaitingToStart, ShipStateWaitingToStart.Factory>()
-                .WhenInjectedInto<ShipStateFactory>();
+            Container.BindFactory<ShipStateWaitingToStart, ShipStateWaitingToStart.Factory>().WhenInjectedInto<ShipStateFactory>();
             Container.BindFactory<ShipStateDead, ShipStateDead.Factory>().WhenInjectedInto<ShipStateFactory>();
             Container.BindFactory<ShipStateMoving, ShipStateMoving.Factory>().WhenInjectedInto<ShipStateFactory>();
         }
 
-        private void InstallExecutionOrder()
+        void InstallExecutionOrder()
         {
             // In many cases you don't need to worry about execution order,
             // however sometimes it can be important
@@ -126,3 +126,4 @@ namespace Zenject.Asteroids
         }
     }
 }
+

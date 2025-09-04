@@ -5,12 +5,12 @@ namespace Zenject.SpaceFighter
 {
     public class EnemyDeathHandler
     {
-        private readonly EnemyFacade _facade;
-        private readonly SignalBus _signalBus;
-        private readonly Settings _settings;
-        private readonly Explosion.Factory _explosionFactory;
-        private readonly AudioPlayer _audioPlayer;
-        private readonly EnemyView _view;
+        readonly EnemyFacade _facade;
+        readonly SignalBus _signalBus;
+        readonly Settings _settings;
+        readonly Explosion.Factory _explosionFactory;
+        readonly AudioPlayer _audioPlayer;
+        readonly EnemyView _view;
 
         public EnemyDeathHandler(
             EnemyView view,

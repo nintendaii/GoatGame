@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using ModestTree;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Zenject.Asteroids
 {
     public class AsteroidManager : ITickable, IFixedTickable
     {
-        private readonly List<Asteroid> _asteroids = new();
-        private readonly Queue<AsteroidAttributes> _cachedAttributes = new();
-        private readonly Settings _settings;
-        private readonly Asteroid.Factory _asteroidFactory;
-        private readonly LevelHelper _level;
+        readonly List<Asteroid> _asteroids = new List<Asteroid>();
+        readonly Queue<AsteroidAttributes> _cachedAttributes = new Queue<AsteroidAttributes>();
+        readonly Settings _settings;
+        readonly Asteroid.Factory _asteroidFactory;
+        readonly LevelHelper _level;
 
-        private float _timeToNextSpawn;
-        private float _timeIntervalBetweenSpawns;
-        private bool _started;
+        float _timeToNextSpawn;
+        float _timeIntervalBetweenSpawns;
+        bool _started;
 
-        [InjectOptional] private bool _autoSpawn = true;
+        [InjectOptional]
+        bool _autoSpawn = true;
 
         public AsteroidManager(
             Settings settings, Asteroid.Factory asteroidFactory, LevelHelper level)
@@ -32,7 +32,10 @@ namespace Zenject.Asteroids
             _level = level;
         }
 
-        public IEnumerable<Asteroid> Asteroids => _asteroids;
+        public IEnumerable<Asteroid> Asteroids
+        {
+            get { return _asteroids; }
+        }
 
         public void Start()
         {
@@ -42,27 +45,29 @@ namespace Zenject.Asteroids
             ResetAll();
             GenerateRandomAttributes();
 
-            for (var i = 0; i < _settings.startingSpawns; i++) SpawnNext();
+            for (int i = 0; i < _settings.startingSpawns; i++)
+            {
+                SpawnNext();
+            }
         }
 
         // Generate the full list of size and speeds so that we can maintain an approximate average
         // this way we don't get wildly different difficulties each time the game is run
         // For example, if we just chose speed randomly each time we spawned an asteroid, in some
         // cases that might result in the first set of asteroids all going at max speed, or min speed
-        private void GenerateRandomAttributes()
+        void GenerateRandomAttributes()
         {
             Assert.That(_cachedAttributes.Count == 0);
 
             var speedTotal = 0.0f;
             var sizeTotal = 0.0f;
 
-            for (var i = 0; i < _settings.maxSpawns; i++)
+            for (int i = 0; i < _settings.maxSpawns; i++)
             {
                 var sizePx = Random.Range(0.0f, 1.0f);
                 var speed = Random.Range(_settings.minSpeed, _settings.maxSpeed);
 
-                _cachedAttributes.Enqueue(new AsteroidAttributes
-                {
+                _cachedAttributes.Enqueue(new AsteroidAttributes {
                     SizePx = sizePx,
                     InitialSpeed = speed
                 });
@@ -90,9 +95,12 @@ namespace Zenject.Asteroids
             Assert.That(Mathf.Approximately(_cachedAttributes.Average(x => x.SizePx), desiredAverageSize));
         }
 
-        private void ResetAll()
+        void ResetAll()
         {
-            foreach (var asteroid in _asteroids) Object.Destroy(asteroid.gameObject);
+            foreach (var asteroid in _asteroids)
+            {
+                GameObject.Destroy(asteroid.gameObject);
+            }
 
             _asteroids.Clear();
             _cachedAttributes.Clear();
@@ -106,12 +114,18 @@ namespace Zenject.Asteroids
 
         public void FixedTick()
         {
-            for (var i = 0; i < _asteroids.Count; i++) _asteroids[i].FixedTick();
+            for (int i = 0; i < _asteroids.Count; i++)
+            {
+                _asteroids[i].FixedTick();
+            }
         }
 
         public void Tick()
         {
-            for (var i = 0; i < _asteroids.Count; i++) _asteroids[i].Tick();
+            for (int i = 0; i < _asteroids.Count; i++)
+            {
+                _asteroids[i].Tick();
+            }
 
             if (_started && _autoSpawn)
             {
@@ -139,13 +153,13 @@ namespace Zenject.Asteroids
             _asteroids.Add(asteroid);
         }
 
-        private Vector3 GetRandomDirection()
+        Vector3 GetRandomDirection()
         {
             var theta = Random.Range(0, Mathf.PI * 2.0f);
             return new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
         }
 
-        private Vector3 GetRandomStartPosition(float scale)
+        Vector3 GetRandomStartPosition(float scale)
         {
             var side = (Side)Random.Range(0, (int)Side.Count);
             var rand = Random.Range(0.0f, 1.0f);
@@ -173,7 +187,7 @@ namespace Zenject.Asteroids
             throw Assert.CreateException();
         }
 
-        private enum Side
+        enum Side
         {
             Top,
             Bottom,
@@ -200,7 +214,7 @@ namespace Zenject.Asteroids
             public float minMass;
         }
 
-        private class AsteroidAttributes
+        class AsteroidAttributes
         {
             public float SizePx;
             public float InitialSpeed;

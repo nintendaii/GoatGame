@@ -5,14 +5,14 @@ namespace Zenject
     [NoReflectionBaking]
     public class ConventionSelectTypesBinder
     {
-        private readonly ConventionBindInfo _bindInfo;
+        readonly ConventionBindInfo _bindInfo;
 
         public ConventionSelectTypesBinder(ConventionBindInfo bindInfo)
         {
             _bindInfo = bindInfo;
         }
 
-        private ConventionFilterTypesBinder CreateNextBinder()
+        ConventionFilterTypesBinder CreateNextBinder()
         {
             return new ConventionFilterTypesBinder(_bindInfo);
         }

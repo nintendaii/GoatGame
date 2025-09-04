@@ -9,9 +9,12 @@ namespace Zenject
     // See documentation for details
     public abstract class ZenjectUnitTestFixture
     {
-        private DiContainer _container;
+        DiContainer _container;
 
-        protected DiContainer Container => _container;
+        protected DiContainer Container
+        {
+            get { return _container; }
+        }
 
         [SetUp]
         public virtual void Setup()

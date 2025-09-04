@@ -48,61 +48,74 @@ namespace Zenject.Tests.Injection
             TestListItems(Container.Resolve<Test5>().Values.ToList());
         }
 
-        private void BindListItems()
+        void BindListItems()
         {
             Container.BindInstance("foo");
             Container.BindInstance("bar");
         }
 
-        private void TestListItems(List<string> values)
+        void TestListItems(List<string> values)
         {
             Assert.IsEqual(values[0], "foo");
             Assert.IsEqual(values[1], "bar");
         }
 
-        private class Test1
+        class Test1
         {
             public Test1(List<string> values)
             {
                 Values = values;
             }
 
-            public List<string> Values { get; private set; }
+            public List<string> Values
+            {
+                get; private set;
+            }
         }
 
-        private class Test3
+        class Test3
         {
-            [Inject] public List<string> Values = null;
+            [Inject]
+            public List<string> Values = null;
         }
 
-        private class Test2
+        class Test2
         {
             public Test2(IList<string> values)
             {
                 Values = values;
             }
 
-            public IList<string> Values { get; private set; }
+            public IList<string> Values
+            {
+                get; private set;
+            }
         }
 
-        private class Test4
+        class Test4
         {
             public Test4(IEnumerable<string> values)
             {
                 Values = values;
             }
 
-            public IEnumerable<string> Values { get; private set; }
+            public IEnumerable<string> Values
+            {
+                get; private set;
+            }
         }
 
-        private class Test5
+        class Test5
         {
             public Test5(string[] values)
             {
                 Values = values;
             }
 
-            public string[] Values { get; private set; }
+            public string[] Values
+            {
+                get; private set;
+            }
         }
     }
 }

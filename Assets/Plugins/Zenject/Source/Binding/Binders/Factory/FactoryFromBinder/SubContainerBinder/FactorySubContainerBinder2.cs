@@ -12,12 +12,11 @@ namespace Zenject
         {
         }
 
-        public ScopeConcreteIdArgConditionCopyNonLazyBinder ByMethod(
-            Action<DiContainer, TParam1, TParam2> installerMethod)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder ByMethod(Action<DiContainer, TParam1, TParam2> installerMethod)
         {
             var subcontainerBindInfo = new SubContainerCreatorBindInfo();
 
-            ProviderFunc =
+            ProviderFunc = 
                 (container) => new SubContainerDependencyProvider(
                     ContractType, SubIdentifier,
                     new SubContainerCreatorByMethod<TParam1, TParam2>(
@@ -95,3 +94,4 @@ namespace Zenject
 #endif
     }
 }
+

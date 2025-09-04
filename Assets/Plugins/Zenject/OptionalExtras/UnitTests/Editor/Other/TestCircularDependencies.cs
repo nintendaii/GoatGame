@@ -68,12 +68,15 @@ namespace Zenject.Tests.Other
 
         public class Foo3
         {
-            [Inject] public Bar3 Bar;
+            [Inject]
+            public Bar3 Bar;
         }
 
         public class Bar3
         {
-            [Inject] public Foo3 Foo;
+            [Inject]
+            public Foo3 Foo;
         }
     }
 }
+

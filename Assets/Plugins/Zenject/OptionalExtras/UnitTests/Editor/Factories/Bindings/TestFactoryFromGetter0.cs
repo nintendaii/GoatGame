@@ -16,21 +16,26 @@ namespace Zenject.Tests.Bindings
             Assert.IsEqual(Container.Resolve<Bar.Factory>().Create(), Container.Resolve<Foo>().Bar);
         }
 
-        private class Bar
+        class Bar
         {
             public class Factory : PlaceholderFactory<Bar>
             {
             }
         }
 
-        private class Foo
+        class Foo
         {
             public Foo()
             {
                 Bar = new Bar();
             }
 
-            public Bar Bar { get; private set; }
+            public Bar Bar
+            {
+                get;
+                private set;
+            }
         }
     }
 }
+

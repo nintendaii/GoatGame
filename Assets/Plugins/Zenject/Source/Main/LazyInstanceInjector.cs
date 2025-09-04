@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using ModestTree;
 
@@ -16,15 +17,18 @@ namespace Zenject
     [NoReflectionBaking]
     public class LazyInstanceInjector
     {
-        private readonly DiContainer _container;
-        private readonly HashSet<object> _instancesToInject = new();
+        readonly DiContainer _container;
+        readonly HashSet<object> _instancesToInject = new HashSet<object>();
 
         public LazyInstanceInjector(DiContainer container)
         {
             _container = container;
         }
 
-        public IEnumerable<object> Instances => _instancesToInject;
+        public IEnumerable<object> Instances
+        {
+            get { return _instancesToInject; }
+        }
 
         public void AddInstance(object instance)
         {
@@ -38,7 +42,10 @@ namespace Zenject
 
         public void LazyInject(object instance)
         {
-            if (_instancesToInject.Remove(instance)) _container.Inject(instance);
+            if (_instancesToInject.Remove(instance))
+            {
+                _container.Inject(instance);
+            }
         }
 
         public void LazyInjectAll()
@@ -55,12 +62,15 @@ namespace Zenject
                     tempList.AddRange(_instancesToInject);
 
                     foreach (var instance in tempList)
+                    {
                         // We use LazyInject instead of calling _container.inject directly
                         // Because it might have already been lazily injected
                         // as a result of a previous call to inject
                         LazyInject(instance);
+                    }
                 }
             }
         }
     }
 }
+

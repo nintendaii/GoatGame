@@ -5,10 +5,10 @@ namespace Zenject.Asteroids
 {
     public class ShipStateWaitingToStart : ShipState
     {
-        private readonly Settings _settings;
-        private readonly Ship _ship;
+        readonly Settings _settings;
+        readonly Ship _ship;
 
-        private float _theta;
+        float _theta;
 
         public ShipStateWaitingToStart(
             Ship ship,

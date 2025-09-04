@@ -4,8 +4,8 @@ namespace Zenject.SpaceFighter
 {
     public class PlayerFacade : MonoBehaviour
     {
-        private Player _model;
-        private PlayerDamageHandler _hitHandler;
+        Player _model;
+        PlayerDamageHandler _hitHandler;
 
         [Inject]
         public void Construct(Player player, PlayerDamageHandler hitHandler)
@@ -14,11 +14,20 @@ namespace Zenject.SpaceFighter
             _hitHandler = hitHandler;
         }
 
-        public bool IsDead => _model.IsDead;
+        public bool IsDead
+        {
+            get { return _model.IsDead; }
+        }
 
-        public Vector3 Position => _model.Position;
+        public Vector3 Position
+        {
+            get { return _model.Position; }
+        }
 
-        public Quaternion Rotation => _model.Rotation;
+        public Quaternion Rotation
+        {
+            get { return _model.Rotation; }
+        }
 
         public void TakeDamage(Vector3 moveDirection)
         {

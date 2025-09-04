@@ -6,7 +6,7 @@ namespace Zenject.Tests.Conditions
     [TestFixture]
     public class TestIdentifiers : ZenjectUnitTestFixture
     {
-        private class Test0
+        class Test0
         {
         }
 

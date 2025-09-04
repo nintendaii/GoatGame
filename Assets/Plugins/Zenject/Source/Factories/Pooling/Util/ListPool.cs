@@ -4,16 +4,19 @@ namespace Zenject
 {
     public class ListPool<T> : StaticMemoryPool<List<T>>
     {
-        private static ListPool<T> _instance = new();
+        static ListPool<T> _instance = new ListPool<T>();
 
         public ListPool()
         {
             OnDespawnedMethod = OnDespawned;
         }
 
-        public static ListPool<T> Instance => _instance;
+        public static ListPool<T> Instance
+        {
+            get { return _instance; }
+        }
 
-        private void OnDespawned(List<T> list)
+        void OnDespawned(List<T> list)
         {
             list.Clear();
         }

@@ -9,7 +9,7 @@ namespace Zenject
     // See comment in IGuiRenderable.cs for usage
     public class GuiRenderableManager
     {
-        private List<RenderableInfo> _renderables;
+        List<RenderableInfo> _renderables;
 
         public GuiRenderableManager(
             [Inject(Optional = true, Source = InjectSources.Local)]
@@ -27,7 +27,7 @@ namespace Zenject
                     .Where(x => renderable.GetType().DerivesFromOrEqual(x.First))
                     .Select(x => x.Second).ToList();
 
-                var priority = matches.IsEmpty() ? 0 : matches.Distinct().Single();
+                int priority = matches.IsEmpty() ? 0 : matches.Distinct().Single();
 
                 _renderables.Add(
                     new RenderableInfo(renderable, priority));
@@ -37,13 +37,16 @@ namespace Zenject
 
 #if UNITY_EDITOR
             foreach (var renderable in _renderables.Select(x => x.Renderable).GetDuplicates())
+            {
                 Assert.That(false, "Found duplicate IGuiRenderable with type '{0}'".Fmt(renderable.GetType()));
+            }
 #endif
         }
 
         public void OnGui()
         {
             foreach (var renderable in _renderables)
+            {
                 try
                 {
 #if ZEN_INTERNAL_PROFILING
@@ -61,9 +64,10 @@ namespace Zenject
                     throw Assert.CreateException(
                         e, "Error occurred while calling {0}.GuiRender", renderable.Renderable.GetType());
                 }
+            }
         }
 
-        private class RenderableInfo
+        class RenderableInfo
         {
             public IGuiRenderable Renderable;
             public int Priority;

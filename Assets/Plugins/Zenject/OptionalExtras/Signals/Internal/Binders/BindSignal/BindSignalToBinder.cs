@@ -5,9 +5,9 @@ namespace Zenject
 {
     public class BindSignalToBinder<TSignal>
     {
-        private DiContainer _container;
-        private BindStatement _bindStatement;
-        private SignalBindingBindInfo _signalBindInfo;
+        DiContainer _container;
+        BindStatement _bindStatement;
+        SignalBindingBindInfo _signalBindInfo;
 
         public BindSignalToBinder(DiContainer container, SignalBindingBindInfo signalBindInfo)
         {
@@ -18,7 +18,10 @@ namespace Zenject
             _bindStatement = container.StartBinding();
         }
 
-        protected SignalBindingBindInfo SignalBindInfo => _signalBindInfo;
+        protected SignalBindingBindInfo SignalBindInfo
+        {
+            get { return _signalBindInfo; }
+        }
 
         public SignalCopyBinder ToMethod(Action<TSignal> callback)
         {

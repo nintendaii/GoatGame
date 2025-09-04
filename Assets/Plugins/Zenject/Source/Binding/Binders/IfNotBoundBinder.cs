@@ -9,7 +9,11 @@ namespace Zenject
         }
 
         // Do not use this
-        public BindInfo BindInfo { get; private set; }
+        public BindInfo BindInfo
+        {
+            get;
+            private set;
+        }
 
         public void IfNotBound()
         {
@@ -17,3 +21,4 @@ namespace Zenject
         }
     }
 }
+

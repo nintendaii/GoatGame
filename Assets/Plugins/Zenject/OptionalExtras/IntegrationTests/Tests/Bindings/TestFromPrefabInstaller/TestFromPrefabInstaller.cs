@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using ModestTree;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -7,9 +8,15 @@ namespace Zenject.Tests.Bindings.FromPrefabInstaller
 {
     public class TestFromPrefabInstaller : ZenjectIntegrationTestFixture
     {
-        private GameObject FooPrefab => FixtureUtil.GetPrefab(FooPrefabResourcePath);
+        GameObject FooPrefab
+        {
+            get { return FixtureUtil.GetPrefab(FooPrefabResourcePath); }
+        }
 
-        private string FooPrefabResourcePath => "TestFromPrefabInstaller/Foo";
+        string FooPrefabResourcePath
+        {
+            get { return "TestFromPrefabInstaller/Foo"; }
+        }
 
         [UnityTest]
         public IEnumerator TestInstaller()
@@ -95,16 +102,18 @@ namespace Zenject.Tests.Bindings.FromPrefabInstaller
             yield break;
         }
 
-        private void InstallFoo(DiContainer subContainer)
+        void InstallFoo(DiContainer subContainer)
         {
             subContainer.Bind<Qux>().AsSingle().WithArguments("asdf");
         }
 
         public class Qux
         {
-            [Inject] public string Data;
+            [Inject]
+            public string Data;
 
-            [Inject] public Foo Foo;
+            [Inject]
+            public Foo Foo;
         }
 
         public class FooInstaller : Installer<FooInstaller>
@@ -116,3 +125,4 @@ namespace Zenject.Tests.Bindings.FromPrefabInstaller
         }
     }
 }
+

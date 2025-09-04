@@ -6,7 +6,7 @@ namespace Zenject.Tests.TestAnimationStateBehaviourInject
     {
         public static int OnStateEnterCalls;
 
-        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             OnStateEnterCalls++;
         }
