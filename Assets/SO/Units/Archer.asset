@@ -56,7 +56,7 @@ MonoBehaviour:
         Value: 45
       Evasion:
         Type: 15
-        Value: 0
+        Value: 0.7
       CriticalStrikeChance:
         Type: 17
         Value: 0

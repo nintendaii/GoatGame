@@ -18,7 +18,7 @@ MonoBehaviour:
     Rarity: 3
     ItemType: 0
     FlatBonuses: []
-    BaseDamage: 10
+    BaseDamage: 50
     ElementalDamage:
       Fire:
         Type: 11

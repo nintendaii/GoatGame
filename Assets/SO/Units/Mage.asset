@@ -130,6 +130,6 @@ MonoBehaviour:
   unitAvatarSprite: {fileID: 21300000, guid: 51eb2e6d1c37b8543bb93f50a995ff38, type: 3}
   weaponData: {fileID: 11400000, guid: 35e7d8c7a410b498481101c821102d7c, type: 2}
   abilities:
-  - {fileID: 11400000, guid: 18d4d2b0898914144b96cb131dba8245, type: 2}
+  - {fileID: 11400000, guid: 9b02e862e996d439b915e03c1e3d239a, type: 2}
   - {fileID: 11400000, guid: 6c1e282b7ed074e8aa1d1b253cf3a312, type: 2}
   - {fileID: 11400000, guid: 301e226fbc7b64abfa277449bed39daa, type: 2}

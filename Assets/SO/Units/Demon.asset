@@ -59,7 +59,7 @@ MonoBehaviour:
         Value: 0
       CriticalStrikeChance:
         Type: 17
-        Value: 0
+        Value: 0.6
     MainStats:
       Strength:
         Type: 0

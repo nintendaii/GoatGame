@@ -20,7 +20,7 @@ namespace Commands
         [Inject] private readonly StatusEffectSystem _statusEffectSystem;
         [Inject] private readonly SignalBus _signalBus;
 
-        public void Execute(ISignal signal)
+        public void Execute(ISignal signal)  
         {
             var param = (DealAttackDamageUnitSignal)signal;
             
